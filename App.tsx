@@ -14,7 +14,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <SafeAreaProvider>
         <Navigation />
-        <StatusBar />
+        <StatusBar backgroundColor={theme.palette.primary} />
       </SafeAreaProvider>
     </ThemeProvider>
   );
