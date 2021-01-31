@@ -1,0 +1,9 @@
+{
+  "pets": {
+    "title": "Питомцы"
+  },
+  "notFound": {
+    "screenDoesntExist": "Страница не существует",
+    "goHome": "Вернуться домой!"
+  }
+}
