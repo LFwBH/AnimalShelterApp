@@ -1376,7 +1376,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.4":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.4":
   version: 7.12.5
   resolution: "@babel/runtime@npm:7.12.5"
   dependencies:
@@ -2972,6 +2972,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-native-elements@npm:^0.18.0":
+  version: 0.18.0
+  resolution: "@types/react-native-elements@npm:0.18.0"
+  dependencies:
+    react-native-elements: "*"
+  checksum: 2227f8091ec9b3943f548004018ae1e57b4e95c37c2157721e22888d8197842543243a1fe8a22126fd03603ecb90e429ea96237864e0e844176dae9d0aafd065
+  languageName: node
+  linkType: hard
+
+"@types/react-native-vector-icons@npm:^6.4.6":
+  version: 6.4.6
+  resolution: "@types/react-native-vector-icons@npm:6.4.6"
+  dependencies:
+    "@types/react": "*"
+    "@types/react-native": "*"
+  checksum: 373863d5408563a0913dd463ef5aea95218f1ec21af22471ab9cc32be9514c410ea4b9f44c3587638b8c0e938a8ea919c30ac0066b60c968cf38655c5792536f
+  languageName: node
+  linkType: hard
+
 "@types/react-native@npm:*, @types/react-native@npm:~0.63.2":
   version: 0.63.46
   resolution: "@types/react-native@npm:0.63.46"
@@ -3318,6 +3337,7 @@ __metadata:
     "@types/i18n-js": ^3.8.0
     "@types/react": ~16.9.35
     "@types/react-native": ~0.63.2
+    "@types/react-native-elements": ^0.18.0
     "@types/styled-components": ^5.1.7
     "@types/styled-components-react-native": ^5.1.1
     "@types/styled-system": ^5.1.10
@@ -3350,10 +3370,12 @@ __metadata:
     react: 16.13.1
     react-dom: 16.13.1
     react-native: "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz"
+    react-native-elements: ^3.1.0
     react-native-gesture-handler: ~1.8.0
     react-native-safe-area-context: 3.1.9
     react-native-screens: ~2.15.0
     react-native-web: ~0.13.12
+    react-query: ^3.6.0
     styled-components: ^5.2.1
     styled-map: ^3.3.0
     styled-system: ^5.1.5
@@ -4546,7 +4568,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color@npm:^3.1.3":
+"color@npm:^3.1.2, color@npm:^3.1.3":
   version: 3.1.3
   resolution: "color@npm:3.1.3"
   dependencies:
@@ -6855,7 +6877,7 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.0":
+"hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -8914,6 +8936,16 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
+"match-sorter@npm:^6.0.2":
+  version: 6.1.0
+  resolution: "match-sorter@npm:6.1.0"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+    remove-accents: 0.4.2
+  checksum: feb02da6814936907b21dc19e7c925d41470fdf54846f244a0a97ff73ae87e91e9a6a54c9b2c67e9e737b68ca80cc050f979983ba1e1fd92604c2aa49aa5bf42
+  languageName: node
+  linkType: hard
+
 "md5-file@npm:^3.2.3":
   version: 3.2.3
   resolution: "md5-file@npm:3.2.3"
@@ -9974,7 +10006,7 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"opencollective-postinstall@npm:^2.0.2":
+"opencollective-postinstall@npm:^2.0.2, opencollective-postinstall@npm:^2.0.3":
   version: 2.0.3
   resolution: "opencollective-postinstall@npm:2.0.3"
   bin:
@@ -10772,6 +10804,26 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
+"react-native-elements@npm:*, react-native-elements@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "react-native-elements@npm:3.1.0"
+  dependencies:
+    "@types/react-native-vector-icons": ^6.4.6
+    color: ^3.1.2
+    deepmerge: ^4.2.2
+    hoist-non-react-statics: ^3.3.2
+    lodash.isequal: ^4.5.0
+    opencollective-postinstall: ^2.0.3
+    prop-types: ^15.7.2
+    react-native-ratings: ^7.3.0
+    react-native-safe-area-context: ^3.1.9
+    react-native-size-matters: ^0.3.1
+  peerDependencies:
+    react-native-vector-icons: ">7.0.0"
+  checksum: 33b02af33fbb86a667098c7caf549a38af17e3fe0e4fc786d2392f5b731eb873a8bc06a0ad94bf68e5c7b02cf31ca6ea67b4a8eb8b8ec898dede639d938b5b18
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:~1.8.0":
   version: 1.8.0
   resolution: "react-native-gesture-handler@npm:1.8.0"
@@ -10793,7 +10845,20 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:3.1.9":
+"react-native-ratings@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "react-native-ratings@npm:7.3.0"
+  dependencies:
+    lodash: ^4.17.15
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: b60cdab7bdd677ee0a80765bcbce594a4a948f4544ec3df7c147c78344ca865264786b070901fba55d3d838cc4a80293fa699d1ef107dd5f81e80c8ec7985f88
+  languageName: node
+  linkType: hard
+
+"react-native-safe-area-context@npm:3.1.9, react-native-safe-area-context@npm:^3.1.9":
   version: 3.1.9
   resolution: "react-native-safe-area-context@npm:3.1.9"
   peerDependencies:
@@ -10810,6 +10875,15 @@ fsevents@^2.1.2:
     react: "*"
     react-native: "*"
   checksum: 0279acda51aea9eb56b605f39b4895092fcefd74adc2d9f5e361929033fce65507193cc75895143999d1d6b2bcd6882d32a4d880e86946e13e8b7f1033f40ac9
+  languageName: node
+  linkType: hard
+
+"react-native-size-matters@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "react-native-size-matters@npm:0.3.1"
+  peerDependencies:
+    react-native: "*"
+  checksum: 9f4e49cffa385f97ad421556b2a0444865c06b127a11ddc1fb590dc2ebcd53b70a561ba93969b0878b6f46afda2d6ff46707ee539b67e75a6837860186911cb8
   languageName: node
   linkType: hard
 
@@ -10869,6 +10943,23 @@ fsevents@^2.1.2:
   bin:
     react-native: ./cli.js
   checksum: f5a3f895fb68b056c5f9a8925eee69fadf2c75e3e1a7c00d1d74a2c35f74553203eeeeed3e74f31739a2c29955c81f6e356b70bf9baad6744496682696fda088
+  languageName: node
+  linkType: hard
+
+"react-query@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "react-query@npm:3.6.0"
+  dependencies:
+    "@babel/runtime": ^7.5.5
+    match-sorter: ^6.0.2
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 5506160682e280edec473379184b85c5f5146422c4c22a8c886c03cd066dbd2cfe11733391fe16b32d3a98d95dfe3d645bd5364c9f3af6d23a781b13255132aa
   languageName: node
   linkType: hard
 
@@ -11074,6 +11165,13 @@ fsevents@^2.1.2:
   bin:
     regjsparser: bin/parser
   checksum: 3d04357a7a29e3d3f04845aca75822cc5b050acd55f23fa10742a4533962198d051ed451e4e1dcdb01037d6806feec8c340438750f4d5135debb8884769a3a50
+  languageName: node
+  linkType: hard
+
+"remove-accents@npm:0.4.2":
+  version: 0.4.2
+  resolution: "remove-accents@npm:0.4.2"
+  checksum: 54fd27e4b0df03e7827c49721113a99b51292dcd23233d65ef89aa2b73e4d96f071eaf11ff58cfec22cab0ad711ba60914749c57e4f37f799c2bf22b78be7992
   languageName: node
   linkType: hard
 

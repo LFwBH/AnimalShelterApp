@@ -1,48 +1,99 @@
-import React, { useCallback } from "react";
-import { FlatList, SafeAreaView, StatusBar } from "react-native";
+import React, { useCallback, useMemo } from "react";
+import { ActivityIndicator, FlatList, SafeAreaView } from "react-native";
+import { useInfiniteQuery } from "react-query";
 
+import { fetchPetList, PETS_KEY } from "../../api/PetsAPI";
 import Box from "../../components/Box";
 import Text from "../../components/Text";
-
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
-  },
-];
-
-function Item({ title }: { title: string }) {
-  return (
-    <Box primary p={18} m={2} borderRadius={2}>
-      <Text background fontSize={32}>
-        {title}
-      </Text>
-    </Box>
-  );
-}
+import { useTheme } from "../../constants/styled-components";
+import i18n from "../../i18n";
+import { Pet } from "../../models/Pet";
+import Item from "./Item";
 
 export default function PetsScreen() {
-  const renderItem = useCallback(({ item }) => {
-    return <Item title={item.title} />;
+  const theme = useTheme();
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+    remove,
+    isFetching,
+    isFetched,
+    isError,
+    status,
+  } = useInfiniteQuery(PETS_KEY, fetchPetList, {
+    getNextPageParam: (lastPage) => lastPage.page?.next ?? 0,
+  });
+
+  const renderItem = useCallback(({ item }: { item: Pet }) => {
+    return <Item pet={item} />;
   }, []);
 
-  const keyExtractor = useCallback((item) => item.id, []);
+  const keyExtractor = useCallback((item) => item.id.toString(), []);
 
-  return (
-    <Box as={SafeAreaView} flex={1} mt={StatusBar.currentHeight ?? 0}>
-      <FlatList
-        data={DATA}
+  const handleLoadNextPage = useCallback(() => {
+    if (hasNextPage && !isFetching && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
+
+  const handleRefresh = useCallback(() => {
+    remove();
+    refetch();
+  }, [refetch, remove]);
+
+  const pets = useMemo(() => {
+    return data?.pages.reduce((acc, page) => {
+      acc.push(...page.body);
+      return acc;
+    }, [] as Pet[]);
+  }, [data?.pages]);
+
+  let content: JSX.Element | null = null;
+
+  if ((isFetching && !isFetched) || (isFetching && status === "error")) {
+    content = (
+      <Box
+        display="flex"
+        width="100%"
+        height="100%"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <ActivityIndicator size="large" color={theme.palette.primary} />
+      </Box>
+    );
+  } else if (!isError) {
+    content = (
+      <FlatList<Pet>
+        data={pets}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
+        onEndReached={handleLoadNextPage}
+        refreshing={isFetchingNextPage}
+        onRefresh={handleRefresh}
       />
+    );
+  } else {
+    content = (
+      <Box
+        display="flex"
+        width="100%"
+        height="100%"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Text>{i18n("common.error")} :(</Text>
+      </Box>
+    );
+  }
+
+  return (
+    <Box as={SafeAreaView} flex={1}>
+      {content}
     </Box>
   );
 }

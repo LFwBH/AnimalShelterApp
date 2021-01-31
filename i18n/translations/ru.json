@@ -5,5 +5,8 @@
   "notFound": {
     "screenDoesntExist": "Страница не существует",
     "goHome": "Вернуться домой!"
+  },
+  "common": {
+    "error": "Ошибка"
   }
 }
