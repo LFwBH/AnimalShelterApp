@@ -5,11 +5,11 @@ import { TouchableOpacity } from "react-native";
 import Box from "../../components/Box";
 import Text from "../../components/Text";
 import i18n from "../../i18n";
-import { RootStackParams } from "../../types/navigation";
+import { RootStackParamList } from "../../types/navigation";
 
 export default function NotFoundScreen({
   navigation,
-}: StackScreenProps<RootStackParams, "NotFound">) {
+}: StackScreenProps<RootStackParamList, "NotFound">) {
   const handlePress = useCallback(() => navigation.replace("Root"), []);
 
   return (

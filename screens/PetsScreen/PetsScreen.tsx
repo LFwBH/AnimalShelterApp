@@ -1,18 +1,21 @@
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import React, { useCallback, useMemo } from "react";
-import { ActivityIndicator, FlatList, SafeAreaView } from "react-native";
+import { FlatList, SafeAreaView } from "react-native";
 import { useInfiniteQuery } from "react-query";
 
 import { fetchPetList, PETS_KEY } from "../../api/pets";
 import Box from "../../components/Box";
-import Text from "../../components/Text";
-import { useTheme } from "../../constants/styled-components";
-import i18n from "../../i18n";
+import FullScreenError from "../../components/FullScreenError";
+import FullScreenLoading from "../../components/FullScreenLoading";
 import { Pet } from "../../models/Pet";
+import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
 
-export default function PetsScreen() {
-  const theme = useTheme();
+interface PetsScreenProps
+  // TODO: should be "Pets" instead of "Pet", but this doesn't allow to navigate
+  extends BottomTabScreenProps<RootStackParamList, "Pet"> {}
 
+export default function PetsScreen({ navigation }: PetsScreenProps) {
   const {
     data,
     fetchNextPage,
@@ -28,9 +31,22 @@ export default function PetsScreen() {
     getNextPageParam: (lastPage) => lastPage.page?.next ?? 0,
   });
 
-  const renderItem = useCallback(({ item }: { item: Pet }) => {
-    return <Item pet={item} />;
-  }, []);
+  const handlePressPet = useCallback(
+    (pet: Pet) => {
+      navigation.navigate("Pet", {
+        petId: pet.id,
+        petName: pet.name,
+      });
+    },
+    [navigation],
+  );
+
+  const renderItem = useCallback(
+    ({ item }: { item: Pet }) => {
+      return <Item pet={item} onPress={handlePressPet} />;
+    },
+    [handlePressPet],
+  );
 
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
@@ -55,17 +71,7 @@ export default function PetsScreen() {
   let content: JSX.Element | null = null;
 
   if ((isFetching && !isFetched) || (isFetching && status === "error")) {
-    content = (
-      <Box
-        display="flex"
-        width="100%"
-        height="100%"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <ActivityIndicator size="large" color={theme.palette.primary} />
-      </Box>
-    );
+    content = <FullScreenLoading />;
   } else if (!isError) {
     content = (
       <FlatList<Pet>
@@ -78,17 +84,7 @@ export default function PetsScreen() {
       />
     );
   } else {
-    content = (
-      <Box
-        display="flex"
-        width="100%"
-        height="100%"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Text>{i18n("common.error")} :(</Text>
-      </Box>
-    );
+    content = <FullScreenError />;
   }
 
   return (

@@ -1,17 +1,18 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
+import React, { useCallback } from "react";
 
+import i18n from "../i18n";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import { RootStackParams } from "../types/navigation";
+import PetScreen from "../screens/PetScreen";
+import { RootStackParamList } from "../types/navigation";
 import BottomTabNavigator from "./BottomTabNavigator";
-import LinkingConfiguration from "./LinkingConfiguration";
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
 export default function Navigation() {
   return (
-    <NavigationContainer linking={LinkingConfiguration}>
+    <NavigationContainer>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -19,17 +20,34 @@ export default function Navigation() {
 
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
-const Stack = createStackNavigator<RootStackParams>();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const getPetScreenOptions = useCallback(
+    ({ route }: { route: RouteProp<RootStackParamList, "Pet"> }) => ({
+      headerShown: true,
+      headerTitle: route.params.petName,
+    }),
+    [],
+  );
+
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Screen
+    <RootStack.Navigator screenOptions={{ headerShown: false }}>
+      <RootStack.Screen
+        name="Root"
+        options={{ title: i18n("pets.title") }}
+        component={BottomTabNavigator}
+      />
+      <RootStack.Screen
+        name="Pet"
+        options={getPetScreenOptions}
+        component={PetScreen}
+      />
+      <RootStack.Screen
         name="NotFound"
         component={NotFoundScreen}
-        options={{ title: "Oops!" }}
+        options={{ title: `${i18n("common.oops")}!` }}
       />
-    </Stack.Navigator>
+    </RootStack.Navigator>
   );
 }

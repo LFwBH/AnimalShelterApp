@@ -1,12 +1,16 @@
-export type RootStackParams = {
+export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
+  Pet: {
+    petId: number;
+    petName: string;
+  };
 };
 
-export type BottomTabParams = {
+export type BottomTabParamList = {
   Pets: undefined;
 };
 
-export type PetsParams = {
-  PetsScreen: undefined;
+export type PetsParamList = {
+  Pets: undefined;
 };

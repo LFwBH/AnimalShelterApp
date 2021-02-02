@@ -2,11 +2,18 @@
   "pets": {
     "title": "Питомцы"
   },
+  "pet": {
+    "age": "Возраст",
+    "breed": "Порода",
+    "color": "Цвет",
+    "sex": "Пол"
+  },
   "notFound": {
     "screenDoesntExist": "Страница не существует",
     "goHome": "Вернуться домой!"
   },
   "common": {
-    "error": "Ошибка"
+    "error": "Ошибка",
+    "oops": "Упс"
   }
 }

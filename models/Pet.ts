@@ -13,9 +13,17 @@ export interface Sex {
   readonly name: string;
 }
 
-interface Image {
-  url: string;
-  thumb: string;
+export interface Image {
+  original: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  thumb: {
+    url: string;
+    height: number;
+    width: number;
+  };
 }
 
 export interface Pet {

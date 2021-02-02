@@ -6,9 +6,9 @@ import React from "react";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import PetsScreen from "../screens/PetsScreen";
-import { BottomTabParams, PetsParams } from "../types/navigation";
+import { BottomTabParamList, PetsParamList } from "../types/navigation";
 
-const BottomTab = createBottomTabNavigator<BottomTabParams>();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const theme = useTheme();
@@ -37,13 +37,13 @@ export default function BottomTabNavigator() {
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const PetsStack = createStackNavigator<PetsParams>();
+const PetsStack = createStackNavigator<PetsParamList>();
 
 function PetsNavigator() {
   return (
     <PetsStack.Navigator>
       <PetsStack.Screen
-        name="PetsScreen"
+        name="Pets"
         component={PetsScreen}
         options={{ headerTitle: i18n("pets.title") }}
       />
