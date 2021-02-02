@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { ActivityIndicator, FlatList, SafeAreaView } from "react-native";
 import { useInfiniteQuery } from "react-query";
 
-import { fetchPetList, PETS_KEY } from "../../api/PetsAPI";
+import { fetchPetList, PETS_KEY } from "../../api/pets";
 import Box from "../../components/Box";
 import Text from "../../components/Text";
 import { useTheme } from "../../constants/styled-components";
