@@ -10,8 +10,8 @@ export interface APIResponse<T> {
 }
 
 export interface Query {
-  readonly page: number;
-  readonly number: number;
+  readonly page?: number;
+  readonly number?: number;
 }
 
 export type QueryFnContext = QueryFunctionContext<string, number>;

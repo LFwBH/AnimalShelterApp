@@ -28,7 +28,7 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
     isError,
     status,
   } = useInfiniteQuery(PETS_KEY, fetchPetList, {
-    getNextPageParam: (lastPage) => lastPage.page?.next ?? 0,
+    getNextPageParam: ({ page }) => page?.next,
   });
 
   const handlePressPet = useCallback(

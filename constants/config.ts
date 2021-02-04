@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: "https://great-moose-81.loca.lt",
+  apiUrl: "https://ugly-firefox-29.loca.lt",
   defaultPageNumber: 10,
 } as const;
 
