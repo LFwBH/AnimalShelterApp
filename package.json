@@ -1,5 +1,5 @@
 {
-  "name": "animal-shelter-app",
+  "name": "animal-shelter-client-app",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",

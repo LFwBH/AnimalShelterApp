@@ -3324,9 +3324,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"animal-shelter-app@workspace:.":
+"animal-shelter-client-app@workspace:.":
   version: 0.0.0-use.local
-  resolution: "animal-shelter-app@workspace:."
+  resolution: "animal-shelter-client-app@workspace:."
   dependencies:
     "@babel/core": ~7.9.0
     "@expo/vector-icons": ^12.0.0
