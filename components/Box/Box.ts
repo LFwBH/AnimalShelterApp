@@ -16,6 +16,8 @@ import {
   ShadowProps,
   space,
   SpaceProps,
+  display,
+  DisplayProps,
 } from "styled-system";
 
 import { PaletteProps } from "../../constants/theme";
@@ -26,7 +28,8 @@ type StyledPropertiesType = SpaceProps &
   FlexboxProps &
   BorderProps &
   PositionProps &
-  ShadowProps;
+  ShadowProps &
+  DisplayProps;
 
 const styledSystemProperties = compose(
   space,
@@ -35,6 +38,7 @@ const styledSystemProperties = compose(
   flexbox,
   border,
   position,
+  display,
   shadow,
 );
 
