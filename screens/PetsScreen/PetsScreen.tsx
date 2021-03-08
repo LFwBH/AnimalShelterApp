@@ -1,4 +1,5 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import _ from "lodash";
 import React, { useCallback, useMemo } from "react";
 import { FlatList, SafeAreaView } from "react-native";
 import { useInfiniteQuery } from "react-query";
@@ -28,7 +29,11 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
     isError,
     status,
   } = useInfiniteQuery(PETS_KEY, fetchPetList, {
-    getNextPageParam: ({ page }) => page?.next,
+    getNextPageParam: ({ data: pets }) => {
+      const last = _.last(pets)?.id;
+      console.log("----------------", last);
+      return last;
+    },
   });
 
   const handlePressPet = useCallback(
@@ -63,7 +68,7 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
 
   const pets = useMemo(() => {
     return data?.pages.reduce((acc, page) => {
-      acc.push(...page.body);
+      acc.push(...page.data);
       return acc;
     }, [] as Pet[]);
   }, [data?.pages]);

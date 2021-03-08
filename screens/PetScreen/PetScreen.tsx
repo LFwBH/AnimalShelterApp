@@ -30,7 +30,7 @@ export default function PetScreen({ route }: PetScreenProps) {
   if (isLoading) {
     content = <FullScreenLoading />;
   } else if (!isError) {
-    const pet = data?.body as NonNullable<Pet>;
+    const pet = data?.data as NonNullable<Pet>;
 
     const { original } = pet.image;
 

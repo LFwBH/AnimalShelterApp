@@ -3,7 +3,7 @@ import { Query } from "../types/api";
 
 export default function composeApiQuery(query: Query): Query {
   return {
-    page: query.page,
-    number: config.defaultPageNumber,
+    cursor: query.cursor,
+    take: config.defaultPageNumber,
   } as const;
 }

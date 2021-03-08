@@ -4,8 +4,8 @@ import { Image } from "react-native-elements";
 
 import Box from "../../components/Box";
 import Text from "../../components/Text";
-import { Pet } from "../../models/Pet";
 import i18n from "../../i18n";
+import { Pet } from "../../models/Pet";
 
 interface ItemProps {
   pet: Pet;
@@ -22,7 +22,7 @@ function Item({ pet, onPress }: ItemProps) {
           <Box mr={2}>
             <Image
               borderRadius={2}
-              source={{ uri: `${pet.image.thumb.url}?${pet.id}` }}
+              source={{ uri: `${pet.image?.thumb?.url}?${pet.id}` }}
               resizeMode="cover"
               style={{ width: 100, height: 100 }}
               PlaceholderContent={<ActivityIndicator />}

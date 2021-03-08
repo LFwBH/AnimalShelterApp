@@ -1,5 +1,9 @@
+import Constants from "expo-constants";
+
+const { port, scheme, host } = Constants.manifest.extra;
+
 const config = {
-  apiUrl: "https://moody-baboon-43.loca.lt",
+  apiUrl: `${scheme}://${host}:${port}`,
   defaultPageNumber: 10,
 } as const;
 

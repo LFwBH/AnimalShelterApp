@@ -8,14 +8,14 @@ export default function composeApiUrl<T extends string>(
 export default function composeApiUrl<T extends string, Q extends Query>(
   segment: T,
   query: Q,
-): `${typeof config.apiUrl}/${T}?_page=${Q["page"]}&_number=${Q["number"]}`;
+): `${typeof config.apiUrl}/${T}?take=${Q["take"]}&cursor=${Q["cursor"]}`;
 
 export default function composeApiUrl<
   T extends string,
   Q extends Query | undefined
 >(segment: T, query?: Q) {
   if (query != null) {
-    return `${config.apiUrl}/${segment}?_page=${query.page}&_number=${query.number}` as const;
+    return `${config.apiUrl}/${segment}?take=${query.take}&cursor=${query.cursor}` as const;
   }
   return `${config.apiUrl}/${segment}` as const;
 }

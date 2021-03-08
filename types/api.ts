@@ -1,17 +1,15 @@
 import { QueryFunctionContext } from "react-query";
 
 export interface APIResponse<T> {
-  body: T;
-  page: {
-    first: number;
-    next: number;
-    last: number;
-  };
+  code: number;
+  message: string;
+  timestamp: number;
+  data: T;
 }
 
 export interface Query {
-  readonly page?: number;
-  readonly number?: number;
+  readonly cursor?: number;
+  readonly take?: number;
 }
 
 export type QueryFnContext = QueryFunctionContext<string, number>;

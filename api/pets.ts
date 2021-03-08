@@ -7,8 +7,9 @@ import { APIResponse, QueryFnContext } from "../types/api";
 export const PETS_KEY = "pets";
 
 export function fetchPetList({ pageParam: page = 1 }: QueryFnContext) {
-  const query = composeApiQuery({ page });
+  const query = composeApiQuery({ cursor: page });
   const url = composeApiUrl("pets", query);
+  console.log("------------------", url);
   return fetch(url).then(processFetchResponse(url)) as Promise<
     APIResponse<Pet[]>
   >;
