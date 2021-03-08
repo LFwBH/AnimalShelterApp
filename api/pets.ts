@@ -9,7 +9,6 @@ export const PETS_KEY = "pets";
 export function fetchPetList({ pageParam: page = 1 }: QueryFnContext) {
   const query = composeApiQuery({ cursor: page });
   const url = composeApiUrl("pets", query);
-  console.log("------------------", url);
   return fetch(url).then(processFetchResponse(url)) as Promise<
     APIResponse<Pet[]>
   >;
@@ -17,6 +16,7 @@ export function fetchPetList({ pageParam: page = 1 }: QueryFnContext) {
 
 export function fetchPetById({ petId }: { petId: number }) {
   const url = composeApiUrl(`pets/${petId}`);
+  console.log("---------------------", url);
   return fetch(url).then(processFetchResponse(url)) as Promise<
     APIResponse<Pet>
   >;
