@@ -32,7 +32,7 @@ export default function PetScreen({ route }: PetScreenProps) {
   } else if (!isError) {
     const pet = data?.data as NonNullable<Pet>;
 
-    const { original } = pet.image;
+    const original = pet.image?.original;
 
     content = (
       <ScrollView contentContainerStyle={{ paddingBottom: theme.space[3] }}>
@@ -40,10 +40,10 @@ export default function PetScreen({ route }: PetScreenProps) {
           <Box mb={2}>
             <Card.Image
               borderRadius={2}
-              source={{ uri: `${original.url}?${pet.id}` }}
+              source={{ uri: `${original?.url}?${pet.id}` }}
               style={{
                 width: theme.layout.window.width - theme.space[2] * 2,
-                height: original.height / 2,
+                height: original?.height ?? 500 / 2,
               }}
               resizeMode="cover"
               PlaceholderContent={<ActivityIndicator />}
