@@ -410,11 +410,7 @@ tags
 [._]*.un~
 
 ### vscode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/
 *.code-workspace
 
 ### WebStorm+all ###

@@ -7,12 +7,12 @@ const {
 } = process.env;
 
 export default {
-  extra: {
-    port: PORT,
-    scheme: SCHEME,
-    host: HOST,
-  },
   expo: {
+    extra: {
+      port: PORT,
+      scheme: SCHEME,
+      host: HOST,
+    },
     name: "AnimalShelterApp",
     slug: "AnimalShelterApp",
     version: "1.0.0",
