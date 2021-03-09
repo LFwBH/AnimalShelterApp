@@ -1,9 +1,5 @@
-import Constants from "expo-constants";
-
-const { port, scheme, host } = Constants.manifest.extra;
-
 const config = {
-  apiUrl: `${scheme}://${host}:${port}`,
+  apiUrl: "https://ugly-moose-96.loca.lt",
   defaultPageNumber: 10,
 } as const;
 

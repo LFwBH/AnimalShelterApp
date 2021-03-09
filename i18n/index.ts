@@ -7,6 +7,8 @@ i18njs.translations = {
   ru: ru,
 };
 
+i18njs.defaultLocale = 'ru-ru'
+
 i18njs.fallbacks = true;
 
 i18njs.locale = Localization.locale;
