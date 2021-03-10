@@ -5,6 +5,7 @@ import React from "react";
 
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
+import ChatBotScreen from "../screens/ChatBotScreen";
 import PetsScreen from "../screens/PetsScreen";
 import { BottomTabParamList, PetsParamList } from "../types/navigation";
 
@@ -31,6 +32,16 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
+      <BottomTab.Screen
+        name="Chat"
+        component={ChatNavigator}
+        options={{
+          title: i18n("pets.chat"),
+          tabBarIcon: ({ color }) => (
+            <Feather name="list" size={24} color={color} />
+          ),
+        }}
+      />
     </BottomTab.Navigator>
   );
 }
@@ -50,3 +61,16 @@ function PetsNavigator() {
     </PetsStack.Navigator>
   );
 }
+
+function ChatNavigator() {
+  return (
+    <PetsStack.Navigator>
+      <PetsStack.Screen
+        name="Chat"
+        component={ChatBotScreen}
+        options={{ headerTitle: i18n("pets.chat") }}
+      />
+    </PetsStack.Navigator>
+  );
+}
+

@@ -1,6 +1,6 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import _ from "lodash";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import { Button, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
@@ -11,6 +11,7 @@ import FullScreenLoading from "../../components/FullScreenLoading";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
+import ChatBot from 'react-native-chatbot';
 
 interface PetsScreenProps
   // TODO: should be "Pets" instead of "Pet", but this doesn't allow to navigate

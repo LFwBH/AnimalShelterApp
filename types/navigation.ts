@@ -5,12 +5,15 @@ export type RootStackParamList = {
     petId: number;
     petName: string;
   };
+  Chat: undefined;
 };
 
 export type BottomTabParamList = {
   Pets: undefined;
+  Chat: undefined;
 };
 
 export type PetsParamList = {
   Pets: undefined;
+  Chat: undefined;
 };
