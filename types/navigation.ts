@@ -15,5 +15,8 @@ export type BottomTabParamList = {
 
 export type PetsParamList = {
   Pets: undefined;
+};
+
+export type ChatParamList = {
   Chat: undefined;
 };

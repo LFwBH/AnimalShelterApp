@@ -7,7 +7,11 @@ import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import ChatBotScreen from "../screens/ChatBotScreen";
 import PetsScreen from "../screens/PetsScreen";
-import { BottomTabParamList, PetsParamList } from "../types/navigation";
+import {
+  BottomTabParamList,
+  ChatParamList,
+  PetsParamList,
+} from "../types/navigation";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -62,14 +66,16 @@ function PetsNavigator() {
   );
 }
 
+const ChatStack = createStackNavigator<ChatParamList>();
+
 function ChatNavigator() {
   return (
-    <PetsStack.Navigator>
-      <PetsStack.Screen
+    <ChatStack.Navigator>
+      <ChatStack.Screen
         name="Chat"
         component={ChatBotScreen}
         options={{ headerTitle: i18n("pets.chat") }}
       />
-    </PetsStack.Navigator>
+    </ChatStack.Navigator>
   );
 }
