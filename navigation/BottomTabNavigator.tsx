@@ -73,4 +73,3 @@ function ChatNavigator() {
     </PetsStack.Navigator>
   );
 }
-

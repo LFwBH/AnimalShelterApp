@@ -1,9 +1,10 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import _ from "lodash";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import { Button, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
+
 import { fetchPetList, PETS_KEY } from "../../api/pets";
 import Box from "../../components/Box";
 import FullScreenError from "../../components/FullScreenError";
@@ -11,7 +12,6 @@ import FullScreenLoading from "../../components/FullScreenLoading";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
-import ChatBot from 'react-native-chatbot';
 
 interface PetsScreenProps
   // TODO: should be "Pets" instead of "Pet", but this doesn't allow to navigate
@@ -33,7 +33,7 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
     getNextPageParam: ({ data: pets }) => _.last(pets)?.id,
   });
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [catsData, setCatsData] = useState([] as Pet[]);
 
   const handlePressPet = useCallback(
@@ -76,35 +76,34 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
 
   let content: JSX.Element | null = null;
 
-  const updateSearch = useCallback((search) => {
-      setSearch(search)
-      const newArr = pets!.filter(function(el) {
-         return (el.name.toLowerCase().indexOf(search.toLowerCase()) > -1);
-      })
-      setCatsData(newArr);
+  const handleChangeSearch = useCallback(
+    (value) => {
+      setSearch(value);
+
+      const nextCats = pets?.filter((el) =>
+        el.name.toLowerCase().includes(value.toLowerCase()),
+      );
+
+      setCatsData(nextCats ?? []);
     },
-    [search]
+    [pets],
   );
 
-  const pressMan = useCallback(() => {
-    const sex = 'Мальчик'
-    const newArr = pets!.filter(function(el) {
-       return (el.sex.name.toLowerCase().indexOf(sex.toLowerCase()) > -1);
-    })
-    setCatsData(newArr);
-  },
-  [search]
-  );
+  const handleFilterBoys = useCallback(() => {
+    const sex = "Мальчик";
+    const nextCats = pets?.filter((el) =>
+      el.sex.name.toLowerCase().includes(sex.toLowerCase()),
+    );
+    setCatsData(nextCats ?? []);
+  }, [pets]);
 
-  const pressWoman = useCallback(() => {
-    const sex = 'Девочка'
-    const newArr = pets!.filter(function(el) {
-       return (el.sex.name.toLowerCase().indexOf(sex.toLowerCase()) > -1);
-    })
-    setCatsData(newArr);
-  },
-  [search]
-  );
+  const handleFilterGirls = useCallback(() => {
+    const sex = "Девочка";
+    const nextCats = pets?.filter((el) =>
+      el.sex.name.toLowerCase().includes(sex.toLowerCase()),
+    );
+    setCatsData(nextCats ?? []);
+  }, [pets]);
 
   if ((isFetching && !isFetched) || (isFetching && status === "error")) {
     content = <FullScreenLoading />;
@@ -127,38 +126,40 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
     <Box as={SafeAreaView} flex={1}>
       <SearchBar
         placeholder="Type Here..."
-        onChangeText={updateSearch}
+        onChangeText={handleChangeSearch}
         value={search}
         lightTheme={true}
         round={true}
         containerStyle={{
-          backgroundColor: 'none',
-          borderBottomColor: '#edeef0',
+          backgroundColor: "none",
+          borderBottomColor: "#edeef0",
         }}
       />
-      <View  
+      <View
         style={{
           flexDirection: "row",
           marginHorizontal: 10,
-        }}>
+          marginBottom: 10,
+        }}
+      >
         <Button
           title="..."
           type="outline"
-          containerStyle={{paddingRight: 10}}
+          containerStyle={{ paddingRight: 10 }}
         />
         <Button
           title="Мальчик"
           type="outline"
-          containerStyle={{paddingRight: 10}}
-          onPress={pressMan}
+          containerStyle={{ paddingRight: 10 }}
+          onPress={handleFilterBoys}
         />
         <Button
           title="Девочка"
           type="outline"
-          containerStyle={{paddingRight: 10}}
-          onPress={pressWoman}
+          containerStyle={{ paddingRight: 10 }}
+          onPress={handleFilterGirls}
         />
-      </View> 
+      </View>
       {content}
     </Box>
   );
