@@ -1,4 +1,4 @@
-import { Feather } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
@@ -42,7 +42,7 @@ export default function BottomTabNavigator() {
         options={{
           title: i18n("pets.chat"),
           tabBarIcon: ({ color }) => (
-            <Feather name="list" size={24} color={color} />
+            <Ionicons name="ios-chatbox-outline" size={24} color={color} />
           ),
         }}
       />
