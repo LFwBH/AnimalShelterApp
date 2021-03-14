@@ -27,12 +27,8 @@ export default function PetsScreen({}: ChatScreenProps) {
       options: [
         { value: 1, label: "Как я могу забрать питомца?", trigger: "3" },
         { value: 2, label: "Как мне приехать в приют?", trigger: "4" },
-        {
-          value: 3,
-          label: "Куда скинуть на благотворительность?",
-          trigger: "5",
-        },
-        { value: 3, label: "Связь с оператором", trigger: "6" },
+        { value: 3, label: "Куда скинуть на благотворительность?", trigger: "5"},
+        { value: 4, label: "Связь с оператором", trigger: "6" },
       ],
     },
     {
@@ -54,7 +50,7 @@ export default function PetsScreen({}: ChatScreenProps) {
     },
     {
       id: "6",
-      message: "Плотите деньги за эту фичу, блять",
+      message: "Оператора нет в этой версии",
       trigger: "2",
     },
   ];

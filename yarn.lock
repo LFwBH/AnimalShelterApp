@@ -8092,10 +8092,9 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
-react-native-chatbot@^0.0.1-alpha.12:
+"react-native-chatbot@git+https://github.com/ramil-fatykhov/react-native-chatbot.git":
   version "0.0.1-alpha.12"
-  resolved "https://registry.yarnpkg.com/react-native-chatbot/-/react-native-chatbot-0.0.1-alpha.12.tgz#e201f7a9485ffda48e5498dbfb25f6da121c4e13"
-  integrity sha512-LN0Z0kVp6cJ1+0w5nqvuEexv3nGgthanP6hqEms5nHGZ8MTkUh6LhI3GGHhQZdOLz4lommCZDwuVqm8CLFMTrQ==
+  resolved "git+https://github.com/ramil-fatykhov/react-native-chatbot.git#d28a99270b29bd8d9506e084f187a49f056e1011"
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"

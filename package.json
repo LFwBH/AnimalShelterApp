@@ -40,7 +40,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
-    "react-native-chatbot": "^0.0.1-alpha.12",
+    "react-native-chatbot": "git+https://github.com/ramil-fatykhov/react-native-chatbot.git",
     "react-native-elements": "^3.1.0",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-reanimated": "~1.13.0",
