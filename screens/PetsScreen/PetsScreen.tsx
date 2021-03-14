@@ -1,17 +1,25 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import _ from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
-import { FlatList, SafeAreaView, View } from "react-native";
+import { FlatList, SafeAreaView } from "react-native";
 import { Button, SearchBar } from "react-native-elements";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useInfiniteQuery } from "react-query";
 
 import { fetchPetList, PETS_KEY } from "../../api/pets";
-import Box from "../../components/Box";
+import Box, { Col, Row } from "../../components/Box";
 import FullScreenError from "../../components/FullScreenError";
 import FullScreenLoading from "../../components/FullScreenLoading";
+import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
+
+enum PET_KIND {
+  ALL,
+  BOY,
+  GIRL,
+}
 
 interface PetsScreenProps
   // TODO: should be "Pets" instead of "Pet", but this doesn't allow to navigate
@@ -33,8 +41,16 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
     getNextPageParam: ({ data: pets }) => _.last(pets)?.id,
   });
 
+  const PET_KIND_ALIAS = useMemo(
+    () => ({
+      [PET_KIND.BOY]: i18n("pet.kind.boy"),
+      [PET_KIND.GIRL]: i18n("pet.kind.girl"),
+    }),
+    [],
+  );
+
   const [search, setSearch] = useState("");
-  const [catsData, setCatsData] = useState([] as Pet[]);
+  const [kind, setKind] = useState(PET_KIND.ALL);
 
   const handlePressPet = useCallback(
     (pet: Pet) => {
@@ -66,56 +82,68 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
     refetch();
   }, [refetch, remove]);
 
-  const pets = useMemo(() => {
+  const values = useMemo(() => {
     return data?.pages.reduce((acc, page) => {
       acc.push(...page.data);
-      setCatsData(acc);
       return acc;
     }, [] as Pet[]);
   }, [data?.pages]);
 
+  const pets = useMemo(() => {
+    return values?.filter((item) => {
+      let kindFlag = true;
+      let searchFlag = true;
+
+      if (search) {
+        searchFlag = item.name.toLowerCase().includes(search.toLowerCase());
+      }
+
+      if (kind === PET_KIND.BOY || kind === PET_KIND.GIRL) {
+        kindFlag = item.sex.name
+          .toLowerCase()
+          .includes(PET_KIND_ALIAS[kind].toLowerCase());
+      }
+
+      return searchFlag && kindFlag;
+    });
+  }, [PET_KIND_ALIAS, kind, search, values]);
+
   let content: JSX.Element | null = null;
 
-  const handleChangeSearch = useCallback(
-    (value) => {
-      setSearch(value);
-
-      const nextCats = pets?.filter((el) =>
-        el.name.toLowerCase().includes(value.toLowerCase()),
-      );
-
-      setCatsData(nextCats ?? []);
-    },
-    [pets],
-  );
+  const handleChangeSearch = useCallback((value) => {
+    setSearch(value);
+  }, []);
 
   const handleFilterBoys = useCallback(() => {
-    const sex = "Мальчик";
-    const nextCats = pets?.filter((el) =>
-      el.sex.name.toLowerCase().includes(sex.toLowerCase()),
-    );
-    setCatsData(nextCats ?? []);
-  }, [pets]);
+    if (kind === PET_KIND.BOY) {
+      setKind(PET_KIND.ALL);
+      return;
+    }
+
+    setKind(PET_KIND.BOY);
+  }, [kind]);
 
   const handleFilterGirls = useCallback(() => {
-    const sex = "Девочка";
-    const nextCats = pets?.filter((el) =>
-      el.sex.name.toLowerCase().includes(sex.toLowerCase()),
-    );
-    setCatsData(nextCats ?? []);
-  }, [pets]);
+    if (kind === PET_KIND.GIRL) {
+      setKind(PET_KIND.ALL);
+      return;
+    }
+
+    setKind(PET_KIND.GIRL);
+  }, [kind]);
 
   if ((isFetching && !isFetched) || (isFetching && status === "error")) {
     content = <FullScreenLoading />;
   } else if (!isError) {
     content = (
       <FlatList<Pet>
-        data={catsData}
+        data={pets}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         onEndReached={handleLoadNextPage}
         refreshing={isFetchingNextPage}
         onRefresh={handleRefresh}
+        contentContainerStyle={{ marginTop: -10 }}
       />
     );
   } else {
@@ -125,41 +153,38 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
   return (
     <Box as={SafeAreaView} flex={1}>
       <SearchBar
-        placeholder="Type Here..."
+        // @ts-expect-error invalid typings
+        placeholder={`${i18n("pets.search")}...`}
         onChangeText={handleChangeSearch}
         value={search}
-        lightTheme={true}
-        round={true}
+        lightTheme
+        round
         containerStyle={{
-          backgroundColor: "none",
-          borderBottomColor: "#edeef0",
+          backgroundColor: "transparent",
+          borderBottomColor: "transparent",
         }}
       />
-      <View
-        style={{
-          flexDirection: "row",
-          marginHorizontal: 10,
-          marginBottom: 10,
-        }}
-      >
-        <Button
-          title="..."
-          type="outline"
-          containerStyle={{ paddingRight: 10 }}
-        />
-        <Button
-          title="Мальчик"
-          type="outline"
-          containerStyle={{ paddingRight: 10 }}
-          onPress={handleFilterBoys}
-        />
-        <Button
-          title="Девочка"
-          type="outline"
-          containerStyle={{ paddingRight: 10 }}
-          onPress={handleFilterGirls}
-        />
-      </View>
+      <Row mx={10} pb={10}>
+        <Col mr={2}>
+          <Button TouchableComponent={TouchableWithoutFeedback} title="..." />
+        </Col>
+        <Col mr={2}>
+          <Button
+            TouchableComponent={TouchableWithoutFeedback}
+            type={kind === PET_KIND.BOY ? "outline" : "solid"}
+            title={i18n("pet.kind.boy")}
+            onPress={handleFilterBoys}
+          />
+        </Col>
+        <Col>
+          <Button
+            TouchableComponent={TouchableWithoutFeedback}
+            type={kind === PET_KIND.GIRL ? "outline" : "solid"}
+            title={i18n("pet.kind.girl")}
+            onPress={handleFilterGirls}
+          />
+        </Col>
+      </Row>
       {content}
     </Box>
   );

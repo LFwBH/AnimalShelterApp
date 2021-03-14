@@ -16,8 +16,6 @@ import {
   ShadowProps,
   space,
   SpaceProps,
-  display,
-  DisplayProps,
 } from "styled-system";
 
 import { PaletteProps } from "../../constants/theme";
@@ -28,8 +26,7 @@ type StyledPropertiesType = SpaceProps &
   FlexboxProps &
   BorderProps &
   PositionProps &
-  ShadowProps &
-  DisplayProps;
+  ShadowProps;
 
 const styledSystemProperties = compose(
   space,
@@ -38,12 +35,21 @@ const styledSystemProperties = compose(
   flexbox,
   border,
   position,
-  display,
   shadow,
 );
 
 const Box = styled.View<StyledPropertiesType & PaletteProps>`
   background-color: ${mapToTheme("components.box")};
+  ${styledSystemProperties};
+`;
+
+export const Col = styled.View<StyledPropertiesType & PaletteProps>`
+  flex-direction: column;
+  ${styledSystemProperties};
+`;
+
+export const Row = styled.View<StyledPropertiesType & PaletteProps>`
+  flex-direction: row;
   ${styledSystemProperties};
 `;
 
