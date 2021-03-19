@@ -3,6 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React, { useCallback } from "react";
 
 import i18n from "../i18n";
+import CatFormScreen from "../screens/CatFormScreen";
+import DogFormScreen from "../screens/DogFormScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import PetScreen from "../screens/PetScreen";
 import { RootStackParamList } from "../types/navigation";
@@ -47,6 +49,16 @@ function RootNavigator() {
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: `${i18n("common.oops")}!` }}
+      />
+      <RootStack.Screen
+        name="CatFormScreen"
+        component={CatFormScreen}
+        options={{ title: i18n("form.formTitle"), headerShown: true }}
+      />
+      <RootStack.Screen
+        name="DogFormScreen"
+        component={DogFormScreen}
+        options={{ title: i18n("form.formTitle"), headerShown: true }}
       />
     </RootStack.Navigator>
   );

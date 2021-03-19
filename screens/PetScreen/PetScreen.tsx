@@ -1,7 +1,7 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
+import React, { useCallback } from "react";
 import { ActivityIndicator, SafeAreaView, ScrollView } from "react-native";
-import { Card, Icon } from "react-native-elements";
+import { Button, Card, Icon } from "react-native-elements";
 import { useQuery } from "react-query";
 
 import { fetchPetById } from "../../api/pets";
@@ -16,7 +16,7 @@ import { RootStackParamList } from "../../types/navigation";
 
 interface PetScreenProps extends StackScreenProps<RootStackParamList, "Pet"> {}
 
-export default function PetScreen({ route }: PetScreenProps) {
+export default function PetScreen({ route, navigation }: PetScreenProps) {
   const theme = useTheme();
 
   const { petId } = route.params;
@@ -24,6 +24,14 @@ export default function PetScreen({ route }: PetScreenProps) {
   const { data, isLoading, isError } = useQuery(["pets", petId], () =>
     fetchPetById({ petId }),
   );
+
+  const handleCatForm = useCallback(() => {
+    navigation.navigate("CatFormScreen");
+  }, [navigation]);
+
+  const handleDogForm = useCallback(() => {
+    navigation.navigate("DogFormScreen");
+  }, [navigation]);
 
   let content: JSX.Element | null = null;
 
@@ -66,6 +74,16 @@ export default function PetScreen({ route }: PetScreenProps) {
             <Box mt={3} />
             <Card.Divider />
             <Text>{pet.description}</Text>
+            <Button
+              title="Заполнить анкету (кот)"
+              type="clear"
+              onPress={handleCatForm}
+            />
+            <Button
+              title="Заполнить анкету (собака)"
+              type="clear"
+              onPress={handleDogForm}
+            />
           </Box>
           <Box width={1} display="flex" alignItems="flex-end" p={2}>
             <Icon

@@ -6,6 +6,8 @@ export type RootStackParamList = {
     petName: string;
   };
   Chat: undefined;
+  CatFormScreen: undefined;
+  DogFormScreen: undefined;
 };
 
 export type BottomTabParamList = {

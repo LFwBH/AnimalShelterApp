@@ -153,7 +153,6 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
   return (
     <Box as={SafeAreaView} flex={1}>
       <SearchBar
-        // @ts-expect-error invalid typings
         placeholder={`${i18n("pets.search")}...`}
         onChangeText={handleChangeSearch}
         value={search}
