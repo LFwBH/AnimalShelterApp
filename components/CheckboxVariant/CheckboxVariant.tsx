@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CheckBox, Text } from "react-native-elements";
 
 import Box from "../Box";
@@ -24,9 +24,26 @@ export default function CheckboxVariant({
     thirdCheckbox: false,
     forthCheckbox: false,
   });
+  const [error, setError] = useState(false);
+  const [firstTime, setFirstTime] = useState(true);
+
+  useEffect(() => {
+    if (
+      !checkbox.firstCheckbox &&
+      !checkbox.secondCheckbox &&
+      !checkbox.thirdCheckbox &&
+      !checkbox.forthCheckbox &&
+      !firstTime
+    ) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  });
 
   const handleCheckbox = useCallback(
     (name) => () => {
+      setFirstTime(false);
       if (name === "first") {
         setCheckbox({ ...checkbox, firstCheckbox: !checkbox.firstCheckbox });
       } else if (name === "second") {
@@ -103,6 +120,11 @@ export default function CheckboxVariant({
           )}
         </Box>
       </Box>
+      {error && (
+        <Text style={{ color: "red", alignSelf: "flex-start" }}>
+          Выберите один из вариантов!
+        </Text>
+      )}
     </Box>
   );
 }

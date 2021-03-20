@@ -25,6 +25,7 @@ export default function InputField({ label, errorMessage }: IProps) {
     <Box display="flex" width="100%">
       <Input
         label={label}
+        style={{ borderWidth: 1, height: 40, borderColor: "#5381D6" }}
         placeholder="Ваш ответ"
         onChangeText={handleInput}
         renderErrorMessage={error}
