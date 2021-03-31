@@ -10,6 +10,7 @@ export interface APIResponse<T> {
 export interface Query {
   readonly cursor?: number;
   readonly take?: number;
+  readonly "filter[name]"?: string;
 }
 
 export type QueryFnContext = QueryFunctionContext<string, number>;

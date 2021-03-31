@@ -63,13 +63,10 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
               {i18n("pet.age")}: {pet.age}
             </Text>
             <Text>
-              {i18n("pet.breed")}: {pet.breed.name}
+              {i18n("pet.color")}: {pet.color}
             </Text>
             <Text>
-              {i18n("pet.color")}: {pet.color.name}
-            </Text>
-            <Text>
-              {i18n("pet.sex")}: {pet.sex.name}
+              {i18n("pet.sex")}: {pet.sex}
             </Text>
             <Box mt={3} />
             <Card.Divider />

@@ -5,6 +5,7 @@ import React, { useCallback } from "react";
 import i18n from "../i18n";
 import CatFormScreen from "../screens/CatFormScreen";
 import DogFormScreen from "../screens/DogFormScreen";
+import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import PetScreen from "../screens/PetScreen";
 import { RootStackParamList } from "../types/navigation";
@@ -35,6 +36,11 @@ function RootNavigator() {
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
+      <RootStack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{ title: i18n("login.loginScreen"), headerShown: true }}
+      />
       <RootStack.Screen
         name="Root"
         options={{ title: i18n("pets.title") }}

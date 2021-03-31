@@ -5,5 +5,6 @@ export default function composeApiQuery(query: Query): Query {
   return {
     cursor: query.cursor,
     take: config.defaultPageNumber,
+    "filter[name]": "",
   } as const;
 }

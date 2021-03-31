@@ -8,6 +8,7 @@ export type RootStackParamList = {
   Chat: undefined;
   CatFormScreen: undefined;
   DogFormScreen: undefined;
+  LoginScreen: undefined;
 };
 
 export type BottomTabParamList = {

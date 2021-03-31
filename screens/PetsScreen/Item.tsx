@@ -36,13 +36,10 @@ function Item({ pet, onPress }: ItemProps) {
               {i18n("pet.age")}: {pet.age}
             </Text>
             <Text background fontSize={12}>
-              {i18n("pet.sex")} {pet.sex.name}
+              {i18n("pet.sex")} {pet.sex}
             </Text>
             <Text background fontSize={12}>
-              {i18n("pet.color")}: {pet.color.name}
-            </Text>
-            <Text background fontSize={12}>
-              {i18n("pet.breed")}: {pet.breed.name}
+              {i18n("pet.color")}: {pet.color}
             </Text>
           </Box>
         </Box>

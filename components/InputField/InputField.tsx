@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Input } from "react-native-elements";
 
 import Box from "../Box";
@@ -6,9 +6,14 @@ import Box from "../Box";
 interface IProps {
   label: string;
   errorMessage?: string;
+  placeholderText?: string;
 }
 
-export default function InputField({ label, errorMessage }: IProps) {
+export default function InputField({
+  label,
+  errorMessage,
+  placeholderText,
+}: IProps) {
   const [error, setError] = useState(false);
   const [defaultErrorMessage, setDefaultErrorMessage] = useState("");
   const handleInput = useCallback((value) => {
@@ -26,7 +31,7 @@ export default function InputField({ label, errorMessage }: IProps) {
       <Input
         label={label}
         style={{ borderWidth: 1, height: 40, borderColor: "#5381D6" }}
-        placeholder="Ваш ответ"
+        placeholder={placeholderText || "Ваш ответ"}
         onChangeText={handleInput}
         renderErrorMessage={error}
         errorMessage={defaultErrorMessage}

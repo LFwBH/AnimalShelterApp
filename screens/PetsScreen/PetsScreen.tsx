@@ -1,12 +1,12 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import _ from "lodash";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, SafeAreaView } from "react-native";
 import { Button, SearchBar } from "react-native-elements";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useInfiniteQuery } from "react-query";
 
-import { fetchPetList, PETS_KEY } from "../../api/pets";
+import { fetchPetList, filter, PETS_KEY } from "../../api/pets";
 import Box, { Col, Row } from "../../components/Box";
 import FullScreenError from "../../components/FullScreenError";
 import FullScreenLoading from "../../components/FullScreenLoading";
@@ -37,7 +37,7 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
     isFetched,
     isError,
     status,
-  } = useInfiniteQuery(PETS_KEY, fetchPetList, {
+  } = useInfiniteQuery([PETS_KEY, "Kathy", "Kathy"], fetchPetList, {
     getNextPageParam: ({ data: pets }) => _.last(pets)?.id,
   });
 
@@ -50,6 +50,7 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
   );
 
   const [search, setSearch] = useState("");
+  const [petsArray, setPetsArray] = useState([] as Pet[]);
   const [kind, setKind] = useState(PET_KIND.ALL);
 
   const handlePressPet = useCallback(
@@ -99,7 +100,7 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
       }
 
       if (kind === PET_KIND.BOY || kind === PET_KIND.GIRL) {
-        kindFlag = item.sex.name
+        kindFlag = item.sex
           .toLowerCase()
           .includes(PET_KIND_ALIAS[kind].toLowerCase());
       }
@@ -108,13 +109,22 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
     });
   }, [PET_KIND_ALIAS, kind, search, values]);
 
+  useEffect(() => {
+    if (pets) {
+      setPetsArray(pets);
+    }
+  }, [pets]);
+
   let content: JSX.Element | null = null;
 
   const handleChangeSearch = useCallback((value) => {
     setSearch(value);
   }, []);
 
-  const handleFilterBoys = useCallback(() => {
+  const handleFilterBoys = useCallback(async () => {
+    const filteredArray = await filter();
+    setPetsArray(filteredArray.data as Pet[]);
+    console.log(filteredArray.data);
     if (kind === PET_KIND.BOY) {
       setKind(PET_KIND.ALL);
       return;
@@ -137,7 +147,7 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
   } else if (!isError) {
     content = (
       <FlatList<Pet>
-        data={pets}
+        data={petsArray}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         onEndReached={handleLoadNextPage}
