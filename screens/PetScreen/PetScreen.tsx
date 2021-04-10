@@ -1,10 +1,11 @@
 import { StackScreenProps } from "@react-navigation/stack";
+import lowerFirst from "lodash/lowerFirst";
 import React, { useCallback } from "react";
 import { ActivityIndicator, SafeAreaView, ScrollView } from "react-native";
 import { Button, Card, Icon } from "react-native-elements";
 import { useQuery } from "react-query";
 
-import { fetchPetById } from "../../api/pets";
+import { fetchPetById, PET_KIND, PET_KIND_ALIAS } from "../../api/pets";
 import Box from "../../components/Box";
 import FullScreenError from "../../components/FullScreenError";
 import FullScreenLoading from "../../components/FullScreenLoading";
@@ -48,7 +49,9 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
           <Box mb={2}>
             <Card.Image
               borderRadius={2}
-              source={{ uri: `${original?.url}?${pet.id}` }}
+              source={{
+                uri: `https://placeimg.com/160/120/animals?${Date.now()}`,
+              }}
               style={{
                 width: theme.layout.window.width - theme.space[2] * 2,
                 height: original?.height ?? 500 / 2,
@@ -59,6 +62,7 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
           </Box>
           <Box p={2} pt={0}>
             <Text fontSize="lg">{pet.name}</Text>
+            <Box mt={3} />
             <Text>
               {i18n("pet.age")}: {pet.age}
             </Text>
@@ -66,23 +70,40 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
               {i18n("pet.color")}: {pet.color}
             </Text>
             <Text>
-              {i18n("pet.sex")}: {pet.sex}
+              {i18n("pet.sex")}: {i18n(`pet.sexType.${lowerFirst(pet.sex)}`)}
             </Text>
             <Box mt={3} />
-            <Card.Divider />
             <Text>{pet.description}</Text>
-            <Button
-              title="Заполнить анкету (кот)"
-              type="clear"
-              onPress={handleCatForm}
-            />
-            <Button
-              title="Заполнить анкету (собака)"
-              type="clear"
-              onPress={handleDogForm}
-            />
+            <Box mt={3} />
+            <Card.Divider />
           </Box>
-          <Box width={1} display="flex" alignItems="flex-end" p={2}>
+          <Box
+            width={1}
+            display="flex"
+            alignItems="center"
+            flexDirection="row"
+            justifyContent="space-between"
+            p={2}
+            pt={0}
+          >
+            {pet.kind === PET_KIND_ALIAS[PET_KIND.CAT] && (
+              <Box alignItems="flex-end">
+                <Button
+                  title="Заполнить анкету"
+                  type="clear"
+                  onPress={handleCatForm}
+                />
+              </Box>
+            )}
+            {pet.kind === PET_KIND_ALIAS[PET_KIND.DOG] && (
+              <Box alignItems="flex-end">
+                <Button
+                  title="Заполнить анкету"
+                  type="clear"
+                  onPress={handleDogForm}
+                />
+              </Box>
+            )}
             <Icon
               color={theme.palette.accentDark}
               type="antdesign"

@@ -24,12 +24,12 @@ interface PetQueryFilters {
   kind?: PET_KIND;
 }
 
-const PET_SEX_ALIAS: Record<PET_SEX, "Boy" | "Girl"> = {
+export const PET_SEX_ALIAS: Record<PET_SEX, "Boy" | "Girl"> = {
   [PET_SEX.BOY]: "Boy",
   [PET_SEX.GIRL]: "Girl",
 };
 
-const PET_KIND_ALIAS: Record<PET_KIND, "Cat" | "Dog"> = {
+export const PET_KIND_ALIAS: Record<PET_KIND, "Cat" | "Dog"> = {
   [PET_KIND.CAT]: "Cat",
   [PET_KIND.DOG]: "Dog",
 };

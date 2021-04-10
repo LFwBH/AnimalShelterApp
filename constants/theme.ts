@@ -1,5 +1,4 @@
 import { Dimensions } from "react-native";
-import { DefaultTheme } from "styled-components/native";
 
 import {
   ACCENT,
@@ -28,7 +27,7 @@ const palette = {
   transparent: TRANSPARENT,
 };
 
-const theme: DefaultTheme = {
+const theme = {
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   borderRadius: [0, 2, 4],
   fontSizes: {

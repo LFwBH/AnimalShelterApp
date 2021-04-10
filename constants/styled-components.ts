@@ -7,7 +7,7 @@ const {
   css,
   ThemeProvider,
   useTheme,
-} = StyledComponents as StyledComponents.ReactNativeThemedStyledComponentsModule<
+} = (StyledComponents as unknown) as StyledComponents.ReactNativeThemedStyledComponentsModule<
   typeof theme
 >;
 
