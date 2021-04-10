@@ -1,14 +1,15 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import last from "lodash/last";
 import React, { useCallback, useMemo, useState } from "react";
-import { FlatList, SafeAreaView } from "react-native";
-import { Button, SearchBar } from "react-native-elements";
+import { FlatList, SafeAreaView, ScrollView } from "react-native";
+import { Button, Icon, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
 
 import { fetchPetList, PET_KIND, PET_SEX, PETS_KEY } from "../../api/pets";
 import Box, { Col, Row } from "../../components/Box";
 import FullScreenError from "../../components/FullScreenError";
 import FullScreenLoading from "../../components/FullScreenLoading";
+import { useTheme } from "../../constants/styled-components";
 import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
@@ -19,6 +20,8 @@ interface PetsScreenProps
   extends BottomTabScreenProps<RootStackParamList, "Pet"> {}
 
 export default function PetsScreen({ navigation }: PetsScreenProps) {
+  const theme = useTheme();
+
   const [search, setSearch] = useState("");
   const [kind, setKind] = useState<PET_KIND | null>(null);
   const [sex, setSex] = useState<PET_SEX | null>(null);
@@ -149,40 +152,65 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
         value={search}
         lightTheme
         round
+        searchIcon={
+          <Icon color={theme.palette.primary} type="antdesign" name="search1" />
+        }
         containerStyle={{
           backgroundColor: "transparent",
           borderBottomColor: "transparent",
         }}
       />
-      <Row mx={10} pb={10}>
-        <Col mr={2}>
-          <Button
-            type={sex === PET_SEX.BOY ? "outline" : "solid"}
-            title={i18n("pet.sexType.boy")}
-            onPress={handleFilterBoys}
-          />
-        </Col>
-        <Col mr={2}>
-          <Button
-            type={sex === PET_SEX.GIRL ? "outline" : "solid"}
-            title={i18n("pet.sexType.girl")}
-            onPress={handleFilterGirls}
-          />
-        </Col>
-        <Col mr={2}>
-          <Button
-            type={kind === PET_KIND.CAT ? "outline" : "solid"}
-            title={i18n("pet.kindType.cat")}
-            onPress={handleFilterCats}
-          />
-        </Col>
-        <Col>
-          <Button
-            type={kind === PET_KIND.DOG ? "outline" : "solid"}
-            title={i18n("pet.kindType.dog")}
-            onPress={handleFilterDogs}
-          />
-        </Col>
+      <Row mx={10}>
+        <ScrollView
+          indicatorStyle="black"
+          contentContainerStyle={{ paddingBottom: 8 }}
+          horizontal
+        >
+          <Col mr={2}>
+            <Button
+              buttonStyle={{
+                width: 116,
+                borderRadius: theme.layout.window.width,
+              }}
+              type={sex === PET_SEX.BOY ? "outline" : "solid"}
+              title={i18n("pet.sexType.boy")}
+              onPress={handleFilterBoys}
+            />
+          </Col>
+          <Col mr={2}>
+            <Button
+              buttonStyle={{
+                width: 116,
+                borderRadius: theme.layout.window.width,
+              }}
+              type={sex === PET_SEX.GIRL ? "outline" : "solid"}
+              title={i18n("pet.sexType.girl")}
+              onPress={handleFilterGirls}
+            />
+          </Col>
+          <Col mr={2}>
+            <Button
+              buttonStyle={{
+                width: 116,
+                borderRadius: theme.layout.window.width,
+              }}
+              type={kind === PET_KIND.CAT ? "outline" : "solid"}
+              title={i18n("pet.kindType.cat")}
+              onPress={handleFilterCats}
+            />
+          </Col>
+          <Col>
+            <Button
+              buttonStyle={{
+                width: 116,
+                borderRadius: theme.layout.window.width,
+              }}
+              type={kind === PET_KIND.DOG ? "outline" : "solid"}
+              title={i18n("pet.kindType.dog")}
+              onPress={handleFilterDogs}
+            />
+          </Col>
+        </ScrollView>
       </Row>
       {content}
     </Box>
