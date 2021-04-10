@@ -22,7 +22,7 @@ export default function RoundButtonGroup({
   const [error, setError] = useState(false);
   const [defaultErrorMessage, setDefaultErrorMessage] = useState("");
 
-  const component1 = () => (
+  const Component1 = () => (
     <Box
       display="flex"
       flexDirection="row"
@@ -41,7 +41,8 @@ export default function RoundButtonGroup({
       <Text>{firstButton}</Text>
     </Box>
   );
-  const component2 = () => (
+
+  const Component2 = () => (
     <Box
       display="flex"
       flexDirection="row"
@@ -60,7 +61,8 @@ export default function RoundButtonGroup({
       <Text>{secondButton}</Text>
     </Box>
   );
-  const component3 = () => (
+
+  const Component3 = () => (
     <Box
       display="flex"
       flexDirection="row"
@@ -80,29 +82,28 @@ export default function RoundButtonGroup({
     </Box>
   );
 
-  const buttonsTwo = [{ element: component1 }, { element: component2 }];
+  const buttonsTwo = [{ element: Component1 }, { element: Component2 }];
+
   const buttonsThree = [
-    { element: component1 },
-    { element: component2 },
-    { element: component3 },
+    { element: Component1 },
+    { element: Component2 },
+    { element: Component3 },
   ];
 
-  const handleInput = useCallback((value) => {
-    if (!value) {
-      setDefaultErrorMessage(errorMessage!);
-      setError(true);
-    } else {
-      setDefaultErrorMessage("");
-      setError(false);
-    }
-  }, []);
-
-  const updateIndex = useCallback(
+  const handleInput = useCallback(
     (value) => {
-      setSelectedIndex(value);
+      if (!value) {
+        setDefaultErrorMessage(errorMessage ?? "");
+        setError(true);
+      } else {
+        setDefaultErrorMessage("");
+        setError(false);
+      }
     },
-    [selectedIndex],
+    [errorMessage],
   );
+
+  const handleUpdateIndex = useCallback((value) => setSelectedIndex(value), []);
 
   return (
     <Box display="flex" width="100%" justifyContent="center" p={2}>
@@ -110,12 +111,13 @@ export default function RoundButtonGroup({
       <ButtonGroup
         containerStyle={{ height: 50, borderColor: "#f2f2f2" }}
         buttonStyle={{ backgroundColor: "#f2f2f2", borderColor: "#f2f2f2" }}
-        onPress={updateIndex}
+        onPress={handleUpdateIndex}
         selectedIndex={selectedIndex}
         selectedButtonStyle={{
           backgroundColor: "#f2f2f2",
           borderColor: "#f2f2f2",
         }}
+        // @ts-expect-error ts(2322)
         buttons={thirdButton ? buttonsThree : buttonsTwo}
       />
       {selectedIndex === 2 && errorMessage && (

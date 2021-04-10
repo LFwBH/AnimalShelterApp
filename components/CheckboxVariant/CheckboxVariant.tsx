@@ -39,7 +39,13 @@ export default function CheckboxVariant({
     } else {
       setError(false);
     }
-  });
+  }, [
+    checkbox.firstCheckbox,
+    checkbox.forthCheckbox,
+    checkbox.secondCheckbox,
+    checkbox.thirdCheckbox,
+    firstTime,
+  ]);
 
   const handleCheckbox = useCallback(
     (name) => () => {

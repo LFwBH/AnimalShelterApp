@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Input } from "react-native-elements";
 
 import Box from "../Box";
@@ -16,15 +16,19 @@ export default function InputField({
 }: IProps) {
   const [error, setError] = useState(false);
   const [defaultErrorMessage, setDefaultErrorMessage] = useState("");
-  const handleInput = useCallback((value) => {
-    if (!value) {
-      setDefaultErrorMessage(errorMessage!);
-      setError(true);
-    } else {
-      setDefaultErrorMessage("");
-      setError(false);
-    }
-  }, []);
+
+  const handleInput = useCallback(
+    (value) => {
+      if (!value) {
+        setDefaultErrorMessage(errorMessage ?? "");
+        setError(true);
+      } else {
+        setDefaultErrorMessage("");
+        setError(false);
+      }
+    },
+    [errorMessage],
+  );
 
   return (
     <Box display="flex" width="100%">
