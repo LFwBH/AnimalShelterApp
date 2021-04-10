@@ -5,23 +5,25 @@ import { Button } from "react-native-elements";
 
 import Box from "../../components/Box";
 import InputField from "../../components/InputField/InputField";
-import Text from "../../components/Text";
 import { RootStackParamList } from "../../types/navigation";
 
 interface LoginScreenProps
   extends StackScreenProps<RootStackParamList, "LoginScreen"> {}
 
-export default function PetScreen({ route, navigation }: LoginScreenProps) {
+export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [login, setLogin] = useState(true);
   let content: JSX.Element | null = null;
 
   const handleLogin = useCallback(() => {
-    navigation.navigate("Root");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Root" }],
+    });
   }, [navigation]);
 
   const handleRegistration = useCallback(() => {
     setLogin(!login);
-  }, [navigation, login]);
+  }, [login]);
 
   content = login ? (
     <Box>
@@ -57,7 +59,7 @@ export default function PetScreen({ route, navigation }: LoginScreenProps) {
       />
       <Button title="Назад" type="clear" onPress={handleRegistration} />
       <Button
-        title="Зарегестрироваться"
+        title="Зарегистрироваться"
         type="clear"
         onPress={handleRegistration}
       />
