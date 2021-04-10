@@ -8,9 +8,14 @@
     "age": "Возраст",
     "color": "Цвет",
     "sex": "Пол",
-    "kind": {
+    "sexType": {
       "boy": "Мальчик",
       "girl": "Девочка"
+    },
+    "kind": "Вид",
+    "kindType": {
+      "dog": "Собака",
+      "cat": "Кошка"
     }
   },
   "notFound": {
@@ -25,6 +30,6 @@
     "formTitle": "Анкета"
   },
   "login": {
-    "loginScreen": "Логинация"
+    "title": "Вход"
   }
 }

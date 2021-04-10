@@ -1,3 +1,4 @@
+import lowerFirst from "lodash/lowerFirst";
 import React, { useCallback } from "react";
 import { ActivityIndicator, Pressable } from "react-native";
 import { Image } from "react-native-elements";
@@ -22,7 +23,9 @@ function Item({ pet, onPress }: ItemProps) {
           <Box mr={2}>
             <Image
               borderRadius={2}
-              source={{ uri: `${pet.image?.thumb?.url}?${pet.id}` }}
+              source={{
+                uri: `https://placeimg.com/160/120/animals?${Date.now()}`,
+              }}
               resizeMode="cover"
               style={{ width: 100, height: 100 }}
               PlaceholderContent={<ActivityIndicator />}
@@ -36,7 +39,7 @@ function Item({ pet, onPress }: ItemProps) {
               {i18n("pet.age")}: {pet.age}
             </Text>
             <Text background fontSize={12}>
-              {i18n("pet.sex")} {pet.sex}
+              {i18n("pet.sex")} {i18n(`pet.sexType.${lowerFirst(pet.sex)}`)}
             </Text>
             <Text background fontSize={12}>
               {i18n("pet.color")}: {pet.color}
