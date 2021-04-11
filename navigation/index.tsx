@@ -6,6 +6,7 @@ import i18n from "../i18n";
 import CatFormScreen from "../screens/CatFormScreen";
 import DogFormScreen from "../screens/DogFormScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
+import LostPetScreen from "../screens/LostPatScreen/LostPetScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import PetScreen from "../screens/PetScreen";
 import { RootStackParamList } from "../types/navigation";
@@ -34,6 +35,13 @@ function RootNavigator() {
     [],
   );
 
+  const getLostPetScreenOptions = useCallback(
+    ({}: { route: RouteProp<RootStackParamList, "LostPet"> }) => ({
+      headerShown: true,
+    }),
+    [],
+  );
+
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
       <RootStack.Screen
@@ -50,6 +58,11 @@ function RootNavigator() {
         name="Pet"
         options={getPetScreenOptions}
         component={PetScreen}
+      />
+      <RootStack.Screen
+        name="LostPet"
+        options={getLostPetScreenOptions}
+        component={LostPetScreen}
       />
       <RootStack.Screen
         name="NotFound"

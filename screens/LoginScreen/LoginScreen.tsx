@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 import { SafeAreaView } from "react-native";
 import { Button } from "react-native-elements";
 
+import { login, register } from "../../api/auth";
 import Box from "../../components/Box";
 import InputField from "../../components/InputField/InputField";
 import { RootStackParamList } from "../../types/navigation";
@@ -11,7 +12,12 @@ interface LoginScreenProps
   extends StackScreenProps<RootStackParamList, "LoginScreen"> {}
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
-  const [login, setLogin] = useState(true);
+  const [loginData, setLogin] = useState(true);
+  const [registrationArr, setRegistration] = useState({
+    email: "",
+    password: "",
+  });
+
   let content: JSX.Element | null = null;
 
   const handleLogin = useCallback(() => {
@@ -22,10 +28,33 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   }, [navigation]);
 
   const handleRegistration = useCallback(() => {
+    console.log(registrationArr);
+    register(registrationArr).then((res) => {
+      console.log(res);
+    });
+  }, [login]);
+
+  const handleRegistrationPage = useCallback(() => {
     setLogin(!login);
   }, [login]);
 
-  content = login ? (
+  const handleRegisterEmail = useCallback(
+    (text: string) => {
+      setRegistration({ ...registrationArr, email: text });
+      console.log(registrationArr);
+    },
+    [setRegistration, registrationArr],
+  );
+
+  const handleRegisterPassword = useCallback(
+    (text: string) => {
+      setRegistration({ ...registrationArr, password: text });
+      console.log(registrationArr);
+    },
+    [setRegistration, registrationArr],
+  );
+
+  content = loginData ? (
     <Box>
       <InputField
         placeholderText=" "
@@ -38,7 +67,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         errorMessage="Заполните обязательное поле!"
       />
       <Button title="Войти" type="clear" onPress={handleLogin} />
-      <Button title="Регистрация" type="clear" onPress={handleRegistration} />
+      <Button
+        title="Регистрация"
+        type="clear"
+        onPress={handleRegistrationPage}
+      />
     </Box>
   ) : (
     <Box>
@@ -51,13 +84,15 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         placeholderText=" "
         label="Email"
         errorMessage="Заполните обязательное поле!"
+        onChangeText={handleRegisterEmail}
       />
       <InputField
         placeholderText=" "
         label="Пароль"
         errorMessage="Заполните обязательное поле!"
+        onChangeText={handleRegisterPassword}
       />
-      <Button title="Назад" type="clear" onPress={handleRegistration} />
+      <Button title="Назад" type="clear" onPress={handleRegistrationPage} />
       <Button
         title="Зарегистрироваться"
         type="clear"

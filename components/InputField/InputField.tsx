@@ -7,12 +7,14 @@ interface IProps {
   label: string;
   errorMessage?: string;
   placeholderText?: string;
+  onChangeText?: (text: string) => void;
 }
 
 export default function InputField({
   label,
   errorMessage,
   placeholderText,
+  onChangeText,
 }: IProps) {
   const [error, setError] = useState(false);
   const [defaultErrorMessage, setDefaultErrorMessage] = useState("");
@@ -36,7 +38,7 @@ export default function InputField({
         label={label}
         style={{ borderWidth: 1, height: 40, borderColor: "#5381D6" }}
         placeholder={placeholderText || "Ваш ответ"}
-        onChangeText={handleInput}
+        onChangeText={onChangeText || handleInput}
         renderErrorMessage={error}
         errorMessage={defaultErrorMessage}
       />

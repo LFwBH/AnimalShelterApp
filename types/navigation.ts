@@ -5,15 +5,22 @@ export type RootStackParamList = {
     petId: number;
     petName: string;
   };
+  LostPet: {
+    petId: number;
+  };
   Chat: undefined;
   CatFormScreen: undefined;
   DogFormScreen: undefined;
   LoginScreen: undefined;
+  AboutUs: undefined;
+  Lost: undefined;
 };
 
 export type BottomTabParamList = {
   Pets: undefined;
   Chat: undefined;
+  AboutUs: undefined;
+  Lost: undefined;
 };
 
 export type PetsParamList = {
@@ -22,4 +29,12 @@ export type PetsParamList = {
 
 export type ChatParamList = {
   Chat: undefined;
+};
+
+export type AboutUsParamList = {
+  AboutUs: undefined;
+};
+
+export type LostParamList = {
+  Lost: undefined;
 };
