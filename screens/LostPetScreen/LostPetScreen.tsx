@@ -11,13 +11,12 @@ import FullScreenLoading from "../../components/FullScreenLoading";
 import Text from "../../components/Text";
 import { useTheme } from "../../constants/styled-components";
 import { LostPet } from "../../models/LostPet";
-import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 
 interface PetScreenProps
   extends StackScreenProps<RootStackParamList, "LostPet"> {}
 
-export default function LostPetScreen({ route, navigation }: PetScreenProps) {
+export default function LostPetScreen({ route }: PetScreenProps) {
   const theme = useTheme();
 
   const { petId } = route.params;
@@ -42,7 +41,7 @@ export default function LostPetScreen({ route, navigation }: PetScreenProps) {
             <Card.Image
               borderRadius={2}
               source={{
-                uri: `https://placeimg.com/160/120/animals?${Date.now()}`,
+                uri: `https://placeimg.com/1920/1080/animals?${Date.now()}`,
               }}
               style={{
                 width: theme.layout.window.width - theme.space[2] * 2,
@@ -56,7 +55,6 @@ export default function LostPetScreen({ route, navigation }: PetScreenProps) {
             <Box mt={3} />
             <Text>{pet.description}</Text>
             <Box mt={3} />
-            <Card.Divider />
           </Box>
         </Box>
       </ScrollView>

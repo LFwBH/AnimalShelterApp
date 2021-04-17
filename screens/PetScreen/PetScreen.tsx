@@ -50,7 +50,7 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
             <Card.Image
               borderRadius={2}
               source={{
-                uri: `https://placeimg.com/160/120/animals?${Date.now()}`,
+                uri: `https://placeimg.com/1920/1080/animals?${Date.now()}`,
               }}
               style={{
                 width: theme.layout.window.width - theme.space[2] * 2,
