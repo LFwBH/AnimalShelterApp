@@ -43,7 +43,7 @@ export default function LostPetScreen({ route }: PetScreenProps) {
           <Box mb={2}>
             <Card.Image
               borderRadius={2}
-              source={{ uri: PET_IMAGE_API[randomPetKind].full() }}
+              source={{ uri: PET_IMAGE_API[randomPetKind]?.full() }}
               style={{
                 width: theme.layout.window.width - theme.space[2] * 2,
                 height: original?.height ?? 500 / 2,

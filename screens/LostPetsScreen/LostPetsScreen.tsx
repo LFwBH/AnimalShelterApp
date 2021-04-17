@@ -16,10 +16,9 @@ import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
 
 interface LostPetsScreenProps
-  // TODO: should be "Pets" instead of "Pet", but this doesn't allow to navigate
-  extends BottomTabScreenProps<RootStackParamList, "LostPet"> {}
+  extends BottomTabScreenProps<RootStackParamList, "LostPets"> {}
 
-export default function LostScreen({ navigation }: LostPetsScreenProps) {
+export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
   const theme = useTheme();
 
   const [search, setSearch] = useState("");
@@ -40,7 +39,7 @@ export default function LostScreen({ navigation }: LostPetsScreenProps) {
     (args) => {
       return fetchLostPetList({
         ...args,
-        name: search,
+        description: search,
       });
     },
     {
@@ -50,9 +49,7 @@ export default function LostScreen({ navigation }: LostPetsScreenProps) {
 
   const handlePressPet = useCallback(
     (pet: LostPet) => {
-      navigation.navigate("LostPet", {
-        petId: pet.id,
-      });
+      navigation.navigate("LostPet", { petId: pet.id });
     },
     [navigation],
   );

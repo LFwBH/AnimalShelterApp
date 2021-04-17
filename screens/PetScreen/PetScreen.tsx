@@ -50,7 +50,7 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
           <Box mb={2}>
             <Card.Image
               borderRadius={2}
-              source={{ uri: PET_IMAGE_API[pet.kind].thumb() }}
+              source={{ uri: PET_IMAGE_API[pet.kind]?.thumb() }}
               style={{
                 width: theme.layout.window.width - theme.space[2] * 2,
                 height: original?.height ?? 500 / 2,

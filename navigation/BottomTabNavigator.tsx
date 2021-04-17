@@ -7,13 +7,13 @@ import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import AboutUsScreen from "../screens/AboutUsScreen";
 import ChatBotScreen from "../screens/ChatBotScreen";
-import LostScreen from "../screens/LostScreen/LostScreen";
+import LostPetsScreen from "../screens/LostPetsScreen/LostPetsScreen";
 import PetsScreen from "../screens/PetsScreen";
 import {
   AboutUsParamList,
   BottomTabParamList,
   ChatParamList,
-  LostParamList,
+  LostPetsParamList,
   PetsParamList,
 } from "../types/navigation";
 
@@ -108,14 +108,14 @@ function PetsNavigator() {
   );
 }
 
-const LostStack = createStackNavigator<LostParamList>();
+const LostStack = createStackNavigator<LostPetsParamList>();
 
 function LostNavigator() {
   return (
     <LostStack.Navigator>
       <LostStack.Screen
-        name="Lost"
-        component={LostScreen}
+        name="LostPets"
+        component={LostPetsScreen}
         options={{ headerTitle: i18n("lost.title") }}
       />
     </LostStack.Navigator>

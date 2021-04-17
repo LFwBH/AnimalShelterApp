@@ -19,12 +19,12 @@ function Item({ pet, onPress }: ItemProps) {
 
   return (
     <Pressable onPress={handlePress}>
-      <Box display="flex" primary p={18} m={2} borderRadius={2}>
+      <Box display="flex" primary p={18} m={2} borderRadius={8}>
         <Box display="flex" flexDirection="row" mb={2}>
           <Box mr={2}>
             <Image
               borderRadius={2}
-              source={{ uri: PET_IMAGE_API[pet.kind].thumb() }}
+              source={{ uri: PET_IMAGE_API[pet.kind]?.thumb() }}
               resizeMode="cover"
               style={{ width: 100, height: 100 }}
               PlaceholderContent={<ActivityIndicator />}

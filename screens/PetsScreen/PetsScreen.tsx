@@ -16,8 +16,7 @@ import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
 
 interface PetsScreenProps
-  // TODO: should be "Pets" instead of "Pet", but this doesn't allow to navigate
-  extends BottomTabScreenProps<RootStackParamList, "Pet"> {}
+  extends BottomTabScreenProps<RootStackParamList, "Pets"> {}
 
 export default function PetsScreen({ navigation }: PetsScreenProps) {
   const theme = useTheme();

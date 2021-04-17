@@ -10,13 +10,18 @@ import theme from "./constants/theme";
 import useCachedResources from "./hooks/useCachedResources";
 import Navigation from "./navigation";
 
-const queryClient = new QueryClient();
+if (__DEV__) {
+  // @ts-expect-error ts(7016)
+  import("./reactotron.config");
+}
+
+const client = new QueryClient();
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
 
   return !isLoadingComplete ? null : (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={client}>
       <ThemeProvider theme={theme}>
         <SafeAreaProvider>
           <Navigation />

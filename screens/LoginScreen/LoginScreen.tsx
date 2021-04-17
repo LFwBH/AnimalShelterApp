@@ -12,8 +12,9 @@ interface LoginScreenProps
   extends StackScreenProps<RootStackParamList, "LoginScreen"> {}
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
-  const [loginData, setLogin] = useState(true);
-  const [registrationArr, setRegistration] = useState({
+  const [isLogin, setIsLogin] = useState(true);
+
+  const [form, setForm] = useState({
     email: "",
     password: "",
   });
@@ -27,34 +28,25 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     });
   }, [navigation]);
 
-  const handleRegistration = useCallback(() => {
-    console.log(registrationArr);
-    register(registrationArr).then((res) => {
-      console.log(res);
-    });
-  }, [login]);
+  const handleSubmitForm = useCallback(async () => {
+    await register(form);
+  }, [form]);
 
-  const handleRegistrationPage = useCallback(() => {
-    setLogin(!login);
-  }, [login]);
+  const handleToggleRegistration = useCallback(() => {
+    setIsLogin(!login);
+  }, []);
 
-  const handleRegisterEmail = useCallback(
-    (text: string) => {
-      setRegistration({ ...registrationArr, email: text });
-      console.log(registrationArr);
-    },
-    [setRegistration, registrationArr],
+  const handleChangeEmail = useCallback(
+    (text: string) => setForm({ ...form, email: text }),
+    [setForm, form],
   );
 
-  const handleRegisterPassword = useCallback(
-    (text: string) => {
-      setRegistration({ ...registrationArr, password: text });
-      console.log(registrationArr);
-    },
-    [setRegistration, registrationArr],
+  const handleChangePassword = useCallback(
+    (text: string) => setForm({ ...form, password: text }),
+    [setForm, form],
   );
 
-  content = loginData ? (
+  content = isLogin ? (
     <Box>
       <InputField
         placeholderText=" "
@@ -70,7 +62,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
       <Button
         title="Регистрация"
         type="clear"
-        onPress={handleRegistrationPage}
+        onPress={handleToggleRegistration}
       />
     </Box>
   ) : (
@@ -84,19 +76,19 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         placeholderText=" "
         label="Email"
         errorMessage="Заполните обязательное поле!"
-        onChangeText={handleRegisterEmail}
+        onChangeText={handleChangeEmail}
       />
       <InputField
         placeholderText=" "
         label="Пароль"
         errorMessage="Заполните обязательное поле!"
-        onChangeText={handleRegisterPassword}
+        onChangeText={handleChangePassword}
       />
-      <Button title="Назад" type="clear" onPress={handleRegistrationPage} />
+      <Button title="Назад" type="clear" onPress={handleToggleRegistration} />
       <Button
         title="Зарегистрироваться"
         type="clear"
-        onPress={handleRegistration}
+        onPress={handleSubmitForm}
       />
     </Box>
   );
