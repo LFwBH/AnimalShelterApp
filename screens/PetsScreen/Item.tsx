@@ -5,6 +5,7 @@ import { Image } from "react-native-elements";
 
 import Box from "../../components/Box";
 import Text from "../../components/Text";
+import { PET_IMAGE_API } from "../../constants/api";
 import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 
@@ -23,9 +24,7 @@ function Item({ pet, onPress }: ItemProps) {
           <Box mr={2}>
             <Image
               borderRadius={2}
-              source={{
-                uri: `https://placeimg.com/160/120/animals?${Date.now()}`,
-              }}
+              source={{ uri: PET_IMAGE_API[pet.kind].thumb() }}
               resizeMode="cover"
               style={{ width: 100, height: 100 }}
               PlaceholderContent={<ActivityIndicator />}

@@ -9,6 +9,7 @@ import Box from "../../components/Box";
 import FullScreenError from "../../components/FullScreenError";
 import FullScreenLoading from "../../components/FullScreenLoading";
 import Text from "../../components/Text";
+import { PET_IMAGE_API } from "../../constants/api";
 import { useTheme } from "../../constants/styled-components";
 import { LostPet } from "../../models/LostPet";
 import { RootStackParamList } from "../../types/navigation";
@@ -27,6 +28,8 @@ export default function LostPetScreen({ route }: PetScreenProps) {
 
   let content: JSX.Element | null = null;
 
+  const randomPetKind = Math.random() > 0.5 ? "Dog" : "Cat";
+
   if (isLoading) {
     content = <FullScreenLoading />;
   } else if (!isError) {
@@ -40,9 +43,7 @@ export default function LostPetScreen({ route }: PetScreenProps) {
           <Box mb={2}>
             <Card.Image
               borderRadius={2}
-              source={{
-                uri: `https://placeimg.com/1920/1080/animals?${Date.now()}`,
-              }}
+              source={{ uri: PET_IMAGE_API[randomPetKind].full() }}
               style={{
                 width: theme.layout.window.width - theme.space[2] * 2,
                 height: original?.height ?? 500 / 2,

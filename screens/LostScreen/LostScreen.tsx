@@ -12,7 +12,6 @@ import FullScreenLoading from "../../components/FullScreenLoading";
 import { useTheme } from "../../constants/styled-components";
 import i18n from "../../i18n";
 import { LostPet } from "../../models/LostPet";
-import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
 

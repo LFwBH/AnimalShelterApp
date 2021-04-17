@@ -17,9 +17,9 @@ export interface Pet {
   readonly cameFrom: string;
   readonly age: number;
   readonly description: string;
-  readonly kind: string;
+  readonly kind: "Dog" | "Cat";
   readonly color: string;
-  readonly sex: string;
+  readonly sex: "Boy" | "Girl";
   readonly special: boolean;
   readonly passport: boolean;
   readonly dead: boolean;

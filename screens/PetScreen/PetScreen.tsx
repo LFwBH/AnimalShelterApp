@@ -10,6 +10,7 @@ import Box from "../../components/Box";
 import FullScreenError from "../../components/FullScreenError";
 import FullScreenLoading from "../../components/FullScreenLoading";
 import Text from "../../components/Text";
+import { PET_IMAGE_API } from "../../constants/api";
 import { useTheme } from "../../constants/styled-components";
 import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
@@ -49,9 +50,7 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
           <Box mb={2}>
             <Card.Image
               borderRadius={2}
-              source={{
-                uri: `https://placeimg.com/1920/1080/animals?${Date.now()}`,
-              }}
+              source={{ uri: PET_IMAGE_API[pet.kind].thumb() }}
               style={{
                 width: theme.layout.window.width - theme.space[2] * 2,
                 height: original?.height ?? 500 / 2,
