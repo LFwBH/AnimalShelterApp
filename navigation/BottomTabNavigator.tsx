@@ -1,8 +1,10 @@
-import { Feather, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
+import { Image, Text } from "react-native";
+import { height } from "styled-system";
 
+import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import AboutUsScreen from "../screens/AboutUsScreen";
@@ -26,7 +28,11 @@ export default function BottomTabNavigator() {
     <BottomTab.Navigator
       tabBarOptions={{
         inactiveTintColor: theme.palette.primary,
-        activeTintColor: theme.palette.accentDark,
+        activeTintColor: theme.palette.background,
+        style: {
+          backgroundColor: "#6B96E4",
+          shadowColor: "#6B96E4",
+        },
       }}
       initialRouteName="Pets"
     >
@@ -35,11 +41,14 @@ export default function BottomTabNavigator() {
         component={AboutUsNavigator}
         options={{
           title: i18n("aboutUs.title"),
-          tabBarIcon: ({ color }) => (
-            <Ionicons
-              name="information-circle-outline"
-              size={24}
-              color={color}
+          tabBarLabel: () => (
+            <Text style={{ fontSize: 11, color: "white" }}>О нас</Text>
+          ),
+          tabBarIcon: () => (
+            <Image
+              source={require("../assets/images/icons/about-us.png")}
+              style={{ width: 24, height: 24, tintColor: "white" }}
+              resizeMode="contain"
             />
           ),
         }}
@@ -49,8 +58,15 @@ export default function BottomTabNavigator() {
         component={PetsNavigator}
         options={{
           title: i18n("pets.title"),
-          tabBarIcon: ({ color }) => (
-            <Feather name="list" size={24} color={color} />
+          tabBarLabel: () => (
+            <Text style={{ fontSize: 11, color: "white" }}>Питомцы</Text>
+          ),
+          tabBarIcon: () => (
+            <Image
+              source={require("../assets/images/icons/main.png")}
+              style={{ width: 24, height: 24, tintColor: "white" }}
+              resizeMode="contain"
+            />
           ),
         }}
       />
@@ -59,8 +75,15 @@ export default function BottomTabNavigator() {
         component={LostNavigator}
         options={{
           title: i18n("lost.title"),
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="paw-outline" size={24} color={color} />
+          tabBarLabel: () => (
+            <Text style={{ fontSize: 11, color: "white" }}>Потеряшки</Text>
+          ),
+          tabBarIcon: () => (
+            <Image
+              source={require("../assets/images/icons/lost.png")}
+              style={{ width: 24, height: 24, tintColor: "white" }}
+              resizeMode="contain"
+            />
           ),
         }}
       />
@@ -69,8 +92,15 @@ export default function BottomTabNavigator() {
         component={ChatNavigator}
         options={{
           title: i18n("pets.chat"),
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="ios-chatbox-outline" size={24} color={color} />
+          tabBarLabel: () => (
+            <Text style={{ fontSize: 11, color: "white" }}>Чат</Text>
+          ),
+          tabBarIcon: () => (
+            <Image
+              source={require("../assets/images/icons/chat.png")}
+              style={{ width: 24, height: 24, tintColor: "white" }}
+              resizeMode="contain"
+            />
           ),
         }}
       />
@@ -88,7 +118,19 @@ function AboutUsNavigator() {
       <AboutUsStack.Screen
         name="AboutUs"
         component={AboutUsScreen}
-        options={{ headerTitle: i18n("aboutUs.title") }}
+        options={{
+          headerTitle: (props) => <HeaderTitle title="О нас" />,
+          headerStyle: {
+            backgroundColor: "#6B96E4",
+            elevation: 0,
+            shadowColor: "#6B96E4",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            alignSelf: "center",
+          },
+        }}
       />
     </AboutUsStack.Navigator>
   );
@@ -102,7 +144,19 @@ function PetsNavigator() {
       <PetsStack.Screen
         name="Pets"
         component={PetsScreen}
-        options={{ headerTitle: i18n("pets.title") }}
+        options={{
+          headerTitle: (props) => <HeaderTitle title="Питомцы" />,
+          headerStyle: {
+            backgroundColor: "#6B96E4",
+            elevation: 0,
+            shadowColor: "#6B96E4",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            alignSelf: "center",
+          },
+        }}
       />
     </PetsStack.Navigator>
   );
@@ -116,7 +170,19 @@ function LostNavigator() {
       <LostStack.Screen
         name="LostPets"
         component={LostPetsScreen}
-        options={{ headerTitle: i18n("lost.title") }}
+        options={{
+          headerTitle: (props) => <HeaderTitle title="Потеряшки" />,
+          headerStyle: {
+            backgroundColor: "#6B96E4",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            alignSelf: "center",
+          },
+        }}
       />
     </LostStack.Navigator>
   );
@@ -130,7 +196,19 @@ function ChatNavigator() {
       <ChatStack.Screen
         name="Chat"
         component={ChatBotScreen}
-        options={{ headerTitle: i18n("pets.chat") }}
+        options={{
+          headerTitle: (props) => <HeaderTitle title="Чат" />,
+          headerStyle: {
+            backgroundColor: "#6B96E4",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            alignSelf: "center",
+          },
+        }}
       />
     </ChatStack.Navigator>
   );

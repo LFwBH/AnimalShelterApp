@@ -40,7 +40,7 @@ function RootNavigator() {
       <RootStack.Screen
         name="LoginScreen"
         component={LoginScreen}
-        options={{ title: i18n("login.title"), headerShown: true }}
+        options={{ title: i18n("login.title"), headerShown: false }}
       />
       <RootStack.Screen
         name="Root"

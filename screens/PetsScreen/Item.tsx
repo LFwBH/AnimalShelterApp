@@ -19,36 +19,75 @@ function Item({ pet, onPress }: ItemProps) {
 
   return (
     <Pressable onPress={handlePress}>
-      <Box display="flex" primary p={18} m={2} borderRadius={8}>
-        <Box display="flex" flexDirection="row" mb={2}>
+      <Box
+        display="flex"
+        primary
+        m={2}
+        borderRadius={8}
+        style={{
+          borderColor: "#BFBFBF",
+          borderWidth: 1,
+          backgroundColor: "#fff",
+          marginTop: 10,
+        }}
+      >
+        <Box display="flex" flexDirection="row">
           <Box mr={2}>
             <Image
               borderRadius={2}
               source={{ uri: PET_IMAGE_API[pet.kind]?.thumb() }}
               resizeMode="cover"
-              style={{ width: 100, height: 100 }}
+              style={{ width: 162, height: 132 }}
               PlaceholderContent={<ActivityIndicator />}
             />
           </Box>
-          <Box>
-            <Text fontWeight="bold" background fontSize={16} mb={1}>
+          <Box p={2}>
+            <Text
+              fontWeight="bold"
+              background
+              fontSize={16}
+              mb={1}
+              style={{ fontWeight: "bold", color: "#6B96E4" }}
+            >
               {pet.name}
             </Text>
-            <Text fontSize={12} background>
-              {i18n("pet.age")}: {pet.age}
-            </Text>
-            <Text background fontSize={12}>
-              {i18n("pet.sex")} {i18n(`pet.sexType.${lowerFirst(pet.sex)}`)}
-            </Text>
-            <Text background fontSize={12}>
-              {i18n("pet.color")}: {pet.color}
-            </Text>
+            <Box style={{ display: "flex", flexDirection: "row" }}>
+              <Box>
+                <Text fontSize={12} background style={{ color: "#000" }}>
+                  {i18n("pet.age")}:
+                </Text>
+                <Text background fontSize={12} style={{ color: "#000" }}>
+                  {i18n("pet.sterilization")}:
+                </Text>
+                <Text background fontSize={12} style={{ color: "#000" }}>
+                  {i18n("pet.vacination")}:
+                </Text>
+              </Box>
+              <Box style={{ paddingLeft: 15 }}>
+                <Text
+                  fontSize={12}
+                  background
+                  style={{ color: "#000", opacity: 0.5 }}
+                >
+                  {pet.age}
+                </Text>
+                <Text
+                  background
+                  fontSize={12}
+                  style={{ color: "#000", opacity: 0.5 }}
+                >
+                  {i18n(`pet.sexType.${lowerFirst(pet.sex)}`)}
+                </Text>
+                <Text
+                  background
+                  fontSize={12}
+                  style={{ color: "#000", opacity: 0.5 }}
+                >
+                  {pet.color}
+                </Text>
+              </Box>
+            </Box>
           </Box>
-        </Box>
-        <Box>
-          <Text background fontSize={14} numberOfLines={2}>
-            {pet.description}
-          </Text>
         </Box>
       </Box>
     </Pressable>

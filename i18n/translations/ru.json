@@ -8,6 +8,8 @@
     "age": "Возраст",
     "color": "Цвет",
     "sex": "Пол",
+    "sterilization": "Стерилизация",
+    "vacination": "Вакцинация",
     "sexType": {
       "boy": "Мальчик",
       "girl": "Девочка"

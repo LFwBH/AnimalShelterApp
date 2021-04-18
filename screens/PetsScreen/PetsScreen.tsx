@@ -1,9 +1,11 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import last from "lodash/last";
+import { padding } from "polished";
 import React, { useCallback, useMemo, useState } from "react";
 import { FlatList, SafeAreaView, ScrollView } from "react-native";
 import { Button, Icon, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
+import { height } from "styled-system";
 
 import { fetchPetList, PET_KIND, PET_SEX, PETS_KEY } from "../../api/pets";
 import Box, { Col, Row } from "../../components/Box";
@@ -136,6 +138,11 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
         refreshing={isFetchingNextPage}
         onRefresh={handleRefresh}
         contentContainerStyle={{ marginTop: -10 }}
+        containerStyle={{ backgroundColor: "#fff" }}
+        inputStyle={{ backgroundColor: "#fff" }}
+        inputContainerStyle={{ color: "#fff" }}
+        placeholderTextColor={"#CBCBCB"}
+        searchIcon={{ color: "#CBCBCB" }}
       />
     );
   } else {
@@ -143,75 +150,107 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
   }
 
   return (
-    <Box as={SafeAreaView} flex={1}>
-      <SearchBar
-        // @ts-expect-error ts(2322)
-        placeholder={`${i18n("pets.search")}...`}
-        onChangeText={handleChangeSearch}
-        value={search}
-        lightTheme
-        round
-        searchIcon={
-          <Icon color={theme.palette.primary} type="antdesign" name="search1" />
-        }
-        containerStyle={{
-          backgroundColor: "transparent",
-          borderBottomColor: "transparent",
+    <Box
+      as={SafeAreaView}
+      flex={1}
+      style={{ backgroundColor: "#6B96E4", paddingBottom: 90, marginTop: -1 }}
+    >
+      <Box
+        style={{
+          backgroundColor: "#fff",
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
         }}
-      />
-      <Row mx={10}>
-        <ScrollView
-          indicatorStyle="black"
-          contentContainerStyle={{ paddingBottom: 8 }}
-          horizontal
-        >
-          <Col mr={2}>
-            <Button
-              buttonStyle={{
-                width: 116,
-                borderRadius: theme.layout.window.width,
-              }}
-              type={sex === PET_SEX.BOY ? "outline" : "solid"}
-              title={i18n("pet.sexType.boy")}
-              onPress={handleFilterBoys}
+      >
+        <SearchBar
+          // @ts-expect-error ts(2322)
+          placeholder={`${i18n("pets.search")}`}
+          onChangeText={handleChangeSearch}
+          value={search}
+          lightTheme
+          round
+          searchIcon={
+            <Icon
+              color="gray"
+              type="antdesign"
+              name="search1"
+              style={{ opacity: 0.5 }}
             />
-          </Col>
-          <Col mr={2}>
-            <Button
-              buttonStyle={{
-                width: 116,
-                borderRadius: theme.layout.window.width,
-              }}
-              type={sex === PET_SEX.GIRL ? "outline" : "solid"}
-              title={i18n("pet.sexType.girl")}
-              onPress={handleFilterGirls}
-            />
-          </Col>
-          <Col mr={2}>
-            <Button
-              buttonStyle={{
-                width: 116,
-                borderRadius: theme.layout.window.width,
-              }}
-              type={kind === PET_KIND.CAT ? "outline" : "solid"}
-              title={i18n("pet.kindType.cat")}
-              onPress={handleFilterCats}
-            />
-          </Col>
-          <Col>
-            <Button
-              buttonStyle={{
-                width: 116,
-                borderRadius: theme.layout.window.width,
-              }}
-              type={kind === PET_KIND.DOG ? "outline" : "solid"}
-              title={i18n("pet.kindType.dog")}
-              onPress={handleFilterDogs}
-            />
-          </Col>
-        </ScrollView>
-      </Row>
-      {content}
+          }
+          containerStyle={{
+            backgroundColor: "transparent",
+            borderBottomColor: "transparent",
+          }}
+          inputContainerStyle={{
+            backgroundColor: "white",
+            height: 40,
+            borderWidth: 1,
+            borderBottomWidth: 1,
+            borderColor: "#6B96E4",
+          }}
+        />
+        <Row mx={10}>
+          <ScrollView
+            indicatorStyle="black"
+            contentContainerStyle={{ paddingBottom: 8 }}
+            horizontal
+          >
+            <Col mr={2}>
+              <Button
+                buttonStyle={{
+                  width: 95,
+                  height: 27,
+                  borderRadius: theme.layout.window.width,
+                  backgroundColor: "#6B96E4",
+                }}
+                type={sex === PET_SEX.BOY ? "outline" : "solid"}
+                title={i18n("pet.sexType.boy")}
+                onPress={handleFilterBoys}
+              />
+            </Col>
+            <Col mr={2}>
+              <Button
+                buttonStyle={{
+                  width: 95,
+                  height: 27,
+                  borderRadius: theme.layout.window.width,
+                  backgroundColor: "#6B96E4",
+                }}
+                type={sex === PET_SEX.GIRL ? "outline" : "solid"}
+                title={i18n("pet.sexType.girl")}
+                onPress={handleFilterGirls}
+              />
+            </Col>
+            <Col mr={2}>
+              <Button
+                buttonStyle={{
+                  width: 95,
+                  height: 27,
+                  borderRadius: theme.layout.window.width,
+                  backgroundColor: "#6B96E4",
+                }}
+                type={kind === PET_KIND.CAT ? "outline" : "solid"}
+                title={i18n("pet.kindType.cat")}
+                onPress={handleFilterCats}
+              />
+            </Col>
+            <Col>
+              <Button
+                buttonStyle={{
+                  width: 95,
+                  height: 27,
+                  borderRadius: theme.layout.window.width,
+                  backgroundColor: "#6B96E4",
+                }}
+                type={kind === PET_KIND.DOG ? "outline" : "solid"}
+                title={i18n("pet.kindType.dog")}
+                onPress={handleFilterDogs}
+              />
+            </Col>
+          </ScrollView>
+        </Row>
+        {content}
+      </Box>
     </Box>
   );
 }
