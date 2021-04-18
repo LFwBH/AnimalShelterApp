@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { ActivityIndicator, Pressable } from "react-native";
-import { Image } from "react-native-elements";
+import { Card, Image } from "react-native-elements";
 
 import Box from "../../components/Box";
 import Text from "../../components/Text";
@@ -19,11 +19,10 @@ function Item({ pet, onPress }: ItemProps) {
 
   return (
     <Pressable onPress={handlePress}>
-      <Box display="flex" primary p={18} m={2} borderRadius={8}>
+      <Card containerStyle={{ padding: 10 }}>
         <Box display="flex" flexDirection="row" mb={2}>
           <Box mr={2}>
             <Image
-              borderRadius={2}
               source={{ uri: PET_IMAGE_API[randomPetKind]?.thumb() }}
               resizeMode="cover"
               style={{ width: 100, height: 100 }}
@@ -32,11 +31,11 @@ function Item({ pet, onPress }: ItemProps) {
           </Box>
         </Box>
         <Box>
-          <Text background fontSize={14} numberOfLines={2}>
+          <Text fontSize={14} numberOfLines={2}>
             {pet.description}
           </Text>
         </Box>
-      </Box>
+      </Card>
     </Pressable>
   );
 }

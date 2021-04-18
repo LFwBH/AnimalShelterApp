@@ -1,9 +1,12 @@
+import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { darken } from "polished";
 import React from "react";
-import { Image, Platform, Text } from "react-native";
+import { Image, Platform } from "react-native";
 
 import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
+import Text from "../components/Text";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import AboutUsScreen from "../screens/AboutUsScreen";
@@ -28,12 +31,9 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       tabBarOptions={{
-        inactiveTintColor: theme.palette.primary,
+        inactiveTintColor: darken(0.1, theme.palette.background),
         activeTintColor: theme.palette.background,
-        style: {
-          backgroundColor: "#6B96E4",
-          shadowColor: "#6B96E4",
-        },
+        style: { backgroundColor: theme.palette.primary },
       }}
       initialRouteName="Pets"
     >
@@ -43,12 +43,18 @@ export default function BottomTabNavigator() {
         options={{
           title: i18n("aboutUs.title"),
           tabBarLabel: () => (
-            <Text style={{ fontSize: 11, color: "white" }}>О нас</Text>
+            <Text background fontSize={11}>
+              О нас
+            </Text>
           ),
-          tabBarIcon: () => (
+          tabBarIcon: ({ color }) => (
             <Image
               source={require("../assets/images/icons/about-us.png")}
-              style={{ width: 24, height: 24, tintColor: "white" }}
+              style={{
+                width: 24,
+                height: 24,
+                tintColor: color,
+              }}
               resizeMode="contain"
             />
           ),
@@ -60,12 +66,18 @@ export default function BottomTabNavigator() {
         options={{
           title: i18n("pets.title"),
           tabBarLabel: () => (
-            <Text style={{ fontSize: 11, color: "white" }}>Питомцы</Text>
+            <Text background fontSize={11}>
+              Питомцы
+            </Text>
           ),
-          tabBarIcon: () => (
+          tabBarIcon: ({ color }) => (
             <Image
               source={require("../assets/images/icons/main.png")}
-              style={{ width: 24, height: 24, tintColor: "white" }}
+              style={{
+                width: 24,
+                height: 24,
+                tintColor: color,
+              }}
               resizeMode="contain"
             />
           ),
@@ -77,12 +89,18 @@ export default function BottomTabNavigator() {
         options={{
           title: i18n("lost.title"),
           tabBarLabel: () => (
-            <Text style={{ fontSize: 11, color: "white" }}>Потеряшки</Text>
+            <Text background fontSize={11}>
+              Потеряшки
+            </Text>
           ),
-          tabBarIcon: () => (
+          tabBarIcon: ({ color }) => (
             <Image
               source={require("../assets/images/icons/lost.png")}
-              style={{ width: 24, height: 24, tintColor: "white" }}
+              style={{
+                width: 24,
+                height: 24,
+                tintColor: color,
+              }}
               resizeMode="contain"
             />
           ),
@@ -94,8 +112,17 @@ export default function BottomTabNavigator() {
           component={ChatNavigator}
           options={{
             title: i18n("pets.chat"),
+            tabBarLabel: () => (
+              <Text background fontSize={11}>
+                Чат
+              </Text>
+            ),
             tabBarIcon: ({ color }) => (
-              <Ionicons name="ios-chatbox-outline" size={24} color={color} />
+              <Image
+                source={require("../assets/images/icons/chat.png")}
+                style={{ width: 24, height: 24, tintColor: color }}
+                resizeMode="contain"
+              />
             ),
           }}
         />
@@ -104,15 +131,17 @@ export default function BottomTabNavigator() {
         name="Profile"
         component={ProfileNavigator}
         options={{
-          title: i18n("pets.chat"),
+          title: i18n("profile.title"),
           tabBarLabel: () => (
-            <Text style={{ fontSize: 11, color: "white" }}>Чат</Text>
+            <Text background fontSize={11}>
+              Профиль
+            </Text>
           ),
-          tabBarIcon: () => (
-            <Image
-              source={require("../assets/images/icons/chat.png")}
-              style={{ width: 24, height: 24, tintColor: "white" }}
-              resizeMode="contain"
+          tabBarIcon: ({ color }) => (
+            <Ionicons
+              name="ios-person-circle-outline"
+              size={24}
+              color={color}
             />
           ),
         }}
@@ -121,24 +150,24 @@ export default function BottomTabNavigator() {
   );
 }
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const AboutUsStack = createStackNavigator<AboutUsParamList>();
 
 function AboutUsNavigator() {
+  const theme = useTheme();
+
   return (
     <AboutUsStack.Navigator>
       <AboutUsStack.Screen
         name="AboutUs"
         component={AboutUsScreen}
         options={{
-          headerTitle: (props) => <HeaderTitle title="О нас" />,
+          headerTitle: () => <HeaderTitle title="О нас" />,
           headerStyle: {
-            backgroundColor: "#6B96E4",
+            backgroundColor: theme.palette.primary,
+            shadowColor: theme.palette.primary,
             elevation: 0,
-            shadowColor: "#6B96E4",
           },
-          headerTintColor: "#fff",
+          headerTintColor: theme.palette.background,
           headerTitleStyle: {
             fontWeight: "bold",
             alignSelf: "center",
@@ -152,19 +181,21 @@ function AboutUsNavigator() {
 const PetsStack = createStackNavigator<PetsParamList>();
 
 function PetsNavigator() {
+  const theme = useTheme();
+
   return (
     <PetsStack.Navigator>
       <PetsStack.Screen
         name="Pets"
         component={PetsScreen}
         options={{
-          headerTitle: (props) => <HeaderTitle title="Питомцы" />,
+          headerTitle: () => <HeaderTitle title="Питомцы" />,
           headerStyle: {
-            backgroundColor: "#6B96E4",
+            backgroundColor: theme.palette.primary,
+            shadowColor: theme.palette.primary,
             elevation: 0,
-            shadowColor: "#6B96E4",
           },
-          headerTintColor: "#fff",
+          headerTintColor: theme.palette.background,
           headerTitleStyle: {
             fontWeight: "bold",
             alignSelf: "center",
@@ -178,19 +209,21 @@ function PetsNavigator() {
 const LostStack = createStackNavigator<LostPetsParamList>();
 
 function LostNavigator() {
+  const theme = useTheme();
+
   return (
     <LostStack.Navigator>
       <LostStack.Screen
         name="LostPets"
         component={LostPetsScreen}
         options={{
-          headerTitle: (props) => <HeaderTitle title="Потеряшки" />,
+          headerTitle: () => <HeaderTitle title="Потеряшки" />,
           headerStyle: {
-            backgroundColor: "#6B96E4",
+            backgroundColor: theme.palette.primary,
+            shadowColor: theme.palette.primary,
             elevation: 0,
-            shadowOpacity: 0,
           },
-          headerTintColor: "#fff",
+          headerTintColor: theme.palette.background,
           headerTitleStyle: {
             fontWeight: "bold",
             alignSelf: "center",
@@ -204,19 +237,21 @@ function LostNavigator() {
 const ChatStack = createStackNavigator<ChatParamList>();
 
 function ChatNavigator() {
+  const theme = useTheme();
+
   return (
     <ChatStack.Navigator>
       <ChatStack.Screen
         name="Chat"
         component={ChatBotScreen}
         options={{
-          headerTitle: (props) => <HeaderTitle title="Чат" />,
+          headerTitle: () => <HeaderTitle title="Чат" />,
           headerStyle: {
-            backgroundColor: "#6B96E4",
+            backgroundColor: theme.palette.primary,
+            shadowColor: theme.palette.primary,
             elevation: 0,
-            shadowOpacity: 0,
           },
-          headerTintColor: "#fff",
+          headerTintColor: theme.palette.background,
           headerTitleStyle: {
             fontWeight: "bold",
             alignSelf: "center",
@@ -230,12 +265,26 @@ function ChatNavigator() {
 const ProfileStack = createStackNavigator<ProfileParamList>();
 
 function ProfileNavigator() {
+  const theme = useTheme();
+
   return (
     <ProfileStack.Navigator>
       <ProfileStack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{ headerTitle: i18n("profile.title") }}
+        options={{
+          headerTitle: i18n("profile.title"),
+          headerStyle: {
+            backgroundColor: theme.palette.primary,
+            shadowColor: theme.palette.primary,
+            elevation: 0,
+          },
+          headerTintColor: theme.palette.background,
+          headerTitleStyle: {
+            fontWeight: "bold",
+            alignSelf: "center",
+          },
+        }}
       />
     </ProfileStack.Navigator>
   );

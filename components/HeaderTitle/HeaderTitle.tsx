@@ -1,30 +1,24 @@
 import React from "react";
 import { Image } from "react-native";
 import { Text } from "react-native-elements";
-import { justifyContent } from "styled-system";
 
-import Box from "../Box";
+import Box, { Row } from "../Box";
 
-interface IProps {
+interface HeaderTitleProps {
   title: string;
 }
 
-export default function HeaderTitle({ title }: IProps) {
+export default function HeaderTitle({ title }: HeaderTitleProps) {
   return (
-    <Box style={{ borderColor: "#6B96E4" }}>
-      <Box style={{ position: "absolute" }}>
-        <Image
-          style={{ width: 33, height: 33 }}
-          source={require("../../assets/images/round-logo.png")}
-        />
-      </Box>
-      <Box
-        style={{ display: "flex", flexDirection: "row", alignSelf: "center" }}
-      >
-        <Text style={{ fontWeight: "bold", color: "white", fontSize: 20 }}>
-          {title}
-        </Text>
-      </Box>
-    </Box>
+    <Row flex={1} alignItems="center">
+      <Image
+        style={{ width: 33, height: 33 }}
+        source={require("../../assets/images/round-logo.png")}
+      />
+      <Box p={2} />
+      <Text style={{ fontWeight: "bold", color: "white", fontSize: 20 }}>
+        {title}
+      </Text>
+    </Row>
   );
 }
