@@ -23,7 +23,7 @@ function ProfileScreen({ navigation }: ProfileScreenProps) {
 
   return (
     <Row p={2} flex={1}>
-      {!user?.token && (
+      {!user?.token ? (
         <Button
           title={
             <>
@@ -38,9 +38,7 @@ function ProfileScreen({ navigation }: ProfileScreenProps) {
           }
           onPress={handleRedirectToLogin}
         />
-      )}
-
-      {user?.token && (
+      ) : (
         <Button
           title={
             <>
