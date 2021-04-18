@@ -28,11 +28,11 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
   );
 
   const handleCatForm = useCallback(() => {
-    navigation.navigate("CatFormScreen");
+    navigation.navigate("CatForm");
   }, [navigation]);
 
   const handleDogForm = useCallback(() => {
-    navigation.navigate("DogFormScreen");
+    navigation.navigate("DogForm");
   }, [navigation]);
 
   let content: JSX.Element | null = null;
@@ -46,7 +46,7 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
 
     content = (
       <ScrollView contentContainerStyle={{ paddingBottom: theme.space[3] }}>
-        <Box as={Card} containerStyle={{ padding: 0 }}>
+        <Card containerStyle={{ padding: 0 }}>
           <Box mb={2}>
             <Card.Image
               borderRadius={2}
@@ -104,14 +104,14 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
               </Box>
             )}
             <Icon
-              color={theme.palette.accentDark}
+              color={theme.palette.secondary}
               type="antdesign"
               name="hearto"
               reverse
               raised
             />
           </Box>
-        </Box>
+        </Card>
       </ScrollView>
     );
   } else {

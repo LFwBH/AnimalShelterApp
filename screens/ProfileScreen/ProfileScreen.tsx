@@ -27,7 +27,7 @@ function ProfileScreen({ navigation }: ProfileScreenProps) {
         <Button
           title={
             <>
-              <Text color="white">{i18n("login.title")}</Text>
+              <Text background>{i18n("login.title")}</Text>
               <Box p={1} />
               <Ionicons
                 style={{ color: "white" }}
@@ -44,7 +44,7 @@ function ProfileScreen({ navigation }: ProfileScreenProps) {
         <Button
           title={
             <>
-              <Text color="white">{i18n("logout.title")}</Text>
+              <Text background>{i18n("logout.title")}</Text>
               <Box p={1} />
               <Ionicons
                 style={{ color: "white" }}

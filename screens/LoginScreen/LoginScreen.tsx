@@ -102,7 +102,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
               containerStyle={{ flex: 1 }}
               title={
                 <>
-                  <Text fontSize={20} color="white">
+                  <Text fontSize={20} background>
                     Войти
                   </Text>
                   <Ionicons
@@ -122,7 +122,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
               containerStyle={{ flex: 1 }}
               title={
                 <>
-                  <Text fontSize={20} color="white">
+                  <Text fontSize={20} background>
                     Зарегистрироваться
                   </Text>
                   <Ionicons

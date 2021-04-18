@@ -7,8 +7,8 @@ declare module "styled-components" {
     primary: string;
     secondary: string;
     disabled: string;
-    accent: string;
-    accentDark: string;
+    success: string;
+    warning: string;
     transparent: string;
   }
 

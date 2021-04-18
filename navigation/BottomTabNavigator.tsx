@@ -1,6 +1,7 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { darken } from "polished";
 import React from "react";
 import { Platform } from "react-native";
 
@@ -28,8 +29,11 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       tabBarOptions={{
-        inactiveTintColor: theme.palette.primary,
-        activeTintColor: theme.palette.accentDark,
+        style: {
+          backgroundColor: theme.palette.primary,
+        },
+        inactiveTintColor: darken(0.1, theme.palette.background),
+        activeTintColor: theme.palette.background,
       }}
       initialRouteName="Pets"
     >
