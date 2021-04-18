@@ -12,7 +12,7 @@ import Text from "../../components/Text";
 import { RootStackParamList } from "../../types/navigation";
 
 interface CatFormScreenProps
-  extends StackScreenProps<RootStackParamList, "CatFormScreen"> {}
+  extends StackScreenProps<RootStackParamList, "CatForm"> {}
 
 export default function CatFormScreen({ navigation }: CatFormScreenProps) {
   const handleForm = useCallback(() => {
@@ -31,7 +31,7 @@ export default function CatFormScreen({ navigation }: CatFormScreenProps) {
         </Box>
         <InputField
           label="Ваше ФИО:"
-          errorMessage="Заполните обязательное поле!"
+          errorLabel="Заполните обязательное поле!"
         />
         <InputField label="Возраст:" />
         <RoundButtonGroup

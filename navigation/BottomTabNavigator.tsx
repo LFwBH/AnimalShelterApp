@@ -1,22 +1,23 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { Image, Text } from "react-native";
-import { height } from "styled-system";
+import { Image, Platform, Text } from "react-native";
 
 import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import AboutUsScreen from "../screens/AboutUsScreen";
 import ChatBotScreen from "../screens/ChatBotScreen";
-import LostPetsScreen from "../screens/LostPetsScreen/LostPetsScreen";
+import LostPetsScreen from "../screens/LostPetsScreen";
 import PetsScreen from "../screens/PetsScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import {
   AboutUsParamList,
   BottomTabParamList,
   ChatParamList,
   LostPetsParamList,
   PetsParamList,
+  ProfileParamList,
 } from "../types/navigation";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -87,9 +88,21 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
+      {Platform.OS !== "ios" && (
+        <BottomTab.Screen
+          name="Chat"
+          component={ChatNavigator}
+          options={{
+            title: i18n("pets.chat"),
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="ios-chatbox-outline" size={24} color={color} />
+            ),
+          }}
+        />
+      )}
       <BottomTab.Screen
-        name="Chat"
-        component={ChatNavigator}
+        name="Profile"
+        component={ProfileNavigator}
         options={{
           title: i18n("pets.chat"),
           tabBarLabel: () => (
@@ -211,5 +224,19 @@ function ChatNavigator() {
         }}
       />
     </ChatStack.Navigator>
+  );
+}
+
+const ProfileStack = createStackNavigator<ProfileParamList>();
+
+function ProfileNavigator() {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ headerTitle: i18n("profile.title") }}
+      />
+    </ProfileStack.Navigator>
   );
 }

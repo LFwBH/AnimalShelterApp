@@ -1,46 +1,45 @@
 import React, { useCallback, useState } from "react";
-import { Input } from "react-native-elements";
 
 import Box from "../Box";
+import { StyledInput } from "./styles";
 
-interface IProps {
+interface InputFieldProps {
   label: string;
-  errorMessage?: string;
-  placeholderText?: string;
+  errorLabel?: string;
+  placeholder?: string;
   onChangeText?: (text: string) => void;
 }
 
 export default function InputField({
-  label,
-  errorMessage,
-  placeholderText,
+  errorLabel,
+  placeholder,
   onChangeText,
-}: IProps) {
+  ...rest
+}: InputFieldProps & React.ComponentProps<typeof StyledInput>) {
   const [error, setError] = useState(false);
-  const [defaultErrorMessage, setDefaultErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleInput = useCallback(
+  const handleChangeText = useCallback(
     (value) => {
       if (!value) {
-        setDefaultErrorMessage(errorMessage ?? "");
+        setErrorMessage(errorLabel ?? "");
         setError(true);
       } else {
-        setDefaultErrorMessage("");
+        setErrorMessage("");
         setError(false);
       }
     },
-    [errorMessage],
+    [errorLabel],
   );
 
   return (
     <Box display="flex" width="100%">
-      <Input
-        label={label}
-        style={{ borderWidth: 1, height: 40, borderColor: "#5381D6" }}
-        placeholder={placeholderText || "Ваш ответ"}
-        onChangeText={onChangeText || handleInput}
+      <StyledInput
+        {...rest}
+        placeholder={placeholder ?? "Ваш ответ"}
+        onChangeText={onChangeText ?? handleChangeText}
         renderErrorMessage={error}
-        errorMessage={defaultErrorMessage}
+        errorMessage={errorMessage}
       />
     </Box>
   );

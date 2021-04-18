@@ -1,12 +1,8 @@
-import { darken } from "polished";
-
-const darken20 = darken(0.2);
-
-export const ACCENT = "#FB4980";
+export const SUCCESS = "#62DA7C";
+export const WARNING = "#FFBC61";
 export const BACKGROUND = "#FFFFFF";
 export const TEXT = "#000000";
-export const PRIMARY = "#363F78";
-export const SECONDARY = "#FA837D";
-export const DISABLED = "#CBCBCB";
-export const ACCENT_DARK = darken20(ACCENT);
+export const PRIMARY = "#6B96E4";
+export const SECONDARY = "#FC827E";
+export const DISABLED = "#979DB0";
 export const TRANSPARENT = "transparent";

@@ -1,14 +1,14 @@
 import { Dimensions } from "react-native";
 
 import {
-  ACCENT,
-  ACCENT_DARK,
   BACKGROUND,
   DISABLED,
   PRIMARY,
   SECONDARY,
+  SUCCESS,
   TEXT,
   TRANSPARENT,
+  WARNING,
 } from "./colors";
 
 const MIN_WIDTH = 375;
@@ -22,8 +22,8 @@ const palette = {
   primary: PRIMARY,
   secondary: SECONDARY,
   disabled: DISABLED,
-  accent: ACCENT,
-  accentDark: ACCENT_DARK,
+  success: SUCCESS,
+  warning: WARNING,
   transparent: TRANSPARENT,
 };
 

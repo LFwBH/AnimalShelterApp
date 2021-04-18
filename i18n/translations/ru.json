@@ -21,7 +21,7 @@
     }
   },
   "notFound": {
-    "screenDoesntExist": "Страница не существует",
+    "screenNotFound": "Страница не существует",
     "goHome": "Вернуться домой!"
   },
   "common": {
@@ -34,10 +34,16 @@
   "login": {
     "title": "Вход"
   },
+  "logout": {
+    "title": "Выход"
+  },
   "aboutUs": {
     "title": "О нас"
   },
   "lost": {
     "title": "Потеряшки"
+  },
+  "profile": {
+    "title": "Профиль"
   }
 }
