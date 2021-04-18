@@ -104,18 +104,8 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
   }
 
   return (
-    <Box
-      as={SafeAreaView}
-      flex={1}
-      style={{ backgroundColor: "#6B96E4", paddingBottom: 60, marginTop: -1 }}
-    >
-      <Box
-        style={{
-          backgroundColor: "#fff",
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
-        }}
-      >
+    <Box as={SafeAreaView} flex={1} primary pb={90}>
+      <Box background borderTopLeftRadius={18} borderTopRightRadius={18}>
         <SearchBar
           // @ts-expect-error ts(2322)
           placeholder={`${i18n("pets.search")}...`}
@@ -125,22 +115,22 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
           round
           searchIcon={
             <Icon
-              color="gray"
+              color={theme.palette.primary}
               type="antdesign"
               name="search1"
-              style={{ opacity: 0.5 }}
             />
           }
           containerStyle={{
-            backgroundColor: "transparent",
-            borderBottomColor: "transparent",
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+            backgroundColor: theme.palette.transparent,
           }}
           inputContainerStyle={{
-            backgroundColor: "white",
+            backgroundColor: theme.palette.background,
+            borderColor: theme.palette.primary,
             height: 40,
             borderWidth: 1,
             borderBottomWidth: 1,
-            borderColor: "#6B96E4",
           }}
         />
         {content}

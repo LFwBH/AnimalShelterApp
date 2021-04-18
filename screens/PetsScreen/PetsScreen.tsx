@@ -2,7 +2,7 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import last from "lodash/last";
 import React, { useCallback, useMemo, useState } from "react";
 import { FlatList, SafeAreaView, ScrollView } from "react-native";
-import { Button, Icon, SearchBar } from "react-native-elements";
+import { Icon, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
 
 import { fetchPetList, PET_KIND, PET_SEX, PETS_KEY } from "../../api/pets";
@@ -14,6 +14,7 @@ import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
+import { FilterButton } from "./styles";
 
 interface PetsScreenProps
   extends BottomTabScreenProps<RootStackParamList, "Pets"> {}
@@ -136,11 +137,6 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
         refreshing={isFetchingNextPage}
         onRefresh={handleRefresh}
         contentContainerStyle={{ marginTop: -10 }}
-        containerStyle={{ backgroundColor: "#fff" }}
-        inputStyle={{ backgroundColor: "#fff" }}
-        inputContainerStyle={{ color: "#fff" }}
-        placeholderTextColor={"#CBCBCB"}
-        searchIcon={{ color: "#CBCBCB" }}
       />
     );
   } else {
@@ -148,18 +144,8 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
   }
 
   return (
-    <Box
-      as={SafeAreaView}
-      flex={1}
-      style={{ backgroundColor: "#6B96E4", paddingBottom: 90, marginTop: -1 }}
-    >
-      <Box
-        style={{
-          backgroundColor: "#fff",
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
-        }}
-      >
+    <Box as={SafeAreaView} flex={1} primary pb={90}>
+      <Box background borderTopLeftRadius={18} borderTopRightRadius={18}>
         <SearchBar
           // @ts-expect-error ts(2322)
           placeholder={`${i18n("pets.search")}`}
@@ -169,22 +155,22 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
           round
           searchIcon={
             <Icon
-              color="gray"
+              color={theme.palette.primary}
               type="antdesign"
               name="search1"
-              style={{ opacity: 0.5 }}
             />
           }
           containerStyle={{
-            backgroundColor: "transparent",
-            borderBottomColor: "transparent",
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+            backgroundColor: theme.palette.transparent,
           }}
           inputContainerStyle={{
-            backgroundColor: "white",
+            backgroundColor: theme.palette.background,
+            borderColor: theme.palette.primary,
             height: 40,
             borderWidth: 1,
             borderBottomWidth: 1,
-            borderColor: "#6B96E4",
           }}
         />
         <Row mx={10}>
@@ -194,53 +180,29 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
             horizontal
           >
             <Col mr={2}>
-              <Button
-                buttonStyle={{
-                  width: 95,
-                  height: 27,
-                  borderRadius: theme.layout.window.width,
-                  backgroundColor: "#6B96E4",
-                }}
-                type={sex === PET_SEX.BOY ? "outline" : "solid"}
+              <FilterButton
+                active={sex === PET_SEX.BOY}
                 title={i18n("pet.sexType.boy")}
                 onPress={handleFilterBoys}
               />
             </Col>
             <Col mr={2}>
-              <Button
-                buttonStyle={{
-                  width: 95,
-                  height: 27,
-                  borderRadius: theme.layout.window.width,
-                  backgroundColor: "#6B96E4",
-                }}
-                type={sex === PET_SEX.GIRL ? "outline" : "solid"}
+              <FilterButton
+                active={sex === PET_SEX.GIRL}
                 title={i18n("pet.sexType.girl")}
                 onPress={handleFilterGirls}
               />
             </Col>
             <Col mr={2}>
-              <Button
-                buttonStyle={{
-                  width: 95,
-                  height: 27,
-                  borderRadius: theme.layout.window.width,
-                  backgroundColor: "#6B96E4",
-                }}
-                type={kind === PET_KIND.CAT ? "outline" : "solid"}
+              <FilterButton
+                active={kind === PET_KIND.CAT}
                 title={i18n("pet.kindType.cat")}
                 onPress={handleFilterCats}
               />
             </Col>
             <Col>
-              <Button
-                buttonStyle={{
-                  width: 95,
-                  height: 27,
-                  borderRadius: theme.layout.window.width,
-                  backgroundColor: "#6B96E4",
-                }}
-                type={kind === PET_KIND.DOG ? "outline" : "solid"}
+              <FilterButton
+                active={kind === PET_KIND.DOG}
                 title={i18n("pet.kindType.dog")}
                 onPress={handleFilterDogs}
               />

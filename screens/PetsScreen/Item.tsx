@@ -1,7 +1,7 @@
 import lowerFirst from "lodash/lowerFirst";
 import React, { useCallback } from "react";
 import { ActivityIndicator, Pressable } from "react-native";
-import { Image } from "react-native-elements";
+import { Card, Image } from "react-native-elements";
 
 import Box from "../../components/Box";
 import Text from "../../components/Text";
@@ -19,22 +19,10 @@ function Item({ pet, onPress }: ItemProps) {
 
   return (
     <Pressable onPress={handlePress}>
-      <Box
-        display="flex"
-        primary
-        m={2}
-        borderRadius={8}
-        style={{
-          borderColor: "#BFBFBF",
-          borderWidth: 1,
-          backgroundColor: "#fff",
-          marginTop: 10,
-        }}
-      >
+      <Card containerStyle={{ padding: 0 }}>
         <Box display="flex" flexDirection="row">
           <Box mr={2}>
             <Image
-              borderRadius={2}
               source={{ uri: PET_IMAGE_API[pet.kind]?.thumb() }}
               resizeMode="cover"
               style={{ width: 162, height: 132 }}
@@ -89,7 +77,7 @@ function Item({ pet, onPress }: ItemProps) {
             </Box>
           </Box>
         </Box>
-      </Box>
+      </Card>
     </Pressable>
   );
 }
