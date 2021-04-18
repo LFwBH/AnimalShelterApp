@@ -1,11 +1,12 @@
-import lowerFirst from "lodash/lowerFirst";
 import React, { useCallback } from "react";
 import { ActivityIndicator, Pressable } from "react-native";
 import { Card, Image } from "react-native-elements";
 
-import Box from "../../components/Box";
+import Box, { Row } from "../../components/Box";
 import Text from "../../components/Text";
 import { PET_IMAGE_API } from "../../constants/api";
+import { useTheme } from "../../constants/styled-components";
+import { boolToString } from "../../helpers/boolToString";
 import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 
@@ -15,11 +16,15 @@ interface ItemProps {
 }
 
 function Item({ pet, onPress }: ItemProps) {
+  const theme = useTheme();
+
   const handlePress = useCallback(() => onPress(pet), [onPress, pet]);
 
   return (
     <Pressable onPress={handlePress}>
-      <Card containerStyle={{ padding: 0 }}>
+      <Card
+        containerStyle={{ padding: 0, ...theme.shadow.pt4, borderWidth: 0 }}
+      >
         <Box display="flex" flexDirection="row">
           <Box mr={2}>
             <Image
@@ -30,51 +35,27 @@ function Item({ pet, onPress }: ItemProps) {
             />
           </Box>
           <Box p={2}>
-            <Text
-              fontWeight="bold"
-              background
-              fontSize={16}
-              mb={1}
-              style={{ fontWeight: "bold", color: "#6B96E4" }}
-            >
+            <Text fontWeight="semi" primary fontSize={16} mb={1}>
               {pet.name}
             </Text>
-            <Box style={{ display: "flex", flexDirection: "row" }}>
+            <Row flex={1}>
               <Box>
-                <Text fontSize={12} background style={{ color: "#000" }}>
-                  {i18n("pet.age")}:
-                </Text>
-                <Text background fontSize={12} style={{ color: "#000" }}>
-                  {i18n("pet.sterilization")}:
-                </Text>
-                <Text background fontSize={12} style={{ color: "#000" }}>
-                  {i18n("pet.vacination")}:
-                </Text>
+                <Text fontSize={12}>{i18n("pet.age")}:</Text>
+                <Text fontSize={12}>{i18n("pet.sterilization")}:</Text>
+                <Text fontSize={12}>{i18n("pet.color")}:</Text>
               </Box>
-              <Box style={{ paddingLeft: 15 }}>
-                <Text
-                  fontSize={12}
-                  background
-                  style={{ color: "#000", opacity: 0.5 }}
-                >
+              <Box pl={3}>
+                <Text fontSize={12} opacity={0.5}>
                   {pet.age}
                 </Text>
-                <Text
-                  background
-                  fontSize={12}
-                  style={{ color: "#000", opacity: 0.5 }}
-                >
-                  {i18n(`pet.sexType.${lowerFirst(pet.sex)}`)}
+                <Text fontSize={12} opacity={0.5}>
+                  {boolToString(pet.sterilized)}
                 </Text>
-                <Text
-                  background
-                  fontSize={12}
-                  style={{ color: "#000", opacity: 0.5 }}
-                >
+                <Text fontSize={12} opacity={0.5}>
                   {pet.color}
                 </Text>
               </Box>
-            </Box>
+            </Row>
           </Box>
         </Box>
       </Card>

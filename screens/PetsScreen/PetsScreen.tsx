@@ -136,7 +136,8 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
         onEndReached={handleLoadNextPage}
         refreshing={isFetchingNextPage}
         onRefresh={handleRefresh}
-        contentContainerStyle={{ marginTop: -10 }}
+        contentContainerStyle={{ flex: 1 }}
+        style={{ flex: 1 }}
       />
     );
   } else {
@@ -144,8 +145,13 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
   }
 
   return (
-    <Box as={SafeAreaView} flex={1} primary pb={90}>
-      <Box background borderTopLeftRadius={18} borderTopRightRadius={18}>
+    <Box as={SafeAreaView} display="flex" flex={1} primary>
+      <Box
+        flex={1}
+        background
+        borderTopLeftRadius={18}
+        borderTopRightRadius={18}
+      >
         <SearchBar
           // @ts-expect-error ts(2322)
           placeholder={`${i18n("pets.search")}`}

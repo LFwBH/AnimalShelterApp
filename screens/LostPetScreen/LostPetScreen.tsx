@@ -1,11 +1,6 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
-import {
-  ActivityIndicator,
-  Dimensions,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { ActivityIndicator, SafeAreaView, ScrollView } from "react-native";
 import { Card } from "react-native-elements";
 import { useQuery } from "react-query";
 
@@ -40,51 +35,56 @@ export default function LostPetScreen({ route }: PetScreenProps) {
   } else if (!isError) {
     const pet = data?.data as NonNullable<LostPet>;
 
-    const original = pet.image?.original;
-
     content = (
-      <ScrollView
-        contentContainerStyle={{
-          backgroundColor: "#6B96E4",
-          elevation: 0,
-          shadowColor: "#6B96E4",
-          height: Dimensions.get("window").height,
-        }}
-      >
-        <Box
-          as={Card}
+      <Box flex={1} background borderRadius={18}>
+        <Card
+          wrapperStyle={{ flex: 1 }}
           containerStyle={{
-            backgroundColor: "#fff",
-            borderRadius: 30,
-            width: Dimensions.get("window").width / 1.08,
+            padding: 0,
+            margin: 0,
+            marginTop: 24,
+            flex: 1,
+            shadowColor: theme.palette.transparent,
+            borderColor: theme.palette.transparent,
           }}
         >
-          <Box>
-            <Card.Image
-              borderRadius={2}
-              source={{ uri: PET_IMAGE_API[randomPetKind]?.full() }}
+          <ScrollView
+            style={{ backgroundColor: theme.palette.background }}
+            contentContainerStyle={{
+              backgroundColor: theme.palette.background,
+            }}
+          >
+            <Box alignSelf="center">
+              <Card.Image
+                borderRadius={2}
+                source={{ uri: PET_IMAGE_API[randomPetKind]?.full() }}
+                style={{
+                  width: 360,
+                  height: 300,
+                }}
+                resizeMode="cover"
+                PlaceholderContent={<ActivityIndicator />}
+              />
+            </Box>
+            <Card.Divider
               style={{
-                width: 360,
-                height: 300,
+                marginTop: theme.space[4],
+                marginBottom: theme.space[4],
+                elevation: 1,
+                opacity: 0.5,
               }}
-              resizeMode="cover"
-              PlaceholderContent={<ActivityIndicator />}
             />
-          </Box>
-          <Box p={2} pt={0}>
-            <Box mt={3} />
-            <Text>{pet.description}</Text>
-            <Box mt={3} />
-          </Box>
-        </Box>
-      </ScrollView>
+            <Text px={3}>{pet.description}</Text>
+          </ScrollView>
+        </Card>
+      </Box>
     );
   } else {
     content = <FullScreenError />;
   }
 
   return (
-    <Box as={SafeAreaView} flex={1}>
+    <Box as={SafeAreaView} flex={1} backgroundColor={theme.palette.primary}>
       {content}
     </Box>
   );

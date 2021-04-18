@@ -70,32 +70,39 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   return (
     <Row as={SafeAreaView} flex={1}>
       <Col flex={1} py={2}>
-        <InputField
-          autoCapitalize="none"
-          autoFocus
-          autoCorrect={false}
-          placeholder=""
-          autoCompleteType="email"
-          textContentType="emailAddress"
-          keyboardType="email-address"
-          label="Эл. почта"
-          errorLabel="Заполните обязательное поле!"
-          onChangeText={handleChangeEmail}
-        />
-        <Box p={2} />
-        <InputField
-          autoCapitalize="none"
-          autoFocus
-          autoCorrect={false}
-          placeholder=""
-          autoCompleteType="password"
-          textContentType="password"
-          secureTextEntry
-          label="Пароль"
-          errorLabel="Заполните обязательное поле!"
-          onChangeText={handleChangePassword}
-        />
-        <Col flex={1} p={2} justifyContent="flex-end">
+        <Col flex={1} justifyContent="center">
+          <InputField
+            autoCapitalize="none"
+            autoFocus
+            autoCorrect={false}
+            placeholder=""
+            autoCompleteType="email"
+            textContentType="emailAddress"
+            keyboardType="email-address"
+            label="Эл. почта"
+            errorLabel="Заполните обязательное поле!"
+            onChangeText={handleChangeEmail}
+          />
+          <InputField
+            autoCapitalize="none"
+            autoFocus
+            autoCorrect={false}
+            placeholder=""
+            autoCompleteType="password"
+            textContentType="password"
+            secureTextEntry
+            label="Пароль"
+            errorLabel="Заполните обязательное поле!"
+            onChangeText={handleChangePassword}
+          />
+        </Col>
+        <Col
+          position="absolute"
+          width="100%"
+          bottom={0}
+          p={2}
+          justifyContent="flex-end"
+        >
           <Row>
             <Button
               disabled={disabled}

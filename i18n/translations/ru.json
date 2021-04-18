@@ -11,8 +11,6 @@
     "passport": "Паспорт",
     "sterilization": "Стерилизация",
     "sterilizationDate": "Дата стерилизации",
-    "character": "Пол",
-    "vacination": "Вакцинация",
     "from": "Откуда",
     "sexType": {
       "boy": "Мальчик",
@@ -22,7 +20,8 @@
     "kindType": {
       "dog": "Собака",
       "cat": "Кошка"
-    }
+    },
+    "description": "Характеристика"
   },
   "notFound": {
     "screenNotFound": "Страница не существует",
@@ -30,7 +29,9 @@
   },
   "common": {
     "error": "Ошибка",
-    "oops": "Упс"
+    "oops": "Упс",
+    "yes": "Да",
+    "no": "Нет"
   },
   "form": {
     "formTitle": "Анкета"
