@@ -273,7 +273,7 @@ function ProfileNavigator() {
         name="Profile"
         component={ProfileScreen}
         options={{
-          headerTitle: i18n("profile.title"),
+          headerTitle: () => <HeaderTitle title="Профиль" />,
           headerStyle: {
             backgroundColor: theme.palette.primary,
             shadowColor: theme.palette.primary,

@@ -29,11 +29,15 @@ function Item({ pet, onPress }: ItemProps) {
               PlaceholderContent={<ActivityIndicator />}
             />
           </Box>
-        </Box>
-        <Box>
-          <Text fontSize={14} numberOfLines={2}>
-            {pet.description}
-          </Text>
+          <Box>
+            <Text
+              fontSize={14}
+              numberOfLines={5}
+              style={{ width: 250, opacity: 0.5 }}
+            >
+              {pet.description}
+            </Text>
+          </Box>
         </Box>
       </Card>
     </Pressable>

@@ -52,7 +52,17 @@ function RootNavigator() {
       <RootStack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ title: i18n("login.title"), headerShown: true }}
+        options={{
+          title: i18n("login.title"),
+          headerShown: true,
+          headerTitle: (props) => <HeaderTitle logo={false} title="Анкета" />,
+          headerStyle: {
+            backgroundColor: "#6B96E4",
+            elevation: 0,
+            shadowColor: "#6B96E4",
+          },
+          headerTintColor: "#fff",
+        }}
       />
       <RootStack.Screen
         name="Pet"

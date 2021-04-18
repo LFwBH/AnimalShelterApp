@@ -104,7 +104,7 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
   }
 
   return (
-    <Box as={SafeAreaView} flex={1} primary pb={90}>
+    <Box as={SafeAreaView} flex={1} primary pb={55}>
       <Box background borderTopLeftRadius={18} borderTopRightRadius={18}>
         <SearchBar
           // @ts-expect-error ts(2322)
