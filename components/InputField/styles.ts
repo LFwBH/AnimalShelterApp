@@ -1,6 +1,5 @@
 import { themeGet } from "@styled-system/theme-get";
 import { Input } from "react-native-elements";
-import { fontWeight } from "styled-system";
 
 import styled from "../../constants/styled-components";
 

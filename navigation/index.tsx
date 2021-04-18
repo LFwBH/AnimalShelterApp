@@ -1,8 +1,9 @@
-import { NavigationContainer, RouteProp } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useCallback } from "react";
 
 import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
+import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import CatFormScreen from "../screens/CatFormScreen";
 import DogFormScreen from "../screens/DogFormScreen";
@@ -28,18 +29,21 @@ export default function Navigation() {
 const RootStack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const theme = useTheme();
+
   const getPetScreenOptions = useCallback(
-    ({ route }: { route: RouteProp<RootStackParamList, "Pet"> }) => ({
+    () => ({
+      title: i18n("pet.title"),
       headerShown: true,
-      headerTitle: (props) => <HeaderTitle logo={false} title="О питомце" />,
+      headerTitle: () => <HeaderTitle logo={false} title="О питомце" />,
       headerStyle: {
-        backgroundColor: "#6B96E4",
+        backgroundColor: theme.palette.primary,
         elevation: 0,
-        shadowColor: "#6B96E4",
+        shadowColor: theme.palette.primary,
       },
-      headerTintColor: "#fff",
+      headerTintColor: theme.palette.background,
     }),
-    [],
+    [theme.palette.background, theme.palette.primary],
   );
 
   return (
@@ -55,13 +59,13 @@ function RootNavigator() {
         options={{
           title: i18n("login.title"),
           headerShown: true,
-          headerTitle: (props) => <HeaderTitle logo={false} title="Анкета" />,
+          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
           headerStyle: {
-            backgroundColor: "#6B96E4",
+            backgroundColor: theme.palette.primary,
             elevation: 0,
-            shadowColor: "#6B96E4",
+            shadowColor: theme.palette.primary,
           },
-          headerTintColor: "#fff",
+          headerTintColor: theme.palette.background,
         }}
       />
       <RootStack.Screen
@@ -74,13 +78,13 @@ function RootNavigator() {
         options={{
           title: i18n("lost.title"),
           headerShown: true,
-          headerTitle: (props) => <HeaderTitle logo={false} title="Анкета" />,
+          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
           headerStyle: {
-            backgroundColor: "#6B96E4",
+            backgroundColor: theme.palette.primary,
             elevation: 0,
-            shadowColor: "#6B96E4",
+            shadowColor: theme.palette.primary,
           },
-          headerTintColor: "#fff",
+          headerTintColor: theme.palette.background,
         }}
         component={LostPetScreen}
       />
@@ -95,13 +99,13 @@ function RootNavigator() {
         options={{
           title: i18n("form.formTitle"),
           headerShown: true,
-          headerTitle: (props) => <HeaderTitle logo={false} title="Анкета" />,
+          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
           headerStyle: {
-            backgroundColor: "#6B96E4",
+            backgroundColor: theme.palette.primary,
             elevation: 0,
-            shadowColor: "#6B96E4",
+            shadowColor: theme.palette.primary,
           },
-          headerTintColor: "#fff",
+          headerTintColor: theme.palette.background,
         }}
       />
       <RootStack.Screen
@@ -110,13 +114,13 @@ function RootNavigator() {
         options={{
           title: i18n("form.formTitle"),
           headerShown: true,
-          headerTitle: (props) => <HeaderTitle logo={false} title="Анкета" />,
+          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
           headerStyle: {
-            backgroundColor: "#6B96E4",
+            backgroundColor: theme.palette.primary,
             elevation: 0,
-            shadowColor: "#6B96E4",
+            shadowColor: theme.palette.primary,
           },
-          headerTintColor: "#fff",
+          headerTintColor: theme.palette.background,
         }}
       />
     </RootStack.Navigator>
