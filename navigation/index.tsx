@@ -2,6 +2,7 @@ import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useCallback } from "react";
 
+import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
 import i18n from "../i18n";
 import CatFormScreen from "../screens/CatFormScreen";
 import DogFormScreen from "../screens/DogFormScreen";
@@ -30,7 +31,13 @@ function RootNavigator() {
   const getPetScreenOptions = useCallback(
     ({ route }: { route: RouteProp<RootStackParamList, "Pet"> }) => ({
       headerShown: true,
-      headerTitle: route.params.petName,
+      headerTitle: (props) => <HeaderTitle logo={false} title="О питомце" />,
+      headerStyle: {
+        backgroundColor: "#6B96E4",
+        elevation: 0,
+        shadowColor: "#6B96E4",
+      },
+      headerTintColor: "#fff",
     }),
     [],
   );
@@ -54,7 +61,17 @@ function RootNavigator() {
       />
       <RootStack.Screen
         name="LostPet"
-        options={{ title: i18n("lost.title"), headerShown: true }}
+        options={{
+          title: i18n("lost.title"),
+          headerShown: true,
+          headerTitle: (props) => <HeaderTitle logo={false} title="Анкета" />,
+          headerStyle: {
+            backgroundColor: "#6B96E4",
+            elevation: 0,
+            shadowColor: "#6B96E4",
+          },
+          headerTintColor: "#fff",
+        }}
         component={LostPetScreen}
       />
       <RootStack.Screen
@@ -65,12 +82,32 @@ function RootNavigator() {
       <RootStack.Screen
         name="CatForm"
         component={CatFormScreen}
-        options={{ title: i18n("form.formTitle"), headerShown: true }}
+        options={{
+          title: i18n("form.formTitle"),
+          headerShown: true,
+          headerTitle: (props) => <HeaderTitle logo={false} title="Анкета" />,
+          headerStyle: {
+            backgroundColor: "#6B96E4",
+            elevation: 0,
+            shadowColor: "#6B96E4",
+          },
+          headerTintColor: "#fff",
+        }}
       />
       <RootStack.Screen
         name="DogForm"
         component={DogFormScreen}
-        options={{ title: i18n("form.formTitle"), headerShown: true }}
+        options={{
+          title: i18n("form.formTitle"),
+          headerShown: true,
+          headerTitle: (props) => <HeaderTitle logo={false} title="Анкета" />,
+          headerStyle: {
+            backgroundColor: "#6B96E4",
+            elevation: 0,
+            shadowColor: "#6B96E4",
+          },
+          headerTintColor: "#fff",
+        }}
       />
     </RootStack.Navigator>
   );

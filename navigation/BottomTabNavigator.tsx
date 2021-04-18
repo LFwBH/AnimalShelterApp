@@ -88,23 +88,27 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-      {Platform.OS !== "ios" && (
-        <BottomTab.Screen
-          name="Chat"
-          component={ChatNavigator}
-          options={{
-            title: i18n("pets.chat"),
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="ios-chatbox-outline" size={24} color={color} />
-            ),
-          }}
-        />
-      )}
+
+      <BottomTab.Screen
+        name="Chat"
+        component={ChatNavigator}
+        options={{
+          title: i18n("pets.chat"),
+          tabBarIcon: () => (
+            <Image
+              source={require("../assets/images/icons/chat.png")}
+              style={{ width: 24, height: 24, tintColor: "white" }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      />
+
       <BottomTab.Screen
         name="Profile"
         component={ProfileNavigator}
         options={{
-          title: i18n("pets.chat"),
+          title: i18n("profile.title"),
           tabBarLabel: () => (
             <Text style={{ fontSize: 11, color: "white" }}>Чат</Text>
           ),
@@ -132,7 +136,7 @@ function AboutUsNavigator() {
         name="AboutUs"
         component={AboutUsScreen}
         options={{
-          headerTitle: (props) => <HeaderTitle title="О нас" />,
+          headerTitle: (props) => <HeaderTitle logo={true} title="О нас" />,
           headerStyle: {
             backgroundColor: "#6B96E4",
             elevation: 0,
@@ -158,7 +162,7 @@ function PetsNavigator() {
         name="Pets"
         component={PetsScreen}
         options={{
-          headerTitle: (props) => <HeaderTitle title="Питомцы" />,
+          headerTitle: (props) => <HeaderTitle logo={true} title="Питомцы" />,
           headerStyle: {
             backgroundColor: "#6B96E4",
             elevation: 0,
@@ -184,7 +188,7 @@ function LostNavigator() {
         name="LostPets"
         component={LostPetsScreen}
         options={{
-          headerTitle: (props) => <HeaderTitle title="Потеряшки" />,
+          headerTitle: (props) => <HeaderTitle logo={true} title="Потеряшки" />,
           headerStyle: {
             backgroundColor: "#6B96E4",
             elevation: 0,
@@ -210,7 +214,7 @@ function ChatNavigator() {
         name="Chat"
         component={ChatBotScreen}
         options={{
-          headerTitle: (props) => <HeaderTitle title="Чат" />,
+          headerTitle: (props) => <HeaderTitle logo={true} title="Чат" />,
           headerStyle: {
             backgroundColor: "#6B96E4",
             elevation: 0,
@@ -235,7 +239,19 @@ function ProfileNavigator() {
       <ProfileStack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{ headerTitle: i18n("profile.title") }}
+        options={{
+          headerTitle: (props) => <HeaderTitle logo={true} title="Профиль" />,
+          headerStyle: {
+            backgroundColor: "#6B96E4",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            alignSelf: "center",
+          },
+        }}
       />
     </ProfileStack.Navigator>
   );

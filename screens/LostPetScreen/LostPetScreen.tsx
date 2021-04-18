@@ -1,6 +1,11 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
-import { ActivityIndicator, SafeAreaView, ScrollView } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { Card } from "react-native-elements";
 import { useQuery } from "react-query";
 
@@ -38,15 +43,29 @@ export default function LostPetScreen({ route }: PetScreenProps) {
     const original = pet.image?.original;
 
     content = (
-      <ScrollView contentContainerStyle={{ paddingBottom: theme.space[3] }}>
-        <Box as={Card} containerStyle={{ padding: 0 }}>
-          <Box mb={2}>
+      <ScrollView
+        contentContainerStyle={{
+          backgroundColor: "#6B96E4",
+          elevation: 0,
+          shadowColor: "#6B96E4",
+          height: Dimensions.get("window").height,
+        }}
+      >
+        <Box
+          as={Card}
+          containerStyle={{
+            backgroundColor: "#fff",
+            borderRadius: 30,
+            width: Dimensions.get("window").width / 1.08,
+          }}
+        >
+          <Box>
             <Card.Image
               borderRadius={2}
               source={{ uri: PET_IMAGE_API[randomPetKind]?.full() }}
               style={{
-                width: theme.layout.window.width - theme.space[2] * 2,
-                height: original?.height ?? 500 / 2,
+                width: 360,
+                height: 300,
               }}
               resizeMode="cover"
               PlaceholderContent={<ActivityIndicator />}

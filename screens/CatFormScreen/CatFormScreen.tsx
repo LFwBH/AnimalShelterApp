@@ -1,7 +1,7 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useCallback } from "react";
 import { SafeAreaView, ScrollView } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Card } from "react-native-elements";
 
 import Box from "../../components/Box";
 import CheckboxVariant from "../../components/CheckboxVariant/CheckboxVariant";
@@ -20,15 +20,31 @@ export default function CatFormScreen({ navigation }: CatFormScreenProps) {
   }, [navigation]);
 
   return (
-    <Box as={SafeAreaView} flex={1}>
-      <ScrollView>
-        <Box display="flex" alignItems="center" justifyContent="center" p={2}>
-          <Text>
+    <Box
+      as={SafeAreaView}
+      flex={1}
+      style={{
+        backgroundColor: "#6B96E4",
+        elevation: 0,
+        shadowColor: "#6B96E4",
+      }}
+    >
+      <ScrollView
+        style={{
+          backgroundColor: "#fff",
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          paddingHorizontal: 15,
+        }}
+      >
+        <Box display="flex" alignItems="center" justifyContent="center" p={4}>
+          <Text style={{ textAlign: "center" }}>
             Здравствуйте! Если хотите взять у нас кошку, заполните пожалуйста
             эту анкету и мы свяжемся с вами!
           </Text>
           <Text>Эти вопросы мы задаем по телефону.</Text>
         </Box>
+        <Card.Divider style={{ width: "100%", elevation: 1, opacity: 0.5 }} />
         <InputField
           label="Ваше ФИО:"
           errorLabel="Заполните обязательное поле!"
@@ -89,7 +105,19 @@ export default function CatFormScreen({ navigation }: CatFormScreenProps) {
           thirdButton="Свой вариант"
           errorMessage="Заполните обязательное поле!"
         />
-        <Button title="Отправить" type="clear" onPress={handleForm} />
+        <Button
+          title="Отправить"
+          type="clear"
+          onPress={handleForm}
+          buttonStyle={{
+            borderWidth: 1,
+            borderColor: "#FFBC61",
+            width: 240,
+            alignSelf: "center",
+            marginBottom: 15,
+          }}
+          titleStyle={{ color: "#FFBC61" }}
+        />
       </ScrollView>
     </Box>
   );

@@ -109,13 +109,12 @@ export default function RoundButtonGroup({
     <Box display="flex" width="100%" justifyContent="center" p={2}>
       {label && <Text>{label}</Text>}
       <ButtonGroup
-        containerStyle={{ height: 50, borderColor: "#f2f2f2" }}
-        buttonStyle={{ backgroundColor: "#f2f2f2", borderColor: "#f2f2f2" }}
+        containerStyle={{ borderColor: "#fff", justifyContent: "flex-start" }}
+        buttonContainerStyle={{ backgroundColor: "#fff", borderColor: "#fff" }}
         onPress={handleUpdateIndex}
         selectedIndex={selectedIndex}
         selectedButtonStyle={{
-          backgroundColor: "#f2f2f2",
-          borderColor: "#f2f2f2",
+          backgroundColor: "#fff",
         }}
         // @ts-expect-error ts(2322)
         buttons={thirdButton ? buttonsThree : buttonsTwo}
@@ -126,6 +125,21 @@ export default function RoundButtonGroup({
           onChangeText={handleInput}
           renderErrorMessage={error}
           errorMessage={defaultErrorMessage}
+          inputContainerStyle={{
+            borderWidth: 1,
+            borderColor: "#6B96E4",
+            paddingBottom: 15,
+            height: 40,
+            paddingTop: 15,
+          }}
+          labelStyle={{
+            color: "#000",
+            fontWeight: "normal",
+            paddingBottom: 5,
+          }}
+          inputStyle={{
+            fontSize: 14,
+          }}
         />
       )}
     </Box>

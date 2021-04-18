@@ -80,9 +80,9 @@ export default function CheckboxVariant({
             checked={checkbox.firstCheckbox}
             onPress={handleCheckbox("first")}
             containerStyle={{
-              backgroundColor: "#f2f2f2",
+              backgroundColor: "#fff",
               width: "50%",
-              borderColor: "#f2f2f2",
+              borderColor: "#fff",
             }}
           />
           <CheckBox
@@ -91,9 +91,9 @@ export default function CheckboxVariant({
             checked={checkbox.secondCheckbox}
             onPress={handleCheckbox("second")}
             containerStyle={{
-              backgroundColor: "#f2f2f2",
+              backgroundColor: "#fff",
               width: "50%",
-              borderColor: "#f2f2f2",
+              borderColor: "#fff",
             }}
           />
         </Box>
@@ -105,9 +105,9 @@ export default function CheckboxVariant({
               checked={checkbox.thirdCheckbox}
               onPress={handleCheckbox("third")}
               containerStyle={{
-                backgroundColor: "#f2f2f2",
+                backgroundColor: "#fff",
                 width: "50%",
-                borderColor: "#f2f2f2",
+                borderColor: "#fff",
               }}
             />
           )}
@@ -118,9 +118,9 @@ export default function CheckboxVariant({
               checked={checkbox.forthCheckbox}
               onPress={handleCheckbox("forth")}
               containerStyle={{
-                backgroundColor: "#f2f2f2",
+                backgroundColor: "#fff",
                 width: "50%",
-                borderColor: "#f2f2f2",
+                borderColor: "#fff",
               }}
             />
           )}

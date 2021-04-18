@@ -20,11 +20,28 @@ export default function DogFormScreen({ navigation }: DogFormScreenProps) {
   }, [navigation]);
 
   return (
-    <Box as={SafeAreaView} flex={1}>
-      <ScrollView>
-        <Box display="flex" alignItems="center" justifyContent="center" p={2}>
+    <Box
+      as={SafeAreaView}
+      flex={1}
+      style={{
+        backgroundColor: "#6B96E4",
+        elevation: 0,
+        shadowColor: "#6B96E4",
+      }}
+    >
+      <ScrollView
+        style={{
+          backgroundColor: "#fff",
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          paddingHorizontal: 15,
+        }}
+      >
+        <Box display="flex" alignItems="center" justifyContent="center" p={3}>
           <Text>Анкета будущего владельца собак.</Text>
-          <Text>Вопросы которые мы задаем будушим владельцам собак</Text>
+          <Text style={{ textAlign: "center" }}>
+            Вопросы которые мы задаем будушим владельцам собак
+          </Text>
         </Box>
         <InputField
           label="Ваше ФИО:"
@@ -80,7 +97,20 @@ export default function DogFormScreen({ navigation }: DogFormScreenProps) {
         <CustomInputField label="Готовы ли вы пригласить нас к себе, показать условия проживания животного?" />
         <CustomInputField label="Готовы ли заключить договор передачи животного, с паспортными данными? В договоре прописано, что вы будете заботиться о животном, беречь. Фонд может передавать животных новому владельцу только по договору.  " />
         <CustomInputField label="Как узнали про нас?" />
-        <Button title="Отправить" type="clear" onPress={handleForm} />
+        <Button
+          title="Отправить"
+          type="clear"
+          onPress={handleForm}
+          buttonStyle={{
+            borderWidth: 1,
+            borderColor: "#FFBC61",
+            width: 240,
+            alignSelf: "center",
+            marginBottom: 15,
+            marginTop: 10,
+          }}
+          titleStyle={{ color: "#FFBC61" }}
+        />
       </ScrollView>
     </Box>
   );

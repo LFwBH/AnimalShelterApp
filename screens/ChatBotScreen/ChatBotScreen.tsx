@@ -65,6 +65,7 @@ export default function PetsScreen({}: ChatScreenProps) {
         steps={steps}
         footerStyle={{ display: "none" }}
         optionFontColor="#000"
+        botBubbleColor="#FE817B"
         optionBubbleColor="#fff"
       />
     </Box>

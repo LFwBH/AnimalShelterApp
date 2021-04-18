@@ -1,11 +1,9 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import last from "lodash/last";
-import { padding } from "polished";
 import React, { useCallback, useMemo, useState } from "react";
 import { FlatList, SafeAreaView, ScrollView } from "react-native";
 import { Button, Icon, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
-import { height } from "styled-system";
 
 import { fetchPetList, PET_KIND, PET_SEX, PETS_KEY } from "../../api/pets";
 import Box, { Col, Row } from "../../components/Box";

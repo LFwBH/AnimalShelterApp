@@ -19,22 +19,37 @@ function Item({ pet, onPress }: ItemProps) {
 
   return (
     <Pressable onPress={handlePress}>
-      <Box display="flex" primary p={18} m={2} borderRadius={8}>
-        <Box display="flex" flexDirection="row" mb={2}>
+      <Box
+        display="flex"
+        primary
+        m={2}
+        borderRadius={8}
+        style={{
+          borderColor: "#BFBFBF",
+          borderWidth: 1,
+          backgroundColor: "#fff",
+          marginTop: 10,
+        }}
+      >
+        <Box display="flex" flexDirection="row">
           <Box mr={2}>
             <Image
               borderRadius={2}
               source={{ uri: PET_IMAGE_API[randomPetKind]?.thumb() }}
               resizeMode="cover"
-              style={{ width: 100, height: 100 }}
+              style={{ width: 162, height: 132 }}
               PlaceholderContent={<ActivityIndicator />}
             />
           </Box>
-        </Box>
-        <Box>
-          <Text background fontSize={14} numberOfLines={2}>
-            {pet.description}
-          </Text>
+          <Box>
+            <Text
+              fontSize={12}
+              background
+              style={{ color: "#000", opacity: 0.5, width: 200 }}
+            >
+              {pet.description}
+            </Text>
+          </Box>
         </Box>
       </Box>
     </Pressable>

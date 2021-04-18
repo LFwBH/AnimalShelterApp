@@ -6,10 +6,14 @@
   },
   "pet": {
     "age": "Возраст",
-    "color": "Цвет",
+    "color": "Окрас",
     "sex": "Пол",
+    "passport": "Паспорт",
     "sterilization": "Стерилизация",
+    "sterilizationDate": "Дата стерилизации",
+    "character": "Пол",
     "vacination": "Вакцинация",
+    "from": "Откуда",
     "sexType": {
       "boy": "Мальчик",
       "girl": "Девочка"
