@@ -15,4 +15,7 @@ export interface Query {
   readonly "filter[sex]"?: "Boy" | "Girl";
 }
 
-export type QueryFnContext = QueryFunctionContext<string, number>;
+export type QueryFnContext = Pick<
+  QueryFunctionContext<string, number>,
+  "pageParam"
+>;

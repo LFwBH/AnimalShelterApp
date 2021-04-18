@@ -12,7 +12,7 @@ import Text from "../../components/Text";
 import { RootStackParamList } from "../../types/navigation";
 
 interface DogFormScreenProps
-  extends StackScreenProps<RootStackParamList, "DogFormScreen"> {}
+  extends StackScreenProps<RootStackParamList, "DogForm"> {}
 
 export default function DogFormScreen({ navigation }: DogFormScreenProps) {
   const handleForm = useCallback(() => {
@@ -28,7 +28,7 @@ export default function DogFormScreen({ navigation }: DogFormScreenProps) {
         </Box>
         <InputField
           label="Ваше ФИО:"
-          errorMessage="Заполните обязательное поле!"
+          errorLabel="Заполните обязательное поле!"
         />
         <InputField label="Возраст:" />
         <CustomInputField label="Адрес проживания собаки:" />

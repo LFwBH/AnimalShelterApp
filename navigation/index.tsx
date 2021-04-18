@@ -38,14 +38,14 @@ function RootNavigator() {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
       <RootStack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{ title: i18n("login.title"), headerShown: true }}
-      />
-      <RootStack.Screen
         name="Root"
         options={{ title: i18n("pets.title") }}
         component={BottomTabNavigator}
+      />
+      <RootStack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ title: i18n("login.title"), headerShown: true }}
       />
       <RootStack.Screen
         name="Pet"
@@ -63,12 +63,12 @@ function RootNavigator() {
         options={{ title: i18n("common.oops"), headerShown: true }}
       />
       <RootStack.Screen
-        name="CatFormScreen"
+        name="CatForm"
         component={CatFormScreen}
         options={{ title: i18n("form.formTitle"), headerShown: true }}
       />
       <RootStack.Screen
-        name="DogFormScreen"
+        name="DogForm"
         component={DogFormScreen}
         options={{ title: i18n("form.formTitle"), headerShown: true }}
       />

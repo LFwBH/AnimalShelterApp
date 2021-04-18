@@ -1,11 +1,10 @@
-import { AsyncStorage, NativeModules } from "react-native";
-import Reactotron from "reactotron-react-native";
+import { NativeModules } from "react-native";
+import Reactotron, { asyncStorage } from "reactotron-react-native";
 import url from "url";
 
 const { hostname } = url.parse(NativeModules.SourceCode.scriptURL);
-console.log(hostname); // mine was 192.168.1.2
 
-Reactotron.setAsyncStorageHandler(AsyncStorage)
-  .configure({ host: hostname })
+Reactotron.configure({ host: hostname })
+  .use(asyncStorage())
   .useReactNative()
   .connect();
