@@ -16,6 +16,7 @@ import {
   AboutUsParamList,
   BottomTabParamList,
   ChatParamList,
+  FavoritesParamList,
   LostPetsParamList,
   PetsParamList,
   ProfileParamList,
@@ -43,6 +44,22 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               src={require("../assets/images/icons/about-us.png")}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Favorites"
+        component={FavoritesNavigator}
+        options={{
+          title: i18n("favorites.title"),
+          tabBarLabel: ({ focused }) => (
+            <TabBarLabel label={i18n("favorites.title")} focused={focused} />
+          ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              src={require("../assets/images/icons/heart.png")}
               focused={focused}
             />
           ),
@@ -173,6 +190,35 @@ function PetsNavigator() {
         }}
       />
     </PetsStack.Navigator>
+  );
+}
+
+const FavoritesStack = createStackNavigator<FavoritesParamList>();
+
+function FavoritesNavigator() {
+  const theme = useTheme();
+
+  return (
+    <FavoritesStack.Navigator>
+      <FavoritesStack.Screen
+        name="Favorites"
+        initialParams={{ favorites: true }}
+        component={PetsScreen}
+        options={{
+          headerTitle: () => <HeaderTitle title="Питомцы" />,
+          headerStyle: {
+            backgroundColor: theme.palette.primary,
+            shadowColor: theme.palette.primary,
+            elevation: 0,
+          },
+          headerTintColor: theme.palette.background,
+          headerTitleStyle: {
+            fontWeight: "bold",
+            alignSelf: "center",
+          },
+        }}
+      />
+    </FavoritesStack.Navigator>
   );
 }
 

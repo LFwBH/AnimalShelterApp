@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import trim from "lodash/trim";
 
 import composeApiQuery from "../helpers/composeApiQuery";
@@ -22,6 +23,7 @@ interface PetQueryFilters {
   name?: string;
   sex?: PET_SEX;
   kind?: PET_KIND;
+  favorites?: boolean;
 }
 
 export const PET_SEX_ALIAS: Record<PET_SEX, "Boy" | "Girl"> = {
@@ -34,32 +36,43 @@ export const PET_KIND_ALIAS: Record<PET_KIND, "Cat" | "Dog"> = {
   [PET_KIND.DOG]: "Dog",
 };
 
-export function fetchPetList({
+export async function fetchPetList({
   pageParam,
   name,
   sex,
   kind,
+  favorites,
 }: QueryFnContext & PetQueryFilters) {
-  const payload: Record<string, string | number | undefined> = {
+  const payload: Record<string, string | number | boolean | undefined> = {
     cursor: pageParam,
     take: 10,
   };
 
-  if (sex != null) {
+  if (sex != null && !favorites) {
     payload["filter[sex]"] = PET_SEX_ALIAS[sex];
   }
 
-  if (kind != null) {
+  if (kind != null && !favorites) {
     payload["filter[kind]"] = PET_KIND_ALIAS[kind];
   }
 
-  if (name) {
+  if (name && !favorites) {
     payload["filter[name]"] = trim(name);
   }
 
   const query = composeApiQuery(payload);
-  const url = composeApiUrl("pets", query);
-  return fetch(url).then(processFetchResponse(url)) as Promise<
+  const url = composeApiUrl(favorites ? "favorite_pet" : "pets", query);
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  const token = await AsyncStorage.getItem("access_token");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  return fetch(url, { headers }).then(processFetchResponse(url)) as Promise<
     APIResponse<Pet[]>
   >;
 }

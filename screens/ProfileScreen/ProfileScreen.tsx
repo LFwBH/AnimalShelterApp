@@ -22,7 +22,7 @@ function ProfileScreen({ navigation }: ProfileScreenProps) {
   }, [navigation, user?.token]);
 
   return (
-    <Row p={2} flex={1}>
+    <Row p={3} flex={1}>
       {!user?.token ? (
         <Button
           title={
