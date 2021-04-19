@@ -2,7 +2,7 @@ export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
   Pets: { favorites: boolean };
-  Pet: { petId: number; petName: string };
+  Pet: { petId: number; petName: string; favorite: boolean };
   LostPet: { petId: number };
   Chat: undefined;
   CatForm: undefined;

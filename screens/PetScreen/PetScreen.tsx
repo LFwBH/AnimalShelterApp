@@ -1,11 +1,22 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import lowerFirst from "lodash/lowerFirst";
 import React, { useCallback } from "react";
-import { ActivityIndicator, SafeAreaView, ScrollView } from "react-native";
-import { Button, Card } from "react-native-elements";
-import { useQuery } from "react-query";
+import {
+  ActivityIndicator,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
+import { Button, Card, Icon } from "react-native-elements";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
-import { fetchPetById, PET_KIND, PET_KIND_ALIAS } from "../../api/pets";
+import {
+  createFavoritePet,
+  deleteFavoritePet,
+  fetchPetById,
+  PET_KIND,
+  PET_KIND_ALIAS,
+} from "../../api/pets";
 import Box, { Row } from "../../components/Box";
 import FullScreenError from "../../components/FullScreenError";
 import FullScreenLoading from "../../components/FullScreenLoading";
@@ -17,20 +28,46 @@ import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 
-interface PetScreenProps extends StackScreenProps<RootStackParamList, "Pet"> {}
+interface PetScreenProps extends StackScreenProps<RootStackParamList, "Pet"> {
+  favorite?: boolean;
+}
 
 export default function PetScreen({ route, navigation }: PetScreenProps) {
   const theme = useTheme();
 
-  const { petId } = route.params;
+  const { petId, favorite } = route.params;
 
-  const { data, isLoading, isError } = useQuery(["pets", petId], () =>
-    fetchPetById({ petId }),
+  const queryClient = useQueryClient();
+
+  const petQuery = useQuery(["pets", petId], () => fetchPetById({ petId }));
+
+  const favoriteQuery = useQuery(
+    ["pets", petId, favorite],
+    () => fetchPetById({ petId, favorite: true }),
+    { retry: false },
+  );
+
+  const createFavoriteMutation = useMutation(
+    () => createFavoritePet({ petId }),
+    { onSuccess: () => queryClient.invalidateQueries("pets") },
+  );
+
+  const deleteFavoriteMutation = useMutation(
+    () => deleteFavoritePet({ petId }),
+    { onSuccess: () => queryClient.invalidateQueries("pets") },
   );
 
   const handleCatForm = useCallback(() => {
     navigation.navigate("CatForm");
   }, [navigation]);
+
+  const handleLikePet = useCallback(() => createFavoriteMutation.mutate(), [
+    createFavoriteMutation,
+  ]);
+
+  const handleUnlikePet = useCallback(() => deleteFavoriteMutation.mutate(), [
+    deleteFavoriteMutation,
+  ]);
 
   const handleDogForm = useCallback(() => {
     navigation.navigate("DogForm");
@@ -38,10 +75,10 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
 
   let content: JSX.Element | null = null;
 
-  if (isLoading) {
+  if (petQuery.isLoading) {
     content = <FullScreenLoading />;
-  } else if (!isError) {
-    const pet = data?.data as NonNullable<Pet>;
+  } else if (!petQuery.isError) {
+    const pet = petQuery.data?.data as NonNullable<Pet>;
 
     content = (
       <Box flex={1} background borderRadius={18}>
@@ -159,6 +196,30 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
               )}
             </Box>
           </ScrollView>
+          <Box flex={1} position="absolute" right={0} bottom={0}>
+            <Pressable
+              disabled={
+                createFavoriteMutation.isLoading ||
+                deleteFavoriteMutation.isLoading
+              }
+              onPress={
+                favoriteQuery.isSuccess ? handleUnlikePet : handleLikePet
+              }
+            >
+              <Icon
+                color={
+                  createFavoriteMutation.isLoading ||
+                  deleteFavoriteMutation.isLoading
+                    ? theme.palette.disabled
+                    : theme.palette.secondary
+                }
+                type="antdesign"
+                name={favoriteQuery.isSuccess ? "heart" : "hearto"}
+                reverse
+                raised
+              />
+            </Pressable>
+          </Box>
         </Card>
       </Box>
     );

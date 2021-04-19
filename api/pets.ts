@@ -77,9 +77,59 @@ export async function fetchPetList({
   >;
 }
 
-export function fetchPetById({ petId }: { petId: number }) {
-  const url = composeApiUrl(`pets/${petId}`);
-  return fetch(url).then(processFetchResponse(url)) as Promise<
+export async function fetchPetById({
+  petId,
+  favorite,
+}: {
+  petId: number;
+  favorite?: boolean;
+}) {
+  const url = composeApiUrl(
+    favorite ? `favorite_pet/${petId}` : `pets/${petId}`,
+  );
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  const token = await AsyncStorage.getItem("access_token");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  return fetch(url, { headers }).then(processFetchResponse(url)) as Promise<
     APIResponse<Pet>
   >;
+}
+
+export async function createFavoritePet({ petId }: { petId: number }) {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  const token = await AsyncStorage.getItem("access_token");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const url = composeApiUrl(`favorite_pet/${petId}`);
+  return fetch(url, { headers, method: "POST" }).then(
+    processFetchResponse(url),
+  ) as Promise<APIResponse<void>>;
+}
+
+export async function deleteFavoritePet({ petId }: { petId: number }) {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  const token = await AsyncStorage.getItem("access_token");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const url = composeApiUrl(`favorite_pet/${petId}`);
+  return fetch(url, { headers, method: "DELETE" }).then(
+    processFetchResponse(url),
+  ) as Promise<APIResponse<void>>;
 }

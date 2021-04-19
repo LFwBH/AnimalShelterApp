@@ -70,9 +70,10 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
       navigation.navigate("Pet", {
         petId: pet.id,
         petName: pet.name,
+        favorite: favorites,
       });
     },
-    [navigation],
+    [navigation, favorites],
   );
 
   const renderItem = useCallback(
