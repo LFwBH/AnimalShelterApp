@@ -1,28 +1,28 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import React from "react";
-import { Dimensions, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
 import { WebView } from "react-native-webview";
 
 import Box from "../../components/Box";
+import { useTheme } from "../../constants/styled-components";
 import { RootStackParamList } from "../../types/navigation";
 
 interface AboutUsScreenProps
   extends BottomTabScreenProps<RootStackParamList, "Chat"> {}
 
 export default function CatFormScreen({}: AboutUsScreenProps) {
-  const windowWidth = Dimensions.get("window").width * 2.3;
+  const theme = useTheme();
 
   return (
     <Box as={SafeAreaView} flex={1}>
       <WebView
         source={{
           html: `
-
-<div style="width: ${windowWidth}; display: flex; flex-direction: column; justify-content: center">
-  <div style="display: flex; flex: 1; justify-content: center; padding-bottom: 200px">
+<div style="width: 100%; display: flex; flex-direction: column; justify-content: center">
+  <div style="display: flex; flex: 1; justify-content: center; padding-top: 96px;">
     <img
       width="800"
-      height="250"
+      height="264"
       src="https://i.imgur.com/hsw1OQz.png"
     />
   </div>
@@ -45,7 +45,7 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
   <a
     href="https://vk.com/page-16896741_44143167"
     target="_blank"
-    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: #FE817B; text-decoration: none"
+    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.secondary}; text-decoration: none"
   >
     https://vk.com/page-16896741_44143167
   </a>
@@ -57,7 +57,7 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
   <a
     href="https://vk.com/page-16896741_54375848"
     target="_blank"
-    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: #FE817B; text-decoration: none"
+    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.secondary}; text-decoration: none"
   >
     https://vk.com/page-16896741_54375848
   </a>
@@ -83,7 +83,7 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
   <a
     href="https://vk.com/pr.save_lives"
     target="_blank"
-    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: #FE817B; text-decoration: none"
+    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.secondary}; text-decoration: none"
   >
     https://vk.com/pr.save_lives
   </a>
@@ -93,7 +93,7 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
     Популярные хэштеги, по которым можно </br> найти много информации:
   </p>
   <p
-    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: orange"
+    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.warning}"
   >
     #маленькиедрузьясбольшимсердцем <br />
     #маленькие_подаридом <br />
@@ -113,7 +113,7 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
     <a
       href="www.avito.ru"
       target="_blank"
-      style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: #FE817B; text-decoration: none"
+      style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.secondary}; text-decoration: none"
     >
       1. www.avito.ru
     </a>
@@ -121,7 +121,7 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
     <a
       href="www.irr.ru"
       target="_blank"
-      style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: #FE817B; text-decoration: none"
+      style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.secondary}; text-decoration: none"
     >
       2. www.irr.ru
     </a>
@@ -129,7 +129,7 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
     <a
       href="www.pg12.ru"
       target="_blank"
-      style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: #FE817B; text-decoration: none"
+      style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.secondary}; text-decoration: none"
     >
       3. www.pg12.ru
     </a>
@@ -142,13 +142,12 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
   <a
     href="http://bezdomnye-zhivotnye.ru"
     target="_blank"
-    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: #6B96E4; text-decoration: none"
+    style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.primary}; text-decoration: none"
   >
     <b>http://bezdomnye-zhivotnye.ru</b>
   </a>
   <br />
 </div>
-
 `,
         }}
       />
