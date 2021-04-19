@@ -136,8 +136,7 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
         onEndReached={handleLoadNextPage}
         refreshing={isFetchingNextPage}
         onRefresh={handleRefresh}
-        contentContainerStyle={{ flex: 1 }}
-        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: theme.space[3] }}
       />
     );
   } else {

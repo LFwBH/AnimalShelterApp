@@ -96,7 +96,7 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
         onEndReached={handleLoadNextPage}
         refreshing={isFetchingNextPage}
         onRefresh={handleRefresh}
-        contentContainerStyle={{ marginTop: -10 }}
+        contentContainerStyle={{ paddingBottom: theme.space[3] }}
       />
     );
   } else {
