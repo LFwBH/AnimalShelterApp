@@ -9,12 +9,15 @@ import CustomInputField from "../../components/CustomInputField/CustomInputField
 import InputField from "../../components/InputField";
 import RoundButtonGroup from "../../components/RoundButtonGroup/RoundButtonGroup";
 import Text from "../../components/Text";
+import { useTheme } from "../../constants/styled-components";
 import { RootStackParamList } from "../../types/navigation";
 
 interface CatFormScreenProps
   extends StackScreenProps<RootStackParamList, "CatForm"> {}
 
 export default function CatFormScreen({ navigation }: CatFormScreenProps) {
+  const theme = useTheme();
+
   const handleForm = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
@@ -24,14 +27,14 @@ export default function CatFormScreen({ navigation }: CatFormScreenProps) {
       as={SafeAreaView}
       flex={1}
       style={{
-        backgroundColor: "#6B96E4",
+        backgroundColor: theme.palette.primary,
         elevation: 0,
-        shadowColor: "#6B96E4",
+        shadowColor: theme.palette.primary,
       }}
     >
       <ScrollView
         style={{
-          backgroundColor: "#fff",
+          backgroundColor: theme.palette.background,
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
           paddingHorizontal: 15,
@@ -102,7 +105,6 @@ export default function CatFormScreen({ navigation }: CatFormScreenProps) {
           label="Согласны ли вы поддерживать с нами связь и делиться судьбой спасенных нами животных с теми, кто подарил им когда-то второй шанс на счастливую жизнь? Мы не контролируем владельцев, мы дружим и общаемся."
           firstButton="Да"
           secondButton="Нет"
-          thirdButton="Свой вариант"
           errorMessage="Заполните обязательное поле!"
         />
         <Button
@@ -111,12 +113,12 @@ export default function CatFormScreen({ navigation }: CatFormScreenProps) {
           onPress={handleForm}
           buttonStyle={{
             borderWidth: 1,
-            borderColor: "#FFBC61",
+            borderColor: theme.palette.warning,
             width: 240,
             alignSelf: "center",
             marginBottom: 15,
           }}
-          titleStyle={{ color: "#FFBC61" }}
+          titleStyle={{ color: theme.palette.warning }}
         />
       </ScrollView>
     </Box>

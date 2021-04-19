@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { ButtonGroup, Image, Input, Text } from "react-native-elements";
 
+import { useTheme } from "../../constants/styled-components";
 import Box from "../Box";
 
-interface IProps {
+interface RoundButtonGroupProps {
   label?: string;
   firstButton: string;
   secondButton: string;
@@ -17,12 +18,14 @@ export default function RoundButtonGroup({
   secondButton,
   thirdButton,
   errorMessage,
-}: IProps) {
+}: RoundButtonGroupProps) {
+  const theme = useTheme();
+
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [error, setError] = useState(false);
   const [defaultErrorMessage, setDefaultErrorMessage] = useState("");
 
-  const Component1 = () => (
+  const FirstButton = () => (
     <Box
       display="flex"
       flexDirection="row"
@@ -42,7 +45,7 @@ export default function RoundButtonGroup({
     </Box>
   );
 
-  const Component2 = () => (
+  const SecondButton = () => (
     <Box
       display="flex"
       flexDirection="row"
@@ -62,7 +65,7 @@ export default function RoundButtonGroup({
     </Box>
   );
 
-  const Component3 = () => (
+  const ThirdButton = () => (
     <Box
       display="flex"
       flexDirection="row"
@@ -82,15 +85,15 @@ export default function RoundButtonGroup({
     </Box>
   );
 
-  const buttonsTwo = [{ element: Component1 }, { element: Component2 }];
+  const twoButtonGroup = [{ element: FirstButton }, { element: SecondButton }];
 
-  const buttonsThree = [
-    { element: Component1 },
-    { element: Component2 },
-    { element: Component3 },
+  const threeButtonGroup = [
+    { element: FirstButton },
+    { element: SecondButton },
+    { element: ThirdButton },
   ];
 
-  const handleInput = useCallback(
+  const handleChangeInput = useCallback(
     (value) => {
       if (!value) {
         setDefaultErrorMessage(errorMessage ?? "");
@@ -109,31 +112,37 @@ export default function RoundButtonGroup({
     <Box display="flex" width="100%" justifyContent="center" p={2}>
       {label && <Text>{label}</Text>}
       <ButtonGroup
-        containerStyle={{ borderColor: "#fff", justifyContent: "flex-start" }}
-        buttonContainerStyle={{ backgroundColor: "#fff", borderColor: "#fff" }}
+        containerStyle={{
+          borderColor: theme.palette.background,
+          justifyContent: "flex-start",
+        }}
+        buttonContainerStyle={{
+          backgroundColor: theme.palette.background,
+          borderColor: theme.palette.background,
+        }}
         onPress={handleUpdateIndex}
         selectedIndex={selectedIndex}
         selectedButtonStyle={{
-          backgroundColor: "#fff",
+          backgroundColor: theme.palette.background,
         }}
         // @ts-expect-error ts(2322)
-        buttons={thirdButton ? buttonsThree : buttonsTwo}
+        buttons={thirdButton ? threeButtonGroup : twoButtonGroup}
       />
       {selectedIndex === 2 && errorMessage && (
         <Input
           placeholder="Ваш ответ"
-          onChangeText={handleInput}
+          onChangeText={handleChangeInput}
           renderErrorMessage={error}
           errorMessage={defaultErrorMessage}
           inputContainerStyle={{
             borderWidth: 1,
-            borderColor: "#6B96E4",
+            borderColor: theme.palette.primary,
             paddingBottom: 15,
             height: 40,
             paddingTop: 15,
           }}
           labelStyle={{
-            color: "#000",
+            color: theme.palette.text,
             fontWeight: "normal",
             paddingBottom: 5,
           }}

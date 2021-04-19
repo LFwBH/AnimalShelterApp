@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { CheckBox, Text } from "react-native-elements";
 
+import { useTheme } from "../../constants/styled-components";
 import Box from "../Box";
 
-interface IProps {
+interface CheckboxVariantProps {
   label: string;
   firstVar: string;
   secondVar: string;
@@ -17,13 +18,16 @@ export default function CheckboxVariant({
   secondVar,
   thirdVar,
   forthVar,
-}: IProps) {
+}: CheckboxVariantProps) {
+  const theme = useTheme();
+
   const [checkbox, setCheckbox] = useState({
     firstCheckbox: false,
     secondCheckbox: false,
     thirdCheckbox: false,
     forthCheckbox: false,
   });
+
   const [error, setError] = useState(false);
   const [firstTime, setFirstTime] = useState(true);
 
@@ -47,7 +51,7 @@ export default function CheckboxVariant({
     firstTime,
   ]);
 
-  const handleCheckbox = useCallback(
+  const handleChangeCheckbox = useCallback(
     (name) => () => {
       setFirstTime(false);
       if (name === "first") {
@@ -78,22 +82,22 @@ export default function CheckboxVariant({
             center
             title={firstVar}
             checked={checkbox.firstCheckbox}
-            onPress={handleCheckbox("first")}
+            onPress={handleChangeCheckbox("first")}
             containerStyle={{
-              backgroundColor: "#fff",
+              backgroundColor: theme.palette.background,
               width: "50%",
-              borderColor: "#fff",
+              borderColor: theme.palette.background,
             }}
           />
           <CheckBox
             center
             title={secondVar}
             checked={checkbox.secondCheckbox}
-            onPress={handleCheckbox("second")}
+            onPress={handleChangeCheckbox("second")}
             containerStyle={{
-              backgroundColor: "#fff",
+              backgroundColor: theme.palette.background,
               width: "50%",
-              borderColor: "#fff",
+              borderColor: theme.palette.background,
             }}
           />
         </Box>
@@ -103,11 +107,11 @@ export default function CheckboxVariant({
               center
               title={thirdVar}
               checked={checkbox.thirdCheckbox}
-              onPress={handleCheckbox("third")}
+              onPress={handleChangeCheckbox("third")}
               containerStyle={{
-                backgroundColor: "#fff",
+                backgroundColor: theme.palette.background,
                 width: "50%",
-                borderColor: "#fff",
+                borderColor: theme.palette.background,
               }}
             />
           )}
@@ -116,11 +120,11 @@ export default function CheckboxVariant({
               center
               title={forthVar}
               checked={checkbox.forthCheckbox}
-              onPress={handleCheckbox("forth")}
+              onPress={handleChangeCheckbox("forth")}
               containerStyle={{
-                backgroundColor: "#fff",
+                backgroundColor: theme.palette.background,
                 width: "50%",
-                borderColor: "#fff",
+                borderColor: theme.palette.background,
               }}
             />
           )}
