@@ -6,7 +6,7 @@ import Box, { Row } from "../Box";
 
 interface HeaderTitleProps {
   title: string;
-  logo: boolean;
+  logo?: boolean;
 }
 
 export default function HeaderTitle({ title, logo = true }: HeaderTitleProps) {

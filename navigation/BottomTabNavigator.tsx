@@ -1,12 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { darken } from "polished";
 import React from "react";
-import { Image, Platform } from "react-native";
+import { Platform } from "react-native";
 
 import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
-import Text from "../components/Text";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import AboutUsScreen from "../screens/AboutUsScreen";
@@ -22,6 +20,7 @@ import {
   PetsParamList,
   ProfileParamList,
 } from "../types/navigation";
+import { TabBarIcon, TabBarLabel } from "./TabBarIcon";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -30,11 +29,7 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      tabBarOptions={{
-        inactiveTintColor: darken(0.1, theme.palette.background),
-        activeTintColor: theme.palette.background,
-        style: { backgroundColor: theme.palette.primary },
-      }}
+      tabBarOptions={{ style: { backgroundColor: theme.palette.primary } }}
       initialRouteName="Pets"
     >
       <BottomTab.Screen
@@ -42,20 +37,13 @@ export default function BottomTabNavigator() {
         component={AboutUsNavigator}
         options={{
           title: i18n("aboutUs.title"),
-          tabBarLabel: () => (
-            <Text background fontSize={11}>
-              О нас
-            </Text>
+          tabBarLabel: ({ focused }) => (
+            <TabBarLabel label={i18n("aboutUs.title")} focused={focused} />
           ),
-          tabBarIcon: ({ color }) => (
-            <Image
-              source={require("../assets/images/icons/about-us.png")}
-              style={{
-                width: 24,
-                height: 24,
-                tintColor: color,
-              }}
-              resizeMode="contain"
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              src={require("../assets/images/icons/about-us.png")}
+              focused={focused}
             />
           ),
         }}
@@ -65,20 +53,13 @@ export default function BottomTabNavigator() {
         component={PetsNavigator}
         options={{
           title: i18n("pets.title"),
-          tabBarLabel: () => (
-            <Text background fontSize={11}>
-              Питомцы
-            </Text>
+          tabBarLabel: ({ focused }) => (
+            <TabBarLabel label={i18n("pets.title")} focused={focused} />
           ),
-          tabBarIcon: ({ color }) => (
-            <Image
-              source={require("../assets/images/icons/main.png")}
-              style={{
-                width: 24,
-                height: 24,
-                tintColor: color,
-              }}
-              resizeMode="contain"
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              src={require("../assets/images/icons/pets.png")}
+              focused={focused}
             />
           ),
         }}
@@ -88,20 +69,13 @@ export default function BottomTabNavigator() {
         component={LostNavigator}
         options={{
           title: i18n("lost.title"),
-          tabBarLabel: () => (
-            <Text background fontSize={11}>
-              Потеряшки
-            </Text>
+          tabBarLabel: ({ focused }) => (
+            <TabBarLabel label={i18n("lost.title")} focused={focused} />
           ),
-          tabBarIcon: ({ color }) => (
-            <Image
-              source={require("../assets/images/icons/lost.png")}
-              style={{
-                width: 24,
-                height: 24,
-                tintColor: color,
-              }}
-              resizeMode="contain"
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              src={require("../assets/images/icons/lost.png")}
+              focused={focused}
             />
           ),
         }}
@@ -112,16 +86,13 @@ export default function BottomTabNavigator() {
           component={ChatNavigator}
           options={{
             title: i18n("pets.chat"),
-            tabBarLabel: () => (
-              <Text background fontSize={11}>
-                Чат
-              </Text>
+            tabBarLabel: ({ focused }) => (
+              <TabBarLabel label={i18n("pets.chat")} focused={focused} />
             ),
-            tabBarIcon: ({ color }) => (
-              <Image
-                source={require("../assets/images/icons/chat.png")}
-                style={{ width: 24, height: 24, tintColor: color }}
-                resizeMode="contain"
+            tabBarIcon: ({ focused }) => (
+              <TabBarIcon
+                src={require("../assets/images/icons/chat.png")}
+                focused={focused}
               />
             ),
           }}
@@ -132,16 +103,15 @@ export default function BottomTabNavigator() {
         component={ProfileNavigator}
         options={{
           title: i18n("profile.title"),
-          tabBarLabel: () => (
-            <Text background fontSize={11}>
-              Профиль
-            </Text>
+          tabBarLabel: ({ focused }) => (
+            <TabBarLabel label={i18n("profile.title")} focused={focused} />
           ),
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ focused }) => (
             <Ionicons
               name="ios-person-circle-outline"
               size={24}
-              color={color}
+              style={{ opacity: focused ? 1 : 0.6 }}
+              color={theme.palette.background}
             />
           ),
         }}
