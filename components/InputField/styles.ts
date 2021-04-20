@@ -12,6 +12,7 @@ export const StyledInput = styled(Input).attrs({
     color: "#000",
     fontWeight: "normal",
     paddingBottom: 5,
+    fontSize: 14,
   },
   inputStyle: {
     fontSize: 14,

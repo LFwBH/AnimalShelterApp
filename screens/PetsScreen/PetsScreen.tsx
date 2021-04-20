@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import last from "lodash/last";
 import React, { useCallback, useContext, useMemo, useState } from "react";
-import { FlatList, SafeAreaView, ScrollView } from "react-native";
+import { FlatList, Pressable, SafeAreaView, ScrollView } from "react-native";
 import { Button, Icon, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
 
@@ -75,6 +75,10 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
     },
     [navigation, favorites],
   );
+
+  const handlePressAddPet = useCallback(() => {
+    navigation.navigate("AddPet");
+  }, [navigation]);
 
   const renderItem = useCallback(
     ({ item }: { item: Pet }) => {
@@ -264,6 +268,17 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
             {content}
           </>
         )}
+      </Box>
+      <Box flex={1} position="absolute" right={0} bottom={0}>
+        <Pressable onPress={handlePressAddPet}>
+          <Icon
+            color={theme.palette.warning}
+            type="antdesign"
+            name="plus"
+            reverse
+            raised
+          />
+        </Pressable>
       </Box>
     </Box>
   );

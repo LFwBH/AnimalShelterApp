@@ -11,6 +11,7 @@ export type RootStackParamList = {
   AboutUs: undefined;
   LostPets: undefined;
   Profile: undefined;
+  AddPet: undefined;
 };
 
 export type BottomTabParamList = {
@@ -44,4 +45,8 @@ export type ProfileParamList = {
 
 export type FavoritesParamList = {
   Favorites: { favorites: boolean };
+};
+
+export type AddPetParamList = {
+  AddPet: undefined;
 };
