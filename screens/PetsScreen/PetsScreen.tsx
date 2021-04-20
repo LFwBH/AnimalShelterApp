@@ -54,7 +54,7 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
       });
     },
     {
-      enabled: !!user?.token && favorites,
+      enabled: favorites ? !!user?.token : true,
       getNextPageParam: ({ data: pets }) => last(pets)?.id,
     },
   );
