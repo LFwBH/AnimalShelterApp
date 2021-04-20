@@ -10,12 +10,14 @@ import { RootStackParamList } from "../../types/navigation";
 export default function NotFoundScreen({
   navigation,
 }: StackScreenProps<RootStackParamList, "NotFound">) {
-  const handlePress = useCallback(() => navigation.replace("Root"), []);
+  const handlePress = useCallback(() => navigation.replace("Root"), [
+    navigation,
+  ]);
 
   return (
     <Box flex={1} background alignItems="center" justifyContent="center" p={20}>
       <Text fontSize="lg" fontWeight="semi">
-        {i18n("notFound.screenDoesntExist")}
+        {i18n("notFound.screenNotFound")}
       </Text>
       <Box as={TouchableOpacity} onPress={handlePress} mt={3} py={3}>
         <Text fontSize="sm" text>

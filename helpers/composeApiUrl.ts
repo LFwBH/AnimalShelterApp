@@ -1,21 +1,12 @@
+import qs from "qs";
+
 import config from "../constants/config";
 import { Query } from "../types/api";
 
-export default function composeApiUrl<T extends string>(
-  segment: T,
-): `${typeof config.apiUrl}/${T}`;
-
-export default function composeApiUrl<T extends string, Q extends Query>(
-  segment: T,
-  query: Q,
-): `${typeof config.apiUrl}/${T}?take=${Q["take"]}&cursor=${Q["cursor"]}`;
-
-export default function composeApiUrl<
-  T extends string,
-  Q extends Query | undefined
->(segment: T, query?: Q) {
-  if (query != null) {
-    return `${config.apiUrl}/${segment}?take=${query.take}&cursor=${query.cursor}` as const;
+export default function composeApiUrl(segment: string, query?: Query) {
+  const url = `${config.apiUrl}/${segment}`;
+  if (query) {
+    return `${url}?${qs.stringify(query)}`;
   }
-  return `${config.apiUrl}/${segment}` as const;
+  return url;
 }

@@ -1,20 +1,59 @@
 {
   "pets": {
     "chat": "Чат",
-    "title": "Питомцы"
+    "title": "Питомцы",
+    "search": "Поиск"
   },
   "pet": {
+    "title": "О питомце",
     "age": "Возраст",
-    "breed": "Порода",
-    "color": "Цвет",
-    "sex": "Пол"
+    "color": "Окрас",
+    "sex": "Пол",
+    "passport": "Паспорт",
+    "sterilization": "Стерилизация",
+    "sterilizationDate": "Дата стерилизации",
+    "from": "Откуда",
+    "sexType": {
+      "boy": "Мальчик",
+      "girl": "Девочка"
+    },
+    "kind": "Вид",
+    "kindType": {
+      "dog": "Собака",
+      "cat": "Кошка"
+    },
+    "description": "Характеристика"
   },
   "notFound": {
-    "screenDoesntExist": "Страница не существует",
+    "screenNotFound": "Страница не существует",
     "goHome": "Вернуться домой!"
   },
   "common": {
     "error": "Ошибка",
-    "oops": "Упс"
+    "oops": "Упс",
+    "yes": "Да",
+    "no": "Нет",
+    "emptyList": "Мы ничего не нашли"
+  },
+  "form": {
+    "formTitle": "Анкета"
+  },
+  "login": {
+    "title": "Вход"
+  },
+  "logout": {
+    "title": "Выход"
+  },
+  "aboutUs": {
+    "title": "О нас"
+  },
+  "lost": {
+    "title": "Потеряшки"
+  },
+  "profile": {
+    "title": "Профиль"
+  },
+  "favorites": {
+    "title": "Избранное"
   }
 }

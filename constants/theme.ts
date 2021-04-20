@@ -1,15 +1,14 @@
 import { Dimensions } from "react-native";
-import { DefaultTheme } from "styled-components/native";
 
 import {
-  ACCENT,
-  ACCENT_DARK,
   BACKGROUND,
   DISABLED,
   PRIMARY,
   SECONDARY,
+  SUCCESS,
   TEXT,
   TRANSPARENT,
+  WARNING,
 } from "./colors";
 
 const MIN_WIDTH = 375;
@@ -23,12 +22,58 @@ const palette = {
   primary: PRIMARY,
   secondary: SECONDARY,
   disabled: DISABLED,
-  accent: ACCENT,
-  accentDark: ACCENT_DARK,
+  success: SUCCESS,
+  warning: WARNING,
   transparent: TRANSPARENT,
 };
 
-const theme: DefaultTheme = {
+const theme = {
+  shadow: {
+    pt4: {
+      shadowColor: palette.text,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.23,
+      shadowRadius: 2.62,
+
+      elevation: 4,
+    },
+    pt12: {
+      shadowColor: palette.text,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.23,
+      shadowRadius: 2.62,
+
+      elevation: 4,
+    },
+    pt18: {
+      shadowColor: palette.text,
+      shadowOffset: {
+        width: 0,
+        height: 9,
+      },
+      shadowOpacity: 0.48,
+      shadowRadius: 11.95,
+
+      elevation: 18,
+    },
+    pt24: {
+      shadowColor: palette.text,
+      shadowOffset: {
+        width: 0,
+        height: 12,
+      },
+      shadowOpacity: 0.58,
+      shadowRadius: 16,
+
+      elevation: 24,
+    },
+  },
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   borderRadius: [0, 2, 4],
   fontSizes: {

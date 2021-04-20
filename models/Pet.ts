@@ -1,18 +1,3 @@
-export interface Breed {
-  readonly id: number;
-  readonly name: string;
-}
-
-export interface Color {
-  readonly id: number;
-  readonly name: string;
-}
-
-export interface Sex {
-  readonly id: number;
-  readonly name: string;
-}
-
 export interface Image {
   original: {
     url: string;
@@ -29,11 +14,19 @@ export interface Image {
 export interface Pet {
   readonly id: number;
   readonly name: string;
+  readonly cameFrom: string;
   readonly age: number;
   readonly description: string;
-  readonly breed: Breed;
-  readonly color: Color;
-  readonly sex: Sex;
+  readonly kind: "Dog" | "Cat";
+  readonly color: string;
+  readonly sex: "Boy" | "Girl";
   readonly special: boolean;
+  readonly passport: boolean;
+  readonly dead: boolean;
+  readonly archived: boolean;
+  readonly archiveDate: string;
+  readonly reviewed: boolean;
+  readonly sterilized: boolean;
+  readonly sterilizationDate: string;
   readonly image: Image;
 }

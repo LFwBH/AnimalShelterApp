@@ -2,8 +2,6 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "prettier/react",
-    "prettier/@typescript-eslint",
     "plugin:unicorn/recommended",
     "plugin:react-hooks/recommended"
   ],

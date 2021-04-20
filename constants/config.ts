@@ -1,6 +1,12 @@
 import Constants from "expo-constants";
 
-const { port, scheme, host } = Constants.manifest.extra;
+interface ExpoManifest {
+  port: number;
+  scheme: string;
+  host: string;
+}
+
+const { port, scheme, host } = Constants.manifest.extra as ExpoManifest;
 
 const config = {
   apiUrl: `${scheme}://${host}:${port}`,

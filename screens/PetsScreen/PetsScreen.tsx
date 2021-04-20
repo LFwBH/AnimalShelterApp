@@ -1,23 +1,37 @@
+import { Ionicons } from "@expo/vector-icons";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import _ from "lodash";
-import React, { useCallback, useMemo, useState } from "react";
-import { FlatList, SafeAreaView, View } from "react-native";
-import { Button, SearchBar } from "react-native-elements";
+import last from "lodash/last";
+import React, { useCallback, useContext, useMemo, useState } from "react";
+import { FlatList, SafeAreaView, ScrollView } from "react-native";
+import { Button, Icon, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
 
-import { fetchPetList, PETS_KEY } from "../../api/pets";
-import Box from "../../components/Box";
-import FullScreenError from "../../components/FullScreenError";
+import { fetchPetList, PET_KIND, PET_SEX, PETS_KEY } from "../../api/pets";
+import Box, { Col, Row } from "../../components/Box";
 import FullScreenLoading from "../../components/FullScreenLoading";
+import Text from "../../components/Text";
+import { useTheme } from "../../constants/styled-components";
+import { AppContext } from "../../context/context";
+import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
+import { FilterButton } from "./styles";
 
 interface PetsScreenProps
-  // TODO: should be "Pets" instead of "Pet", but this doesn't allow to navigate
-  extends BottomTabScreenProps<RootStackParamList, "Pet"> {}
+  extends BottomTabScreenProps<RootStackParamList, "Pets"> {}
 
-export default function PetsScreen({ navigation }: PetsScreenProps) {
+export default function PetsScreen({ navigation, route }: PetsScreenProps) {
+  const theme = useTheme();
+
+  const { user } = useContext(AppContext);
+
+  const { favorites } = route.params ?? {};
+
+  const [search, setSearch] = useState("");
+  const [kind, setKind] = useState<PET_KIND | null>(null);
+  const [sex, setSex] = useState<PET_SEX | null>(null);
+
   const {
     data,
     fetchNextPage,
@@ -27,23 +41,39 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
     remove,
     isFetching,
     isFetched,
-    isError,
     status,
-  } = useInfiniteQuery(PETS_KEY, fetchPetList, {
-    getNextPageParam: ({ data: pets }) => _.last(pets)?.id,
-  });
+  } = useInfiniteQuery(
+    [PETS_KEY, { search, kind, sex, favorites }],
+    (args) => {
+      return fetchPetList({
+        ...args,
+        name: search,
+        kind: kind ?? undefined,
+        sex: sex ?? undefined,
+        favorites,
+      });
+    },
+    {
+      enabled: favorites ? !!user?.token : true,
+      getNextPageParam: ({ data: pets }) => last(pets)?.id,
+    },
+  );
 
-  const [search, setSearch] = useState("");
-  const [catsData, setCatsData] = useState([] as Pet[]);
+  const handleRedirectToLogin = useCallback(async () => {
+    if (!user?.token) {
+      navigation.navigate("Login");
+    }
+  }, [navigation, user?.token]);
 
   const handlePressPet = useCallback(
     (pet: Pet) => {
       navigation.navigate("Pet", {
         petId: pet.id,
         petName: pet.name,
+        favorite: favorites,
       });
     },
-    [navigation],
+    [navigation, favorites],
   );
 
   const renderItem = useCallback(
@@ -69,98 +99,172 @@ export default function PetsScreen({ navigation }: PetsScreenProps) {
   const pets = useMemo(() => {
     return data?.pages.reduce((acc, page) => {
       acc.push(...page.data);
-      setCatsData(acc);
       return acc;
     }, [] as Pet[]);
   }, [data?.pages]);
 
-  let content: JSX.Element | null = null;
+  const handleChangeSearch = (value: string) => setSearch(value);
 
-  const handleChangeSearch = useCallback(
-    (value) => {
-      setSearch(value);
+  const handleFilterBoys = () => {
+    if (sex === PET_SEX.BOY) {
+      setSex(null);
+    } else {
+      setSex(PET_SEX.BOY);
+    }
+  };
 
-      const nextCats = pets?.filter((el) =>
-        el.name.toLowerCase().includes(value.toLowerCase()),
-      );
+  const handleFilterGirls = () => {
+    if (sex === PET_SEX.GIRL) {
+      setSex(null);
+    } else {
+      setSex(PET_SEX.GIRL);
+    }
+  };
 
-      setCatsData(nextCats ?? []);
-    },
-    [pets],
-  );
+  const handleFilterCats = () => {
+    if (kind === PET_KIND.CAT) {
+      setKind(null);
+    } else {
+      setKind(PET_KIND.CAT);
+    }
+  };
 
-  const handleFilterBoys = useCallback(() => {
-    const sex = "Мальчик";
-    const nextCats = pets?.filter((el) =>
-      el.sex.name.toLowerCase().includes(sex.toLowerCase()),
-    );
-    setCatsData(nextCats ?? []);
-  }, [pets]);
+  const handleFilterDogs = () => {
+    if (kind === PET_KIND.DOG) {
+      setKind(null);
+    } else {
+      setKind(PET_KIND.DOG);
+    }
+  };
 
-  const handleFilterGirls = useCallback(() => {
-    const sex = "Девочка";
-    const nextCats = pets?.filter((el) =>
-      el.sex.name.toLowerCase().includes(sex.toLowerCase()),
-    );
-    setCatsData(nextCats ?? []);
-  }, [pets]);
-
-  if ((isFetching && !isFetched) || (isFetching && status === "error")) {
-    content = <FullScreenLoading />;
-  } else if (!isError) {
-    content = (
+  const content =
+    (isFetching && !isFetched) || (isFetching && status === "error") ? (
+      <FullScreenLoading />
+    ) : (
       <FlatList<Pet>
-        data={catsData}
+        data={pets}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         onEndReached={handleLoadNextPage}
         refreshing={isFetchingNextPage}
         onRefresh={handleRefresh}
+        contentContainerStyle={{
+          paddingBottom: !pets?.length ? 0 : theme.space[3],
+          flex: !pets?.length ? 1 : undefined,
+        }}
+        ListEmptyComponent={
+          <Row justifyContent="center" alignItems="center" flex={1}>
+            <Col>
+              <Row mb={2}>
+                <Text fontSize={22}>{i18n("common.emptyList")}</Text>
+              </Row>
+              <Row justifyContent="center">
+                <Text fontSize={48}>😔</Text>
+              </Row>
+            </Col>
+          </Row>
+        }
       />
     );
-  } else {
-    content = <FullScreenError />;
-  }
 
   return (
-    <Box as={SafeAreaView} flex={1}>
-      <SearchBar
-        placeholder="Type Here..."
-        onChangeText={handleChangeSearch}
-        value={search}
-        lightTheme={true}
-        round={true}
-        containerStyle={{
-          backgroundColor: "none",
-          borderBottomColor: "#edeef0",
-        }}
-      />
-      <View
-        style={{
-          flexDirection: "row",
-          marginHorizontal: 10,
-          marginBottom: 10,
-        }}
+    <Box as={SafeAreaView} display="flex" flex={1} primary>
+      <Box
+        flex={1}
+        background
+        borderTopLeftRadius={18}
+        borderTopRightRadius={18}
       >
-        <Button
-          title="..."
-          type="outline"
-          containerStyle={{ paddingRight: 10 }}
-        />
-        <Button
-          title="Мальчик"
-          type="outline"
-          containerStyle={{ paddingRight: 10 }}
-          onPress={handleFilterBoys}
-        />
-        <Button
-          title="Девочка"
-          type="outline"
-          containerStyle={{ paddingRight: 10 }}
-          onPress={handleFilterGirls}
-        />
-      </View>
-      {content}
+        {!user?.token && favorites ? (
+          <Row p={3} flex={1}>
+            <Button
+              title={
+                <>
+                  <Text background>{i18n("login.title")}</Text>
+                  <Box p={1} />
+                  <Ionicons
+                    style={{ color: "white" }}
+                    size={24}
+                    name="ios-enter-outline"
+                  />
+                </>
+              }
+              onPress={handleRedirectToLogin}
+            />
+          </Row>
+        ) : (
+          <>
+            {!favorites && (
+              <>
+                <SearchBar
+                  // @ts-expect-error ts(2322)
+                  placeholder={`${i18n("pets.search")}`}
+                  onChangeText={handleChangeSearch}
+                  value={search}
+                  lightTheme
+                  round
+                  searchIcon={
+                    <Icon
+                      color={theme.palette.primary}
+                      type="antdesign"
+                      name="search1"
+                    />
+                  }
+                  containerStyle={{
+                    borderTopWidth: 0,
+                    borderBottomWidth: 0,
+                    backgroundColor: theme.palette.transparent,
+                  }}
+                  inputContainerStyle={{
+                    backgroundColor: theme.palette.background,
+                    borderColor: theme.palette.primary,
+                    height: 40,
+                    borderWidth: 1,
+                    borderBottomWidth: 1,
+                  }}
+                />
+                <Row mx={10}>
+                  <ScrollView
+                    indicatorStyle="black"
+                    contentContainerStyle={{ paddingBottom: 8 }}
+                    horizontal
+                  >
+                    <Col mr={2}>
+                      <FilterButton
+                        active={sex === PET_SEX.BOY}
+                        title={i18n("pet.sexType.boy")}
+                        onPress={handleFilterBoys}
+                      />
+                    </Col>
+                    <Col mr={2}>
+                      <FilterButton
+                        active={sex === PET_SEX.GIRL}
+                        title={i18n("pet.sexType.girl")}
+                        onPress={handleFilterGirls}
+                      />
+                    </Col>
+                    <Col mr={2}>
+                      <FilterButton
+                        active={kind === PET_KIND.CAT}
+                        title={i18n("pet.kindType.cat")}
+                        onPress={handleFilterCats}
+                      />
+                    </Col>
+                    <Col>
+                      <FilterButton
+                        active={kind === PET_KIND.DOG}
+                        title={i18n("pet.kindType.dog")}
+                        onPress={handleFilterDogs}
+                      />
+                    </Col>
+                  </ScrollView>
+                </Row>
+              </>
+            )}
+            {content}
+          </>
+        )}
+      </Box>
     </Box>
   );
 }

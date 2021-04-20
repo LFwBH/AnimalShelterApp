@@ -1,8 +1,14 @@
-import { NavigationContainer, RouteProp } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useCallback } from "react";
 
+import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
+import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
+import CatFormScreen from "../screens/CatFormScreen";
+import DogFormScreen from "../screens/DogFormScreen";
+import LoginScreen from "../screens/LoginScreen/LoginScreen";
+import LostPetScreen from "../screens/LostPetScreen/LostPetScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import PetScreen from "../screens/PetScreen";
 import { RootStackParamList } from "../types/navigation";
@@ -23,12 +29,21 @@ export default function Navigation() {
 const RootStack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const theme = useTheme();
+
   const getPetScreenOptions = useCallback(
-    ({ route }: { route: RouteProp<RootStackParamList, "Pet"> }) => ({
+    () => ({
+      title: i18n("pet.title"),
       headerShown: true,
-      headerTitle: route.params.petName,
+      headerTitle: () => <HeaderTitle logo={false} title="О питомце" />,
+      headerStyle: {
+        backgroundColor: theme.palette.primary,
+        elevation: 0,
+        shadowColor: theme.palette.primary,
+      },
+      headerTintColor: theme.palette.background,
     }),
-    [],
+    [theme.palette.background, theme.palette.primary],
   );
 
   return (
@@ -39,14 +54,74 @@ function RootNavigator() {
         component={BottomTabNavigator}
       />
       <RootStack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: i18n("login.title"),
+          headerShown: true,
+          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
+          headerStyle: {
+            backgroundColor: theme.palette.primary,
+            elevation: 0,
+            shadowColor: theme.palette.primary,
+          },
+          headerTintColor: theme.palette.background,
+        }}
+      />
+      <RootStack.Screen
         name="Pet"
         options={getPetScreenOptions}
         component={PetScreen}
       />
       <RootStack.Screen
+        name="LostPet"
+        options={{
+          title: i18n("lost.title"),
+          headerShown: true,
+          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
+          headerStyle: {
+            backgroundColor: theme.palette.primary,
+            elevation: 0,
+            shadowColor: theme.palette.primary,
+          },
+          headerTintColor: theme.palette.background,
+        }}
+        component={LostPetScreen}
+      />
+      <RootStack.Screen
         name="NotFound"
         component={NotFoundScreen}
-        options={{ title: `${i18n("common.oops")}!` }}
+        options={{ title: i18n("common.oops"), headerShown: true }}
+      />
+      <RootStack.Screen
+        name="CatForm"
+        component={CatFormScreen}
+        options={{
+          title: i18n("form.formTitle"),
+          headerShown: true,
+          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
+          headerStyle: {
+            backgroundColor: theme.palette.primary,
+            elevation: 0,
+            shadowColor: theme.palette.primary,
+          },
+          headerTintColor: theme.palette.background,
+        }}
+      />
+      <RootStack.Screen
+        name="DogForm"
+        component={DogFormScreen}
+        options={{
+          title: i18n("form.formTitle"),
+          headerShown: true,
+          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
+          headerStyle: {
+            backgroundColor: theme.palette.primary,
+            elevation: 0,
+            shadowColor: theme.palette.primary,
+          },
+          headerTintColor: theme.palette.background,
+        }}
       />
     </RootStack.Navigator>
   );

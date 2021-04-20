@@ -43,4 +43,16 @@ const Box = styled.View<StyledPropertiesType & PaletteProps>`
   ${styledSystemProperties};
 `;
 
+export const Col = styled.View<StyledPropertiesType & PaletteProps>`
+  display: flex;
+  flex-direction: column;
+  ${styledSystemProperties};
+`;
+
+export const Row = styled.View<StyledPropertiesType & PaletteProps>`
+  display: flex;
+  flex-direction: row;
+  ${styledSystemProperties};
+`;
+
 export default Box;
