@@ -36,7 +36,7 @@
     "emptyList": "Мы ничего не нашли"
   },
   "form": {
-    "formTitle": "Анкета"
+    "title": "Анкета"
   },
   "login": {
     "title": "Вход"

@@ -35,7 +35,7 @@ function RootNavigator() {
     () => ({
       title: i18n("pet.title"),
       headerShown: true,
-      headerTitle: () => <HeaderTitle logo={false} title="О питомце" />,
+      headerTitle: () => <HeaderTitle logo={false} title={i18n("pet.title")} />,
       headerStyle: {
         backgroundColor: theme.palette.primary,
         elevation: 0,
@@ -59,7 +59,9 @@ function RootNavigator() {
         options={{
           title: i18n("login.title"),
           headerShown: true,
-          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
+          headerTitle: () => (
+            <HeaderTitle logo={false} title={i18n("login.title")} />
+          ),
           headerStyle: {
             backgroundColor: theme.palette.primary,
             elevation: 0,
@@ -78,7 +80,9 @@ function RootNavigator() {
         options={{
           title: i18n("lost.title"),
           headerShown: true,
-          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
+          headerTitle: () => (
+            <HeaderTitle logo={false} title={i18n("lost.title")} />
+          ),
           headerStyle: {
             backgroundColor: theme.palette.primary,
             elevation: 0,
@@ -97,9 +101,11 @@ function RootNavigator() {
         name="CatForm"
         component={CatFormScreen}
         options={{
-          title: i18n("form.formTitle"),
+          title: i18n("form.title"),
           headerShown: true,
-          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
+          headerTitle: () => (
+            <HeaderTitle logo={false} title={i18n("form.title")} />
+          ),
           headerStyle: {
             backgroundColor: theme.palette.primary,
             elevation: 0,
@@ -112,9 +118,11 @@ function RootNavigator() {
         name="DogForm"
         component={DogFormScreen}
         options={{
-          title: i18n("form.formTitle"),
+          title: i18n("form.title"),
           headerShown: true,
-          headerTitle: () => <HeaderTitle logo={false} title="Анкета" />,
+          headerTitle: () => (
+            <HeaderTitle logo={false} title={i18n("form.title")} />
+          ),
           headerStyle: {
             backgroundColor: theme.palette.primary,
             elevation: 0,
