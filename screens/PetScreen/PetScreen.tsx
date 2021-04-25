@@ -18,7 +18,6 @@ import FullScreenLoading from "../../components/FullScreenLoading";
 import Text from "../../components/Text";
 import { PET_IMAGE_API } from "../../constants/api";
 import { useTheme } from "../../constants/styled-components";
-import { boolToString } from "../../helpers/boolToString";
 import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
@@ -125,30 +124,12 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
                   <Text>{i18n("pet.kind")}:</Text>
                   <Text>{i18n("pet.sex")}:</Text>
                   <Text>{i18n("pet.color")}:</Text>
-                  <Text>{i18n("pet.passport")}:</Text>
-                  <Text>{i18n("pet.sterilization")}:</Text>
-                  {pet.sterilized && (
-                    <Text>{i18n("pet.sterilizationDate")}:</Text>
-                  )}
-                  <Text>{i18n("pet.from")}:</Text>
                 </Box>
                 <Box flex={1} pl={30} opacity={0.6}>
                   <Text>{pet.age}</Text>
                   <Text>{pet.color}</Text>
                   <Text>{i18n(`pet.sexType.${lowerFirst(pet.sex)}`)}</Text>
                   <Text>{pet.color}</Text>
-                  <Text>{boolToString(pet.passport)}</Text>
-                  <Text>{boolToString(pet.sterilized)}</Text>
-                  {pet.sterilized && (
-                    <Text>
-                      {new Date(pet.sterilizationDate).toLocaleString("ru")}
-                    </Text>
-                  )}
-                  <Row flex={1}>
-                    <Text flex={1} flexWrap="wrap" numberOfLines={2}>
-                      {pet.cameFrom}
-                    </Text>
-                  </Row>
                 </Box>
               </Row>
               <Box mt={3} />
