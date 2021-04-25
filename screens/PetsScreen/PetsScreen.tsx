@@ -3,11 +3,12 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import last from "lodash/last";
 import React, { useCallback, useContext, useMemo, useState } from "react";
 import { FlatList, SafeAreaView, ScrollView } from "react-native";
-import { Button, Icon, SearchBar } from "react-native-elements";
+import { Icon, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
 
 import { fetchPetList, PET_KIND, PET_SEX, PETS_KEY } from "../../api/pets";
 import Box, { Col, Row } from "../../components/Box";
+import Button from "../../components/Button";
 import FullScreenLoading from "../../components/FullScreenLoading";
 import Text from "../../components/Text";
 import { useTheme } from "../../constants/styled-components";
@@ -16,7 +17,6 @@ import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 import Item from "./Item";
-import { FilterButton } from "./styles";
 
 interface PetsScreenProps
   extends BottomTabScreenProps<RootStackParamList, "Pets"> {}
@@ -176,21 +176,30 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
         borderTopRightRadius={18}
       >
         {!user?.token && favorites ? (
-          <Row p={3} flex={1}>
-            <Button
-              title={
-                <>
-                  <Text background>{i18n("login.title")}</Text>
-                  <Box p={1} />
-                  <Ionicons
-                    style={{ color: "white" }}
-                    size={24}
-                    name="ios-enter-outline"
-                  />
-                </>
-              }
-              onPress={handleRedirectToLogin}
-            />
+          <Row p={3} flex={1} alignItems="center" justifyContent="center">
+            <Box>
+              <Button
+                round
+                buttonStyle={{
+                  paddingVertical: theme.space[2],
+                  paddingHorizontal: theme.space[4],
+                }}
+                title={
+                  <>
+                    <Text fontSize="lg" background>
+                      {i18n("login.title")}
+                    </Text>
+                    <Box p={1} />
+                    <Ionicons
+                      style={{ color: "white" }}
+                      size={32}
+                      name="ios-enter-outline"
+                    />
+                  </>
+                }
+                onPress={handleRedirectToLogin}
+              />
+            </Box>
           </Row>
         ) : (
           <>
@@ -230,29 +239,41 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
                     horizontal
                   >
                     <Col mr={2}>
-                      <FilterButton
-                        active={sex === PET_SEX.BOY}
+                      <Button
+                        round
+                        width={120}
+                        variant={sex === PET_SEX.BOY ? "secondary" : "primary"}
                         title={i18n("pet.sexType.boy")}
                         onPress={handleFilterBoys}
                       />
                     </Col>
                     <Col mr={2}>
-                      <FilterButton
-                        active={sex === PET_SEX.GIRL}
+                      <Button
+                        round
+                        width={120}
+                        variant={sex === PET_SEX.GIRL ? "secondary" : "primary"}
                         title={i18n("pet.sexType.girl")}
                         onPress={handleFilterGirls}
                       />
                     </Col>
                     <Col mr={2}>
-                      <FilterButton
-                        active={kind === PET_KIND.CAT}
+                      <Button
+                        round
+                        width={120}
+                        variant={
+                          kind === PET_KIND.CAT ? "secondary" : "primary"
+                        }
                         title={i18n("pet.kindType.cat")}
                         onPress={handleFilterCats}
                       />
                     </Col>
                     <Col>
-                      <FilterButton
-                        active={kind === PET_KIND.DOG}
+                      <Button
+                        round
+                        width={120}
+                        variant={
+                          kind === PET_KIND.DOG ? "secondary" : "primary"
+                        }
                         title={i18n("pet.kindType.dog")}
                         onPress={handleFilterDogs}
                       />

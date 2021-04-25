@@ -80,8 +80,9 @@ const theme = {
     xs: 12,
     sm: 14,
     md: 16,
-    lg: 24,
-    xl: 32,
+    lg: 20,
+    xl: 24,
+    xxl: 32,
   },
   fontWeights: {
     normal: "400",
