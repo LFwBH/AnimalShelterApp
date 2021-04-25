@@ -1,12 +1,7 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import lowerFirst from "lodash/lowerFirst";
 import React, { useCallback } from "react";
-import {
-  ActivityIndicator,
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { ActivityIndicator, SafeAreaView, ScrollView } from "react-native";
 import { Button, Card, Icon } from "react-native-elements";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
@@ -79,6 +74,9 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
     content = <FullScreenLoading />;
   } else if (!petQuery.isError) {
     const pet = petQuery.data?.data as NonNullable<Pet>;
+
+    const loading =
+      createFavoriteMutation.isLoading || deleteFavoriteMutation.isLoading;
 
     content = (
       <Box flex={1} background borderRadius={18}>
@@ -197,28 +195,27 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
             </Box>
           </ScrollView>
           <Box flex={1} position="absolute" right={0} bottom={0}>
-            <Pressable
-              disabled={
-                createFavoriteMutation.isLoading ||
-                deleteFavoriteMutation.isLoading
-              }
+            <Icon
+              color={theme.palette.secondary}
+              type="antdesign"
+              // eslint-disable-next-line unicorn/no-nested-ternary
+              name={loading ? "" : favoriteQuery.isSuccess ? "heart" : "hearto"}
+              reverse
+              raised
               onPress={
                 favoriteQuery.isSuccess ? handleUnlikePet : handleLikePet
               }
-            >
-              <Icon
-                color={
-                  createFavoriteMutation.isLoading ||
-                  deleteFavoriteMutation.isLoading
-                    ? theme.palette.disabled
-                    : theme.palette.secondary
-                }
-                type="antdesign"
-                name={favoriteQuery.isSuccess ? "heart" : "hearto"}
-                reverse
-                raised
-              />
-            </Pressable>
+            />
+            {loading && (
+              <Row
+                alignItems="center"
+                justifyContent="center"
+                position="absolute"
+                size="100%"
+              >
+                <ActivityIndicator color={theme.palette.background} />
+              </Row>
+            )}
           </Box>
         </Card>
       </Box>
