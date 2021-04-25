@@ -1,12 +1,11 @@
 import React, { useCallback } from "react";
 import { ActivityIndicator, Pressable } from "react-native";
-import { Card, Image } from "react-native-elements";
+import { Card, Divider, Image } from "react-native-elements";
 
 import Box, { Row } from "../../components/Box";
 import Text from "../../components/Text";
 import { PET_IMAGE_API } from "../../constants/api";
 import { useTheme } from "../../constants/styled-components";
-import { boolToString } from "../../helpers/boolToString";
 import i18n from "../../i18n";
 import { Pet } from "../../models/Pet";
 
@@ -34,27 +33,31 @@ function Item({ pet, onPress }: ItemProps) {
               PlaceholderContent={<ActivityIndicator />}
             />
           </Box>
-          <Box p={2}>
+          <Box flex={1} p={2}>
             <Text fontWeight="semi" primary fontSize={16} mb={1}>
               {pet.name}
             </Text>
-            <Row flex={1}>
+            <Row>
               <Box>
-                <Text fontSize={12}>{i18n("pet.age")}:</Text>
-                <Text fontSize={12}>{i18n("pet.sterilization")}:</Text>
-                <Text fontSize={12}>{i18n("pet.color")}:</Text>
+                <Text fontSize="xs">{i18n("pet.age")}:</Text>
+                <Text fontSize="xs">{i18n("pet.color")}:</Text>
               </Box>
               <Box pl={3}>
-                <Text fontSize={12} opacity={0.5}>
+                <Text fontSize="xs" opacity={0.5}>
                   {pet.age}
                 </Text>
-                <Text fontSize={12} opacity={0.5}>
-                  {boolToString(pet.sterilized)}
-                </Text>
-                <Text fontSize={12} opacity={0.5}>
+                <Text fontSize="xs" opacity={0.5}>
                   {pet.color}
                 </Text>
               </Box>
+            </Row>
+            <Box my={2}>
+              <Divider />
+            </Box>
+            <Row width={1} flex={1}>
+              <Text fontSize={12} flex={1} flexWrap="wrap" numberOfLines={2}>
+                {pet.description}
+              </Text>
             </Row>
           </Box>
         </Box>
