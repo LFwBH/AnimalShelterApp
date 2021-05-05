@@ -148,7 +148,7 @@ function AboutUsNavigator() {
         name="AboutUs"
         component={AboutUsScreen}
         options={{
-          headerTitle: () => <HeaderTitle title="О нас" />,
+          headerTitle: () => <HeaderTitle title={i18n("aboutUs.title")} />,
           headerStyle: {
             backgroundColor: theme.palette.primary,
             shadowColor: theme.palette.primary,
@@ -176,7 +176,7 @@ function PetsNavigator() {
         name="Pets"
         component={PetsScreen}
         options={{
-          headerTitle: () => <HeaderTitle title="Питомцы" />,
+          headerTitle: () => <HeaderTitle title={i18n("pets.title")} />,
           headerStyle: {
             backgroundColor: theme.palette.primary,
             shadowColor: theme.palette.primary,
@@ -205,7 +205,7 @@ function FavoritesNavigator() {
         initialParams={{ favorites: true }}
         component={PetsScreen}
         options={{
-          headerTitle: () => <HeaderTitle title="Питомцы" />,
+          headerTitle: () => <HeaderTitle title={i18n("favorites.title")} />,
           headerStyle: {
             backgroundColor: theme.palette.primary,
             shadowColor: theme.palette.primary,
@@ -233,7 +233,7 @@ function LostNavigator() {
         name="LostPets"
         component={LostPetsScreen}
         options={{
-          headerTitle: () => <HeaderTitle title="Потеряшки" />,
+          headerTitle: () => <HeaderTitle title={i18n("lost.title")} />,
           headerStyle: {
             backgroundColor: theme.palette.primary,
             shadowColor: theme.palette.primary,
@@ -261,7 +261,7 @@ function ChatNavigator() {
         name="Chat"
         component={ChatBotScreen}
         options={{
-          headerTitle: () => <HeaderTitle title="Чат" />,
+          headerTitle: () => <HeaderTitle title={i18n("pets.chat")} />,
           headerStyle: {
             backgroundColor: theme.palette.primary,
             shadowColor: theme.palette.primary,
@@ -289,7 +289,7 @@ function ProfileNavigator() {
         name="Profile"
         component={ProfileScreen}
         options={{
-          headerTitle: () => <HeaderTitle title="Профиль" />,
+          headerTitle: () => <HeaderTitle title={i18n("profile.title")} />,
           headerStyle: {
             backgroundColor: theme.palette.primary,
             shadowColor: theme.palette.primary,

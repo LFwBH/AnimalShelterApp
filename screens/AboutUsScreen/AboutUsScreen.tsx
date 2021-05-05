@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import React from "react";
-import { SafeAreaView } from "react-native";
-import { WebView } from "react-native-webview";
+import React, { useCallback } from "react";
+import { Linking, SafeAreaView } from "react-native";
+import { WebView, WebViewNavigation } from "react-native-webview";
 
 import Box from "../../components/Box";
 import { useTheme } from "../../constants/styled-components";
@@ -12,6 +12,18 @@ interface AboutUsScreenProps
 
 export default function CatFormScreen({}: AboutUsScreenProps) {
   const theme = useTheme();
+
+  const handleOpenLink = useCallback(function (
+    this: WebView,
+    event: WebViewNavigation,
+  ) {
+    if (event.url.startsWith("http")) {
+      Linking.openURL(event.url);
+      return false;
+    }
+    return true;
+  },
+  []);
 
   return (
     <Box as={SafeAreaView} flex={1}>
@@ -111,27 +123,27 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
   </p>
   <p>
     <a
-      href="www.avito.ru"
+      href="https://avito.ru"
       target="_blank"
       style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.secondary}; text-decoration: none"
     >
-      1. www.avito.ru
+      1. https://avito.ru
     </a>
     <br />
     <a
-      href="www.irr.ru"
+      href="https://irr.ru"
       target="_blank"
       style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.secondary}; text-decoration: none"
     >
-      2. www.irr.ru
+      2. https://irr.ru
     </a>
     <br />
     <a
-      href="www.pg12.ru"
+      href="https://pg12.ru"
       target="_blank"
       style="padding: 0 40px; font-size: 2em; font-family: Roboto Condensed; font-style: normal; font-weight: normal; color: ${theme.palette.secondary}; text-decoration: none"
     >
-      3. www.pg12.ru
+      3. https://pg12.ru
     </a>
   </p>
   <p
@@ -150,6 +162,7 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
 </div>
 `,
         }}
+        onShouldStartLoadWithRequest={handleOpenLink}
       />
     </Box>
   );

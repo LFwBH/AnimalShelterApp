@@ -104,8 +104,13 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
   }
 
   return (
-    <Box as={SafeAreaView} flex={1} primary pb={55}>
-      <Box background borderTopLeftRadius={18} borderTopRightRadius={18}>
+    <Box display="flex" as={SafeAreaView} flex={1} primary pb={55}>
+      <Box
+        flex={1}
+        background
+        borderTopLeftRadius={18}
+        borderTopRightRadius={18}
+      >
         <SearchBar
           // @ts-expect-error ts(2322)
           placeholder={`${i18n("pets.search")}...`}
