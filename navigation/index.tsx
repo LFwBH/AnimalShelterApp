@@ -2,15 +2,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useMemo } from "react";
 
-import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
+import HeaderTitle from "../components/HeaderTitle";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import CatFormScreen from "../screens/CatFormScreen";
 import DogFormScreen from "../screens/DogFormScreen";
-import IncomesScreen from "../screens/IncomesScreen/IncomesScreen";
-import LoginScreen from "../screens/LoginScreen/LoginScreen";
-import LostPetScreen from "../screens/LostPetScreen/LostPetScreen";
+import IncomesScreen from "../screens/IncomesScreen";
+import LoginScreen from "../screens/LoginScreen";
+import LostPetScreen from "../screens/LostPetScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
+import OutcomesScreen from "../screens/OutcomesScreen";
 import PetScreen from "../screens/PetScreen";
 import { RootStackParamList } from "../types/navigation";
 import BottomTabNavigator from "./BottomTabNavigator";
@@ -118,6 +119,15 @@ function RootNavigator() {
         options={{
           title: i18n("incomes.title"),
           headerTitle: () => <HeaderTitle title={i18n("incomes.title")} />,
+          ...headerStyleOptions,
+        }}
+      />
+      <RootStack.Screen
+        name="Outcomes"
+        component={OutcomesScreen}
+        options={{
+          title: i18n("outcomes.title"),
+          headerTitle: () => <HeaderTitle title={i18n("outcomes.title")} />,
           ...headerStyleOptions,
         }}
       />

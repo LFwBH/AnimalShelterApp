@@ -13,6 +13,7 @@ export type RootStackParamList = {
   Profile: undefined;
   Reports: undefined;
   Incomes: undefined;
+  Outcomes: undefined;
 };
 
 export type BottomTabParamList = {
