@@ -7,6 +7,7 @@ import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import ArrivalsScreen from "../screens/ArrivalsScreen";
 import CatFormScreen from "../screens/CatFormScreen";
+import DeparturesScreen from "../screens/DeparturesScreen";
 import DogFormScreen from "../screens/DogFormScreen";
 import IncomesScreen from "../screens/IncomesScreen";
 import LoginScreen from "../screens/LoginScreen";
@@ -138,6 +139,15 @@ function RootNavigator() {
         options={{
           title: i18n("arrivals.title"),
           headerTitle: () => <HeaderTitle title={i18n("arrivals.title")} />,
+          ...headerStyleOptions,
+        }}
+      />
+      <RootStack.Screen
+        name="Departures"
+        component={DeparturesScreen}
+        options={{
+          title: i18n("departures.title"),
+          headerTitle: () => <HeaderTitle title={i18n("departures.title")} />,
           ...headerStyleOptions,
         }}
       />

@@ -1,9 +1,23 @@
+interface PetStackProps {
+  petId: number;
+  petName: string;
+  favorite: boolean;
+}
+
+interface PetsStackProps {
+  favorites: boolean;
+}
+
+interface LostPetStackProps {
+  petId: number;
+}
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
-  Pets: { favorites: boolean };
-  Pet: { petId: number; petName: string; favorite: boolean };
-  LostPet: { petId: number };
+  Pets: PetsStackProps;
+  Pet: PetStackProps;
+  LostPet: LostPetStackProps;
   Chat: undefined;
   CatForm: undefined;
   DogForm: undefined;
@@ -15,6 +29,7 @@ export type RootStackParamList = {
   Incomes: undefined;
   Outcomes: undefined;
   Arrivals: undefined;
+  Departures: undefined;
 };
 
 export type BottomTabParamList = {

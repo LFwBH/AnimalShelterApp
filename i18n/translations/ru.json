@@ -96,5 +96,8 @@
   },
   "arrivals": {
     "title": "Прибывшие"
+  },
+  "departures": {
+    "title": "Отданные"
   }
 }
