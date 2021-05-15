@@ -1,8 +1,9 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import lowerFirst from "lodash/lowerFirst";
 import React, { useCallback } from "react";
-import { ActivityIndicator, SafeAreaView, ScrollView } from "react-native";
+import { ActivityIndicator, ScrollView } from "react-native";
 import { Button, Card, Icon } from "react-native-elements";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import {
@@ -206,7 +207,12 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
   }
 
   return (
-    <Box as={SafeAreaView} flex={1} backgroundColor={theme.palette.primary}>
+    <Box
+      as={SafeAreaView}
+      edges={["right", "left", "bottom"]}
+      flex={1}
+      backgroundColor={theme.palette.primary}
+    >
       {content}
     </Box>
   );

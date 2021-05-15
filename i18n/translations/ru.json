@@ -55,5 +55,14 @@
   },
   "favorites": {
     "title": "Избранное"
+  },
+  "reports": {
+    "title": "Отчёты",
+    "kinds": {
+      "arrivals": "Прибывшие питомцы",
+      "departures": "Отданные питомцы",
+      "income": "Доходы",
+      "outcome": "Расходы"
+    }
   }
 }

@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useCallback, useContext, useState } from "react";
-import { ActivityIndicator, SafeAreaView } from "react-native";
+import { ActivityIndicator } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useMutation } from "react-query";
 
 import { login, register } from "../../api/auth";
@@ -76,7 +77,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   const disabled = !form.email || !form.password;
 
   return (
-    <Row as={SafeAreaView} flex={1}>
+    <Row as={SafeAreaView} edges={["right", "left", "bottom"]} flex={1}>
       <Col mt="50%" flex={1} py={2}>
         <InputField
           autoCapitalize="none"

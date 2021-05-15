@@ -1,7 +1,8 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useCallback } from "react";
-import { SafeAreaView, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import { Button, Card } from "react-native-elements";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import Box from "../../components/Box";
 import CheckboxVariant from "../../components/CheckboxVariant/CheckboxVariant";
@@ -25,6 +26,7 @@ export default function CatFormScreen({ navigation }: CatFormScreenProps) {
   return (
     <Box
       as={SafeAreaView}
+      edges={["right", "left", "bottom"]}
       flex={1}
       style={{
         backgroundColor: theme.palette.primary,

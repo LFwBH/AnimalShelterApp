@@ -1,7 +1,8 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
-import { ActivityIndicator, SafeAreaView, ScrollView } from "react-native";
+import { ActivityIndicator, ScrollView } from "react-native";
 import { Card } from "react-native-elements";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useQuery } from "react-query";
 
 import { fetchLostPetById } from "../../api/lost";
@@ -84,7 +85,12 @@ export default function LostPetScreen({ route }: PetScreenProps) {
   }
 
   return (
-    <Box as={SafeAreaView} flex={1} backgroundColor={theme.palette.primary}>
+    <Box
+      as={SafeAreaView}
+      edges={["right", "left", "bottom"]}
+      flex={1}
+      backgroundColor={theme.palette.primary}
+    >
       {content}
     </Box>
   );
