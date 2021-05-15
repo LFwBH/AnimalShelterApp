@@ -14,6 +14,7 @@ export type RootStackParamList = {
   Reports: undefined;
   Incomes: undefined;
   Outcomes: undefined;
+  Arrivals: undefined;
 };
 
 export type BottomTabParamList = {

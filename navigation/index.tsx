@@ -5,6 +5,7 @@ import React, { useMemo } from "react";
 import HeaderTitle from "../components/HeaderTitle";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
+import ArrivalsScreen from "../screens/ArrivalsScreen";
 import CatFormScreen from "../screens/CatFormScreen";
 import DogFormScreen from "../screens/DogFormScreen";
 import IncomesScreen from "../screens/IncomesScreen";
@@ -128,6 +129,15 @@ function RootNavigator() {
         options={{
           title: i18n("outcomes.title"),
           headerTitle: () => <HeaderTitle title={i18n("outcomes.title")} />,
+          ...headerStyleOptions,
+        }}
+      />
+      <RootStack.Screen
+        name="Arrivals"
+        component={ArrivalsScreen}
+        options={{
+          title: i18n("arrivals.title"),
+          headerTitle: () => <HeaderTitle title={i18n("arrivals.title")} />,
           ...headerStyleOptions,
         }}
       />

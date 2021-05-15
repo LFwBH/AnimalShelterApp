@@ -18,6 +18,10 @@ function ReportsScreen({ navigation }: ReportsScreenProps) {
     navigation.navigate("Outcomes");
   }, [navigation]);
 
+  const handleGoToArrivals = useCallback(() => {
+    navigation.navigate("Arrivals");
+  }, [navigation]);
+
   return (
     <Box flex={1} primary>
       <Box
@@ -27,7 +31,10 @@ function ReportsScreen({ navigation }: ReportsScreenProps) {
         borderTopRightRadius={18}
         p={3}
       >
-        <ReportBar title={i18n("reports.kinds.arrivals")} />
+        <ReportBar
+          title={i18n("reports.kinds.arrivals")}
+          onPress={handleGoToArrivals}
+        />
         <Box p={2} />
         <ReportBar title={i18n("reports.kinds.departures")} />
         <Box p={2} />
