@@ -2,6 +2,7 @@ import "react-native-gesture-handler";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
+import { Settings } from "luxon";
 import React, { useCallback, useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -16,6 +17,8 @@ if (__DEV__) {
   // @ts-expect-error ts(7016)
   import("./reactotron.config");
 }
+
+Settings.defaultLocale = "ru";
 
 const client = new QueryClient();
 

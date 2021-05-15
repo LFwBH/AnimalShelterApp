@@ -1,8 +1,10 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import React from "react";
+import { DateTime } from "luxon";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import Box from "../../components/Box";
+import Box, { Col, Row } from "../../components/Box";
+import DateInput from "../../components/DateInput";
 import Text from "../../components/Text";
 import { RootStackParamList } from "../../types/navigation";
 
@@ -10,6 +12,14 @@ interface IncomesScreenProps
   extends StackNavigationProp<RootStackParamList, "Incomes"> {}
 
 function IncomesScreen({}: IncomesScreenProps) {
+  const [from, setFrom] = useState(() =>
+    DateTime.local().startOf("week").toISODate(),
+  );
+
+  const [to, setTo] = useState(() =>
+    DateTime.local().endOf("week").toISODate(),
+  );
+
   return (
     <Box as={SafeAreaView} edges={["right", "left", "bottom"]} flex={1} primary>
       <Box
@@ -18,10 +28,32 @@ function IncomesScreen({}: IncomesScreenProps) {
         borderTopRightRadius={18}
         background
         p={3}
-        alignItems="center"
-        justifyContent="center"
       >
-        <Text fontSize={72}>🚧</Text>
+        <Row>
+          <Col flex={12} alignItems="center">
+            <DateInput width={1} value={from} onChange={setFrom} />
+          </Col>
+
+          <Col justifyContent="center" flex={1} px={3}>
+            <Box text height={2} />
+          </Col>
+
+          <Col flex={12} alignItems="center">
+            <DateInput
+              minimumDate={from}
+              width={1}
+              value={to}
+              onChange={setTo}
+            />
+          </Col>
+        </Row>
+        <Row flex={1}>
+          <Col flex={1} justifyContent="center">
+            <Text alignSelf="center" fontSize={72}>
+              🚧
+            </Text>
+          </Col>
+        </Row>
       </Box>
     </Box>
   );
