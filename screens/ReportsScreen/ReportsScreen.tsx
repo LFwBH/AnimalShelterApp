@@ -1,5 +1,5 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
+import React, { useCallback } from "react";
 
 import Box from "../../components/Box";
 import i18n from "../../i18n";
@@ -9,7 +9,11 @@ import ReportBar from "./ReportBar";
 interface ReportsScreenProps
   extends StackScreenProps<RootStackParamList, "Reports"> {}
 
-function ReportsScreen({}: ReportsScreenProps) {
+function ReportsScreen({ navigation }: ReportsScreenProps) {
+  const handleGoToIncomes = useCallback(() => {
+    navigation.navigate("Incomes");
+  }, [navigation]);
+
   return (
     <Box flex={1} primary>
       <Box
@@ -23,7 +27,10 @@ function ReportsScreen({}: ReportsScreenProps) {
         <Box p={2} />
         <ReportBar title={i18n("reports.kinds.departures")} />
         <Box p={2} />
-        <ReportBar title={i18n("reports.kinds.income")} />
+        <ReportBar
+          title={i18n("reports.kinds.income")}
+          onPress={handleGoToIncomes}
+        />
         <Box p={2} />
         <ReportBar title={i18n("reports.kinds.outcome")} />
       </Box>

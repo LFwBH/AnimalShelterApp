@@ -1,12 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useCallback } from "react";
+import React, { useMemo } from "react";
 
 import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import CatFormScreen from "../screens/CatFormScreen";
 import DogFormScreen from "../screens/DogFormScreen";
+import IncomesScreen from "../screens/IncomesScreen/IncomesScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import LostPetScreen from "../screens/LostPetScreen/LostPetScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -31,11 +32,9 @@ const RootStack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   const theme = useTheme();
 
-  const getPetScreenOptions = useCallback(
+  const headerStyleOptions = useMemo(
     () => ({
-      title: i18n("pet.title"),
       headerShown: true,
-      headerTitle: () => <HeaderTitle logo={false} title={i18n("pet.title")} />,
       headerStyle: {
         backgroundColor: theme.palette.primary,
         elevation: 0,
@@ -58,37 +57,31 @@ function RootNavigator() {
         component={LoginScreen}
         options={{
           title: i18n("login.title"),
-          headerShown: true,
           headerTitle: () => (
             <HeaderTitle logo={false} title={i18n("login.title")} />
           ),
-          headerStyle: {
-            backgroundColor: theme.palette.primary,
-            elevation: 0,
-            shadowColor: theme.palette.primary,
-          },
-          headerTintColor: theme.palette.background,
+          ...headerStyleOptions,
         }}
       />
       <RootStack.Screen
         name="Pet"
-        options={getPetScreenOptions}
+        options={{
+          title: i18n("pet.title"),
+          headerTitle: () => (
+            <HeaderTitle logo={false} title={i18n("pet.title")} />
+          ),
+          ...headerStyleOptions,
+        }}
         component={PetScreen}
       />
       <RootStack.Screen
         name="LostPet"
         options={{
           title: i18n("lost.title"),
-          headerShown: true,
           headerTitle: () => (
             <HeaderTitle logo={false} title={i18n("lost.title")} />
           ),
-          headerStyle: {
-            backgroundColor: theme.palette.primary,
-            elevation: 0,
-            shadowColor: theme.palette.primary,
-          },
-          headerTintColor: theme.palette.background,
+          ...headerStyleOptions,
         }}
         component={LostPetScreen}
       />
@@ -102,16 +95,10 @@ function RootNavigator() {
         component={CatFormScreen}
         options={{
           title: i18n("form.title"),
-          headerShown: true,
           headerTitle: () => (
             <HeaderTitle logo={false} title={i18n("form.title")} />
           ),
-          headerStyle: {
-            backgroundColor: theme.palette.primary,
-            elevation: 0,
-            shadowColor: theme.palette.primary,
-          },
-          headerTintColor: theme.palette.background,
+          ...headerStyleOptions,
         }}
       />
       <RootStack.Screen
@@ -119,16 +106,19 @@ function RootNavigator() {
         component={DogFormScreen}
         options={{
           title: i18n("form.title"),
-          headerShown: true,
           headerTitle: () => (
             <HeaderTitle logo={false} title={i18n("form.title")} />
           ),
-          headerStyle: {
-            backgroundColor: theme.palette.primary,
-            elevation: 0,
-            shadowColor: theme.palette.primary,
-          },
-          headerTintColor: theme.palette.background,
+          ...headerStyleOptions,
+        }}
+      />
+      <RootStack.Screen
+        name="Incomes"
+        component={IncomesScreen}
+        options={{
+          title: i18n("incomes.title"),
+          headerTitle: () => <HeaderTitle title={i18n("incomes.title")} />,
+          ...headerStyleOptions,
         }}
       />
     </RootStack.Navigator>
