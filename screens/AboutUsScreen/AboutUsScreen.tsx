@@ -26,10 +26,17 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
   []);
 
   return (
-    <Box flex={1}>
-      <WebView
-        source={{
-          html: `
+    <Box flex={1} primary>
+      <Box
+        flex={1}
+        pt={3}
+        background
+        borderTopLeftRadius={18}
+        borderTopRightRadius={18}
+      >
+        <WebView
+          source={{
+            html: `
 <div style="width: 100%; display: flex; flex-direction: column; justify-content: center">
   <div style="display: flex; flex: 1; justify-content: center; padding-top: 96px;">
     <img
@@ -161,9 +168,10 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
   <br />
 </div>
 `,
-        }}
-        onShouldStartLoadWithRequest={handleOpenLink}
-      />
+          }}
+          onShouldStartLoadWithRequest={handleOpenLink}
+        />
+      </Box>
     </Box>
   );
 }

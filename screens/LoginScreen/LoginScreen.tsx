@@ -77,111 +77,118 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   const disabled = !form.email || !form.password;
 
   return (
-    <Row as={SafeAreaView} edges={["right", "left", "bottom"]} flex={1}>
-      <Col mt="50%" flex={1} py={2}>
-        <InputField
-          autoCapitalize="none"
-          autoFocus
-          autoCorrect={false}
-          placeholder=""
-          autoCompleteType="email"
-          textContentType="emailAddress"
-          keyboardType="email-address"
-          label="Эл. почта"
-          errorLabel="Заполните обязательное поле!"
-          onChangeText={handleChangeEmail}
-        />
-        <InputField
-          autoCapitalize="none"
-          autoFocus
-          autoCorrect={false}
-          placeholder=""
-          autoCompleteType="password"
-          textContentType="password"
-          secureTextEntry
-          label="Пароль"
-          errorLabel="Заполните обязательное поле!"
-          onChangeText={handleChangePassword}
-        />
-        <Col flex={1} p={2}>
-          <Row>
-            <Button
-              disabled={disabled || loginMutation.isLoading}
-              containerStyle={{ flex: 1 }}
-              buttonStyle={{
-                paddingTop: theme.space[2],
-                paddingBottom: theme.space[2],
-              }}
-              title={
-                <>
-                  <Text fontSize="lg" background>
-                    Войти
-                  </Text>
-                  {!loginMutation.isLoading && (
-                    <Ionicons
-                      size={24}
-                      name="ios-enter-outline"
-                      style={{
-                        position: "absolute",
-                        right: 16,
-                        color: "white",
-                      }}
-                    />
-                  )}
+    <Box as={SafeAreaView} edges={["right", "left", "bottom"]} flex={1} primary>
+      <Box
+        flex={1}
+        background
+        borderTopLeftRadius={18}
+        borderTopRightRadius={18}
+      >
+        <Col mt="50%" flex={1} py={2}>
+          <InputField
+            autoCapitalize="none"
+            autoFocus
+            autoCorrect={false}
+            placeholder=""
+            autoCompleteType="email"
+            textContentType="emailAddress"
+            keyboardType="email-address"
+            label="Эл. почта"
+            errorLabel="Заполните обязательное поле!"
+            onChangeText={handleChangeEmail}
+          />
+          <InputField
+            autoCapitalize="none"
+            autoFocus
+            autoCorrect={false}
+            placeholder=""
+            autoCompleteType="password"
+            textContentType="password"
+            secureTextEntry
+            label="Пароль"
+            errorLabel="Заполните обязательное поле!"
+            onChangeText={handleChangePassword}
+          />
+          <Col flex={1} p={2}>
+            <Row>
+              <Button
+                disabled={disabled || loginMutation.isLoading}
+                containerStyle={{ flex: 1 }}
+                buttonStyle={{
+                  paddingTop: theme.space[2],
+                  paddingBottom: theme.space[2],
+                }}
+                title={
+                  <>
+                    <Text fontSize="lg" background>
+                      Войти
+                    </Text>
+                    {!loginMutation.isLoading && (
+                      <Ionicons
+                        size={24}
+                        name="ios-enter-outline"
+                        style={{
+                          position: "absolute",
+                          right: 16,
+                          color: "white",
+                        }}
+                      />
+                    )}
 
-                  {loginMutation.isLoading && (
-                    <ActivityIndicator
-                      style={{
-                        position: "absolute",
-                        right: 16,
-                      }}
-                    />
-                  )}
-                </>
-              }
-              onPress={handleSubmitLogin}
-            />
-          </Row>
-          <Box p={2} />
-          <Row>
-            <Button
-              disabled={disabled || registerMutation.isLoading}
-              containerStyle={{ flex: 1 }}
-              buttonStyle={{
-                paddingTop: theme.space[2],
-                paddingBottom: theme.space[2],
-              }}
-              title={
-                <>
-                  <Text fontSize="lg" background>
-                    Зарегистрироваться
-                  </Text>
-                  {!registerMutation.isLoading && (
-                    <Ionicons
-                      name="person-add-outline"
-                      size={24}
-                      style={{
-                        position: "absolute",
-                        right: 16,
-                        color: "white",
-                      }}
-                    />
-                  )}
-                  {registerMutation.isLoading && (
-                    <ActivityIndicator
-                      style={{
-                        position: "absolute",
-                        right: 16,
-                      }}
-                    />
-                  )}
-                </>
-              }
-              onPress={handleSubmitRegistration}
-            />
-          </Row>
+                    {loginMutation.isLoading && (
+                      <ActivityIndicator
+                        style={{
+                          position: "absolute",
+                          right: 16,
+                        }}
+                      />
+                    )}
+                  </>
+                }
+                onPress={handleSubmitLogin}
+              />
+            </Row>
+            <Box p={2} />
+            <Row>
+              <Button
+                disabled={disabled || registerMutation.isLoading}
+                containerStyle={{ flex: 1 }}
+                buttonStyle={{
+                  paddingTop: theme.space[2],
+                  paddingBottom: theme.space[2],
+                }}
+                title={
+                  <>
+                    <Text fontSize="lg" background>
+                      Зарегистрироваться
+                    </Text>
+                    {!registerMutation.isLoading && (
+                      <Ionicons
+                        name="person-add-outline"
+                        size={24}
+                        style={{
+                          position: "absolute",
+                          right: 16,
+                          color: "white",
+                        }}
+                      />
+                    )}
+                    {registerMutation.isLoading && (
+                      <ActivityIndicator
+                        style={{
+                          position: "absolute",
+                          right: 16,
+                        }}
+                      />
+                    )}
+                  </>
+                }
+                onPress={handleSubmitRegistration}
+              />
+            </Row>
+          </Col>
         </Col>
-      </Col>
-    </Row>
+      </Box>
+    </Box>
   );
 }
