@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import last from "lodash/last";
 import React, { useCallback, useMemo, useState } from "react";
-import { FlatList, SafeAreaView } from "react-native";
+import { FlatList } from "react-native";
 import { Icon, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
 
@@ -104,7 +104,7 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
   }
 
   return (
-    <Box display="flex" as={SafeAreaView} flex={1} primary pb={55}>
+    <Box flex={1} primary>
       <Box
         flex={1}
         background

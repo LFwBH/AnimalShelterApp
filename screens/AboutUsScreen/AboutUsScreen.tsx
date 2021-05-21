@@ -1,6 +1,6 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import React, { useCallback } from "react";
-import { Linking, SafeAreaView } from "react-native";
+import { Linking } from "react-native";
 import { WebView, WebViewNavigation } from "react-native-webview";
 
 import Box from "../../components/Box";
@@ -26,10 +26,17 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
   []);
 
   return (
-    <Box as={SafeAreaView} flex={1}>
-      <WebView
-        source={{
-          html: `
+    <Box flex={1} primary>
+      <Box
+        flex={1}
+        pt={3}
+        background
+        borderTopLeftRadius={18}
+        borderTopRightRadius={18}
+      >
+        <WebView
+          source={{
+            html: `
 <div style="width: 100%; display: flex; flex-direction: column; justify-content: center">
   <div style="display: flex; flex: 1; justify-content: center; padding-top: 96px;">
     <img
@@ -161,9 +168,10 @@ export default function CatFormScreen({}: AboutUsScreenProps) {
   <br />
 </div>
 `,
-        }}
-        onShouldStartLoadWithRequest={handleOpenLink}
-      />
+          }}
+          onShouldStartLoadWithRequest={handleOpenLink}
+        />
+      </Box>
     </Box>
   );
 }

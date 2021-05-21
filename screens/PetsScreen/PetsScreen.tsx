@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import last from "lodash/last";
 import React, { useCallback, useContext, useMemo, useState } from "react";
-import { FlatList, SafeAreaView, ScrollView } from "react-native";
+import { FlatList, ScrollView } from "react-native";
 import { Icon, SearchBar } from "react-native-elements";
 import { useInfiniteQuery } from "react-query";
 
@@ -168,7 +168,7 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
     );
 
   return (
-    <Box as={SafeAreaView} display="flex" flex={1} primary>
+    <Box flex={1} primary>
       <Box
         flex={1}
         background
