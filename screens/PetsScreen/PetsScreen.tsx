@@ -83,7 +83,7 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
     [handlePressPet],
   );
 
-  const keyExtractor = useCallback((item) => item.id.toString(), []);
+  const keyExtractor = useCallback((pet: Pet) => pet.id.toString(), []);
 
   const handleLoadNextPage = useCallback(() => {
     if (hasNextPage && !isFetching && !isFetchingNextPage) {
@@ -206,10 +206,10 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
             {!favorites && (
               <>
                 <SearchBar
-                  // @ts-expect-error ts(2322)
                   placeholder={`${i18n("pets.search")}`}
                   onChangeText={handleChangeSearch}
                   value={search}
+                  // @ts-expect-error ts(2322)
                   lightTheme
                   round
                   searchIcon={

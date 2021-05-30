@@ -48,10 +48,8 @@ function IncomesScreen({}: IncomesScreenProps) {
           </Col>
         </Row>
         <Row flex={1}>
-          <Col flex={1} justifyContent="center">
-            <Text alignSelf="center" fontSize={72}>
-              🚧
-            </Text>
+          <Col flex={1} justifyContent="center" alignItems="center">
+            <Text fontSize={72}>🚧</Text>
           </Col>
         </Row>
       </Box>
