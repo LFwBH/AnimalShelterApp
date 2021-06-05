@@ -1,29 +1,18 @@
-import React, { useState } from "react";
-import { CheckBox } from "react-native-elements";
+import { CheckBox as RNCheckBox } from "react-native-elements";
+import styled from "styled-components/native";
 
-import { useTheme } from "../../constants/styled-components";
-import Box from "../Box";
+const CheckboxView = styled(RNCheckBox).attrs(({ theme }) => ({
+  iconRight: true,
+  containerStyle: {
+    backgroundColor: theme.palette.background,
+    width: "50%",
+    borderColor: theme.palette.background,
+    paddingLeft: 0,
+    marginLeft: 0,
+  },
+  textStyle: {
+    fontWeight: "500",
+  },
+}))``;
 
-interface CheckboxViewProps {
-  label: string;
-}
-
-export default function CheckboxView({ label }: CheckboxViewProps) {
-  const theme = useTheme();
-
-  const [checkbox, setCheckbox] = useState(false);
-
-  return (
-    <Box display="flex" width="100%">
-      <CheckBox
-        iconRight
-        title={label}
-        containerStyle={{
-          backgroundColor: theme.palette.background,
-          width: "50%",
-          borderColor: theme.palette.background,
-        }}
-      />
-    </Box>
-  );
-}
+export default CheckboxView;

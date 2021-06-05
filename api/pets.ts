@@ -133,3 +133,21 @@ export async function deleteFavoritePet({ petId }: { petId: number }) {
     processFetchResponse(url),
   ) as Promise<APIResponse<void>>;
 }
+
+export async function createPet(pet: Partial<Pet>) {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  const token = await AsyncStorage.getItem("access_token");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const url = composeApiUrl("pet");
+  return fetch(url, {
+    body: JSON.stringify(pet),
+    headers,
+    method: "POST",
+  }).then(processFetchResponse(url)) as Promise<APIResponse<void>>;
+}
