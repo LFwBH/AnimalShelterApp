@@ -5,7 +5,9 @@ import React, { useCallback } from "react";
 import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
+import AddOverexposureScreen from "../screens/AddOverexposureScreen";
 import AddPetScreen from "../screens/AddPetScreen";
+import AddRecommendationScreen from "../screens/AddRecommendationScreen";
 import CatFormScreen from "../screens/CatFormScreen";
 import DogFormScreen from "../screens/DogFormScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
@@ -140,6 +142,40 @@ function RootNavigator() {
           headerShown: true,
           headerTitle: () => (
             <HeaderTitle logo={false} title={i18n("addPet.title")} />
+          ),
+          headerStyle: {
+            backgroundColor: theme.palette.primary,
+            elevation: 0,
+            shadowColor: theme.palette.primary,
+          },
+          headerTintColor: theme.palette.background,
+        }}
+      />
+      <RootStack.Screen
+        name="AddOverexposure"
+        component={AddOverexposureScreen}
+        options={{
+          title: i18n("addOverexposure.title"),
+          headerShown: true,
+          headerTitle: () => (
+            <HeaderTitle logo={false} title={i18n("addOverexposure.title")} />
+          ),
+          headerStyle: {
+            backgroundColor: theme.palette.primary,
+            elevation: 0,
+            shadowColor: theme.palette.primary,
+          },
+          headerTintColor: theme.palette.background,
+        }}
+      />
+      <RootStack.Screen
+        name="AddRecommendation"
+        component={AddRecommendationScreen}
+        options={{
+          title: i18n("addRecommendation.title"),
+          headerShown: true,
+          headerTitle: () => (
+            <HeaderTitle logo={false} title={i18n("addRecommendation.title")} />
           ),
           headerStyle: {
             backgroundColor: theme.palette.primary,

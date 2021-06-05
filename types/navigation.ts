@@ -12,6 +12,8 @@ export type RootStackParamList = {
   LostPets: undefined;
   Profile: undefined;
   AddPet: undefined;
+  AddOverexposure: undefined;
+  AddRecommendation: undefined;
 };
 
 export type BottomTabParamList = {
@@ -49,4 +51,12 @@ export type FavoritesParamList = {
 
 export type AddPetParamList = {
   AddPet: undefined;
+};
+
+export type AddOverexposureParamList = {
+  AddOverexposure: undefined;
+};
+
+export type AddRecommendationParamList = {
+  AddRecommendation: undefined;
 };

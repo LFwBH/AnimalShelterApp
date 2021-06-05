@@ -30,3 +30,18 @@ export interface Pet {
   readonly sterilizationDate: string;
   readonly image: Image;
 }
+
+export interface Overexposure {
+  readonly date: string;
+  readonly placement: string;
+  readonly note: string;
+}
+
+export interface Recommendation {
+  readonly name: string;
+  readonly date: string;
+  readonly pet: string;
+  readonly diagnosis: string;
+  readonly recommendation: string;
+  readonly forever: boolean;
+}

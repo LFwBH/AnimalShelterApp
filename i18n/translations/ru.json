@@ -58,5 +58,11 @@
   },
   "addPet": {
     "title": "Добавление"
+  },
+  "addOverexposure": {
+    "title": "Местонахождения"
+  },
+  "addRecommendation": {
+    "title": "Рекомендации"
   }
 }

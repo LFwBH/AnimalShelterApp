@@ -1,19 +1,16 @@
+import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import React, { useCallback, useState } from "react";
 import { Platform, SafeAreaView, ScrollView, View } from "react-native";
 import { useMutation, useQueryClient } from "react-query";
 
-import { createPet } from "../../api/pets";
 import Box from "../../components/Box";
 import Button from "../../components/Button";
-import CheckboxView from "../../components/CheckboxView";
 import CustomInputField from "../../components/CustomInputField";
-import InputField from "../../components/InputField";
-import RoundButtonGroup from "../../components/RoundButtonGroup";
 import Text from "../../components/Text";
 import theme from "../../constants/theme";
-import { Pet } from "../../models/Pet";
+import { Overexposure } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 
 const DatePicker = (props: any) => {
@@ -41,38 +38,74 @@ const DatePicker = (props: any) => {
   );
 };
 
-interface AddPetScreenProps
-  extends BottomTabScreenProps<RootStackParamList, "AddOverexposure"> {}
+const CustomSelect = () => {
+  const [data, setData] = useState("");
+  const handleInput = useCallback((value) => {
+    setData(value);
+  }, []);
 
-const AddPetScreen = ({ navigation, route }: AddPetScreenProps) => {
+  return (
+    <Box display="flex" width="100%" justifyContent="center" p={2}>
+      <Text>Передержка</Text>
+      <Box
+        style={{
+          position: "relative",
+          backgroundColor: "#fff",
+          height: 30,
+          paddingHorizontal: 10,
+          marginTop: 10,
+          borderColor: "#5381D6",
+          borderWidth: 1,
+        }}
+      >
+        <Ionicons
+          style={{ position: "absolute", right: 12 }}
+          name="chevron-down"
+          size={24}
+          color="#5381D6"
+        />
+      </Box>
+    </Box>
+  );
+};
+
+const Card = () => {
+  return (
+    <>
+      <DatePicker name="Дата:" />
+      <CustomSelect />
+      <CustomInputField label="Примечание:" />
+    </>
+  );
+};
+
+interface AddOverexposureScreenProps
+  extends BottomTabScreenProps<RootStackParamList, "AddRecommendation"> {}
+
+const AddOverexposureScreen = ({
+  navigation,
+  route,
+}: AddOverexposureScreenProps) => {
   const queryClient = useQueryClient();
 
-  const [pet, setPet] = useState<Partial<Pet>>({
-    color: "",
-    kind: "Cat",
-    sex: "Boy",
-    name: "",
-    description: "",
-    age: 0,
+  const [overexposure, setOverexposure] = useState<Partial<Overexposure>>({
+    date: "",
+    placement: "",
+    note: "",
   });
 
-  const [checked, setChecked] = useState(false);
-
-  const handleChangeFlag = useCallback(() => {
-    setChecked(!checked);
-  }, [checked]);
-
-  const createPetMutation = useMutation(() => createPet(pet), {
-    onSuccess: () => queryClient.invalidateQueries("pets"),
+  const createOverexposureMutation = useMutation({
+    onSuccess: () => queryClient.invalidateQueries("recommendation"),
   });
-
-  const handleSavePet = useCallback(() => createPetMutation.mutate(), [
-    createPetMutation,
-  ]);
 
   const handlePressNextAddScreen = useCallback(() => {
-    navigation.navigate("AddOverexposure");
+    navigation.navigate("AddRecommendation");
   }, [navigation]);
+
+  const handleSaveOverexposure = useCallback(
+    () => createOverexposureMutation.mutate(),
+    [createOverexposureMutation],
+  );
 
   return (
     <Box
@@ -93,36 +126,23 @@ const AddPetScreen = ({ navigation, route }: AddPetScreenProps) => {
           paddingTop: 20,
         }}
       >
-        <InputField
-          label="Кличка питомца:"
-          errorLabel="Заполните обязательное поле!"
-          on
+        <Card />
+        <Button
+          round
+          buttonStyle={{
+            paddingVertical: theme.space[2],
+            paddingHorizontal: theme.space[2],
+            marginBottom: 10,
+          }}
+          title={
+            <>
+              <Text fontSize="lg" background>
+                Добавить передержку
+              </Text>
+            </>
+          }
         />
-        <DatePicker name="Дата рождения" />
-        <RoundButtonGroup
-          label="Вид питомца"
-          firstButton="Кошка"
-          secondButton="Собака"
-        />
-        <RoundButtonGroup
-          label="Пол питомца:"
-          firstButton="мужской"
-          secondButton="женский"
-        />
-        <InputField label="Окрас:" errorLabel="Заполните обязательное поле!" />
-        <CheckboxView
-          checked={checked}
-          title="Стерилизация:"
-          onPress={handleChangeFlag}
-        />
-        <DatePicker name="Дата стерилизации" />
-        <CheckboxView title="Паспорт:" />
-        <CustomInputField label="Характеристика:" />
-        <CustomInputField label="Особенность:" />
-        <InputField
-          label="Откуда прибыл питомец:"
-          errorLabel="Заполните обязательное поле!"
-        />
+
         <Button
           round
           buttonStyle={{
@@ -144,4 +164,4 @@ const AddPetScreen = ({ navigation, route }: AddPetScreenProps) => {
   );
 };
 
-export default AddPetScreen;
+export default AddOverexposureScreen;
