@@ -56,13 +56,15 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
     navigation.navigate("CatForm");
   }, [navigation]);
 
-  const handleLikePet = useCallback(() => createFavoriteMutation.mutate(), [
-    createFavoriteMutation,
-  ]);
+  const handleLikePet = useCallback(
+    () => createFavoriteMutation.mutate(),
+    [createFavoriteMutation],
+  );
 
-  const handleUnlikePet = useCallback(() => deleteFavoriteMutation.mutate(), [
-    deleteFavoriteMutation,
-  ]);
+  const handleUnlikePet = useCallback(
+    () => deleteFavoriteMutation.mutate(),
+    [deleteFavoriteMutation],
+  );
 
   const handleDogForm = useCallback(() => {
     navigation.navigate("DogForm");

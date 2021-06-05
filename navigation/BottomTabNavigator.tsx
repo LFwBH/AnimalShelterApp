@@ -52,22 +52,24 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-      <BottomTab.Screen
-        name="Favorites"
-        component={FavoritesNavigator}
-        options={{
-          title: i18n("favorites.title"),
-          tabBarLabel: ({ focused }) => (
-            <TabBarLabel label={i18n("favorites.title")} focused={focused} />
-          ),
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              src={require("../assets/images/icons/heart.png")}
-              focused={focused}
-            />
-          ),
-        }}
-      />
+      {false && (
+        <BottomTab.Screen
+          name="Favorites"
+          component={FavoritesNavigator}
+          options={{
+            title: i18n("favorites.title"),
+            tabBarLabel: ({ focused }) => (
+              <TabBarLabel label={i18n("favorites.title")} focused={focused} />
+            ),
+            tabBarIcon: ({ focused }) => (
+              <TabBarIcon
+                src={require("../assets/images/icons/heart.png")}
+                focused={focused}
+              />
+            ),
+          }}
+        />
+      )}
       <BottomTab.Screen
         name="Pets"
         component={PetsNavigator}
@@ -118,24 +120,26 @@ export default function BottomTabNavigator() {
           }}
         />
       )}
-      <BottomTab.Screen
-        name="Profile"
-        component={ProfileNavigator}
-        options={{
-          title: i18n("profile.title"),
-          tabBarLabel: ({ focused }) => (
-            <TabBarLabel label={i18n("profile.title")} focused={focused} />
-          ),
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name="ios-person-outline"
-              size={24}
-              style={{ opacity: focused ? 1 : 0.6 }}
-              color={theme.palette.background}
-            />
-          ),
-        }}
-      />
+      {false && (
+        <BottomTab.Screen
+          name="Profile"
+          component={ProfileNavigator}
+          options={{
+            title: i18n("profile.title"),
+            tabBarLabel: ({ focused }) => (
+              <TabBarLabel label={i18n("profile.title")} focused={focused} />
+            ),
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name="ios-person-outline"
+                size={24}
+                style={{ opacity: focused ? 1 : 0.6 }}
+                color={theme.palette.background}
+              />
+            ),
+          }}
+        />
+      )}
       <BottomTab.Screen
         name="Reports"
         component={ReportsNavigator}
