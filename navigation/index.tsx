@@ -1,18 +1,22 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useCallback } from "react";
+import React, { useMemo } from "react";
 
-import HeaderTitle from "../components/HeaderTitle/HeaderTitle";
+import HeaderTitle from "../components/HeaderTitle";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
 import AddOverexposureScreen from "../screens/AddOverexposureScreen";
 import AddPetScreen from "../screens/AddPetScreen";
 import AddRecommendationScreen from "../screens/AddRecommendationScreen";
+import ArrivalsScreen from "../screens/ArrivalsScreen";
 import CatFormScreen from "../screens/CatFormScreen";
+import DeparturesScreen from "../screens/DeparturesScreen";
 import DogFormScreen from "../screens/DogFormScreen";
-import LoginScreen from "../screens/LoginScreen/LoginScreen";
-import LostPetScreen from "../screens/LostPetScreen/LostPetScreen";
+import IncomesScreen from "../screens/IncomesScreen";
+import LoginScreen from "../screens/LoginScreen";
+import LostPetScreen from "../screens/LostPetScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
+import OutcomesScreen from "../screens/OutcomesScreen";
 import PetScreen from "../screens/PetScreen";
 import { RootStackParamList } from "../types/navigation";
 import BottomTabNavigator from "./BottomTabNavigator";
@@ -34,11 +38,9 @@ const RootStack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   const theme = useTheme();
 
-  const getPetScreenOptions = useCallback(
+  const headerStyleOptions = useMemo(
     () => ({
-      title: i18n("pet.title"),
       headerShown: true,
-      headerTitle: () => <HeaderTitle logo={false} title={i18n("pet.title")} />,
       headerStyle: {
         backgroundColor: theme.palette.primary,
         elevation: 0,
@@ -61,37 +63,31 @@ function RootNavigator() {
         component={LoginScreen}
         options={{
           title: i18n("login.title"),
-          headerShown: true,
           headerTitle: () => (
             <HeaderTitle logo={false} title={i18n("login.title")} />
           ),
-          headerStyle: {
-            backgroundColor: theme.palette.primary,
-            elevation: 0,
-            shadowColor: theme.palette.primary,
-          },
-          headerTintColor: theme.palette.background,
+          ...headerStyleOptions,
         }}
       />
       <RootStack.Screen
         name="Pet"
-        options={getPetScreenOptions}
+        options={{
+          title: i18n("pet.title"),
+          headerTitle: () => (
+            <HeaderTitle logo={false} title={i18n("pet.title")} />
+          ),
+          ...headerStyleOptions,
+        }}
         component={PetScreen}
       />
       <RootStack.Screen
         name="LostPet"
         options={{
           title: i18n("lost.title"),
-          headerShown: true,
           headerTitle: () => (
             <HeaderTitle logo={false} title={i18n("lost.title")} />
           ),
-          headerStyle: {
-            backgroundColor: theme.palette.primary,
-            elevation: 0,
-            shadowColor: theme.palette.primary,
-          },
-          headerTintColor: theme.palette.background,
+          ...headerStyleOptions,
         }}
         component={LostPetScreen}
       />
@@ -105,16 +101,10 @@ function RootNavigator() {
         component={CatFormScreen}
         options={{
           title: i18n("form.title"),
-          headerShown: true,
           headerTitle: () => (
             <HeaderTitle logo={false} title={i18n("form.title")} />
           ),
-          headerStyle: {
-            backgroundColor: theme.palette.primary,
-            elevation: 0,
-            shadowColor: theme.palette.primary,
-          },
-          headerTintColor: theme.palette.background,
+          ...headerStyleOptions,
         }}
       />
       <RootStack.Screen
@@ -122,16 +112,46 @@ function RootNavigator() {
         component={DogFormScreen}
         options={{
           title: i18n("form.title"),
-          headerShown: true,
           headerTitle: () => (
             <HeaderTitle logo={false} title={i18n("form.title")} />
           ),
-          headerStyle: {
-            backgroundColor: theme.palette.primary,
-            elevation: 0,
-            shadowColor: theme.palette.primary,
-          },
-          headerTintColor: theme.palette.background,
+          ...headerStyleOptions,
+        }}
+      />
+      <RootStack.Screen
+        name="Incomes"
+        component={IncomesScreen}
+        options={{
+          title: i18n("incomes.title"),
+          headerTitle: () => <HeaderTitle title={i18n("incomes.title")} />,
+          ...headerStyleOptions,
+        }}
+      />
+      <RootStack.Screen
+        name="Outcomes"
+        component={OutcomesScreen}
+        options={{
+          title: i18n("outcomes.title"),
+          headerTitle: () => <HeaderTitle title={i18n("outcomes.title")} />,
+          ...headerStyleOptions,
+        }}
+      />
+      <RootStack.Screen
+        name="Arrivals"
+        component={ArrivalsScreen}
+        options={{
+          title: i18n("arrivals.title"),
+          headerTitle: () => <HeaderTitle title={i18n("arrivals.title")} />,
+          ...headerStyleOptions,
+        }}
+      />
+      <RootStack.Screen
+        name="Departures"
+        component={DeparturesScreen}
+        options={{
+          title: i18n("departures.title"),
+          headerTitle: () => <HeaderTitle title={i18n("departures.title")} />,
+          ...headerStyleOptions,
         }}
       />
       <RootStack.Screen

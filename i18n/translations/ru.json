@@ -26,7 +26,7 @@
   },
   "notFound": {
     "screenNotFound": "Страница не существует",
-    "goHome": "Вернуться домой!"
+    "goHome": "Вернуться домой"
   },
   "common": {
     "error": "Ошибка",
@@ -55,6 +55,50 @@
   },
   "favorites": {
     "title": "Избранное"
+  },
+  "reports": {
+    "title": "Отчёты",
+    "kinds": {
+      "arrivals": "Прибывшие питомцы",
+      "departures": "Отданные питомцы",
+      "income": "Доходы",
+      "outcome": "Расходы"
+    }
+  },
+  "incomes": {
+    "title": "Доходы",
+    "create": {
+      "title": "Создание дохода",
+      "fields": {
+        "date": "Дата",
+        "sum": "Сумма",
+        "name": "Имя и Отчество"
+      },
+      "actions": {
+        "submit": "Добавить"
+      }
+    }
+  },
+  "outcomes": {
+    "title": "Расходы",
+    "create": {
+      "title": "Создание расхода",
+      "fields": {
+        "date": "Дата",
+        "sum": "Сумма",
+        "to": "Кому",
+        "description": "Описание"
+      },
+      "actions": {
+        "submit": "Добавить"
+      }
+    }
+  },
+  "arrivals": {
+    "title": "Прибывшие"
+  },
+  "departures": {
+    "title": "Отданные"
   },
   "addPet": {
     "title": "Добавление"

@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import trim from "lodash/trim";
+import { DateTime } from "luxon";
 
 import composeApiQuery from "../helpers/composeApiQuery";
 import composeApiUrl from "../helpers/composeApiUrl";
@@ -150,4 +151,25 @@ export async function createPet(pet: Partial<Pet>) {
     headers,
     method: "POST",
   }).then(processFetchResponse(url)) as Promise<APIResponse<void>>;
+}
+
+export async function archivePet({ petId }: { petId: number }) {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  const token = await AsyncStorage.getItem("access_token");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const url = composeApiUrl(`pets/${petId}`);
+  const body = JSON.stringify({
+    archived: true,
+    archiveDate: DateTime.local().toISO(),
+  });
+
+  return fetch(url, { headers, method: "PATCH", body }).then(
+    processFetchResponse(url),
+  ) as Promise<APIResponse<void>>;
 }

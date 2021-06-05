@@ -1,12 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import filter from "lodash/filter";
 import last from "lodash/last";
 import React, { useCallback, useContext, useMemo, useState } from "react";
-import { FlatList, Pressable, SafeAreaView, ScrollView } from "react-native";
+import { FlatList, Pressable, ScrollView } from "react-native";
 import { Icon, SearchBar } from "react-native-elements";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery, useMutation, useQueryClient } from "react-query";
 
-import { fetchPetList, PET_KIND, PET_SEX, PETS_KEY } from "../../api/pets";
+import {
+  archivePet,
+  fetchPetList,
+  PET_KIND,
+  PET_SEX,
+  PETS_KEY,
+} from "../../api/pets";
 import Box, { Col, Row } from "../../components/Box";
 import Button from "../../components/Button";
 import FullScreenLoading from "../../components/FullScreenLoading";
@@ -31,6 +38,8 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
   const [search, setSearch] = useState("");
   const [kind, setKind] = useState<PET_KIND | null>(null);
   const [sex, setSex] = useState<PET_SEX | null>(null);
+
+  const queryClient = useQueryClient();
 
   const {
     data,
@@ -59,6 +68,11 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
     },
   );
 
+  const archivePetMutation = useMutation(
+    ({ petId }: { petId: number }) => archivePet({ petId }),
+    { onSuccess: () => queryClient.invalidateQueries("pets") },
+  );
+
   const handleRedirectToLogin = useCallback(async () => {
     if (!user?.token) {
       navigation.navigate("Login");
@@ -82,12 +96,22 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
 
   const renderItem = useCallback(
     ({ item }: { item: Pet }) => {
-      return <Item pet={item} onPress={handlePressPet} />;
+      function handleArchivePet() {
+        archivePetMutation.mutate({ petId: item.id });
+      }
+
+      return (
+        <Item
+          pet={item}
+          onPress={handlePressPet}
+          onArchive={handleArchivePet}
+        />
+      );
     },
-    [handlePressPet],
+    [archivePetMutation, handlePressPet],
   );
 
-  const keyExtractor = useCallback((item) => item.id.toString(), []);
+  const keyExtractor = useCallback((pet: Pet) => pet.id.toString(), []);
 
   const handleLoadNextPage = useCallback(() => {
     if (hasNextPage && !isFetching && !isFetchingNextPage) {
@@ -146,7 +170,7 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
       <FullScreenLoading />
     ) : (
       <FlatList<Pet>
-        data={pets}
+        data={filter(pets, ["archived", false])}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         onEndReached={handleLoadNextPage}
@@ -172,7 +196,7 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
     );
 
   return (
-    <Box as={SafeAreaView} display="flex" flex={1} primary>
+    <Box flex={1} primary>
       <Box
         flex={1}
         background
@@ -210,7 +234,7 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
             {!favorites && (
               <>
                 <SearchBar
-                  // @ts-expect-error ts(2322)
+                  // @ts-expect-error TS2322
                   placeholder={`${i18n("pets.search")}`}
                   onChangeText={handleChangeSearch}
                   value={search}

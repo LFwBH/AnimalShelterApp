@@ -44,12 +44,14 @@ const Box = styled.View<StyledPropertiesType & PaletteProps>`
 `;
 
 export const Col = styled.View<StyledPropertiesType & PaletteProps>`
+  background-color: ${mapToTheme("components.box")};
   display: flex;
   flex-direction: column;
   ${styledSystemProperties};
 `;
 
 export const Row = styled.View<StyledPropertiesType & PaletteProps>`
+  background-color: ${mapToTheme("components.box")};
   display: flex;
   flex-direction: row;
   ${styledSystemProperties};

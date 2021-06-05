@@ -76,6 +76,7 @@ const theme = {
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   borderRadius: [0, 2, 4],
+  radii: [0, 2, 4],
   fontSizes: {
     xs: 12,
     sm: 14,

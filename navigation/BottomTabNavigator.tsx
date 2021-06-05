@@ -12,6 +12,7 @@ import ChatBotScreen from "../screens/ChatBotScreen";
 import LostPetsScreen from "../screens/LostPetsScreen";
 import PetsScreen from "../screens/PetsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import ReportsScreen from "../screens/ReportsScreen";
 import {
   AboutUsParamList,
   BottomTabParamList,
@@ -20,6 +21,7 @@ import {
   LostPetsParamList,
   PetsParamList,
   ProfileParamList,
+  ReportParamList,
 } from "../types/navigation";
 import { TabBarIcon, TabBarLabel } from "./TabBarIcon";
 
@@ -49,22 +51,24 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-      <BottomTab.Screen
-        name="Favorites"
-        component={FavoritesNavigator}
-        options={{
-          title: i18n("favorites.title"),
-          tabBarLabel: ({ focused }) => (
-            <TabBarLabel label={i18n("favorites.title")} focused={focused} />
-          ),
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              src={require("../assets/images/icons/heart.png")}
-              focused={focused}
-            />
-          ),
-        }}
-      />
+      {false && (
+        <BottomTab.Screen
+          name="Favorites"
+          component={FavoritesNavigator}
+          options={{
+            title: i18n("favorites.title"),
+            tabBarLabel: ({ focused }) => (
+              <TabBarLabel label={i18n("favorites.title")} focused={focused} />
+            ),
+            tabBarIcon: ({ focused }) => (
+              <TabBarIcon
+                src={require("../assets/images/icons/heart.png")}
+                focused={focused}
+              />
+            ),
+          }}
+        />
+      )}
       <BottomTab.Screen
         name="Pets"
         component={PetsNavigator}
@@ -115,17 +119,37 @@ export default function BottomTabNavigator() {
           }}
         />
       )}
+      {false && (
+        <BottomTab.Screen
+          name="Profile"
+          component={ProfileNavigator}
+          options={{
+            title: i18n("profile.title"),
+            tabBarLabel: ({ focused }) => (
+              <TabBarLabel label={i18n("profile.title")} focused={focused} />
+            ),
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name="ios-person-outline"
+                size={24}
+                style={{ opacity: focused ? 1 : 0.6 }}
+                color={theme.palette.background}
+              />
+            ),
+          }}
+        />
+      )}
       <BottomTab.Screen
-        name="Profile"
-        component={ProfileNavigator}
+        name="Reports"
+        component={ReportsNavigator}
         options={{
-          title: i18n("profile.title"),
+          title: i18n("reports.title"),
           tabBarLabel: ({ focused }) => (
-            <TabBarLabel label={i18n("profile.title")} focused={focused} />
+            <TabBarLabel label={i18n("reports.title")} focused={focused} />
           ),
           tabBarIcon: ({ focused }) => (
             <Ionicons
-              name="ios-person-circle-outline"
+              name="pie-chart-outline"
               size={24}
               style={{ opacity: focused ? 1 : 0.6 }}
               color={theme.palette.background}
@@ -303,5 +327,33 @@ function ProfileNavigator() {
         }}
       />
     </ProfileStack.Navigator>
+  );
+}
+
+const ReportsStack = createStackNavigator<ReportParamList>();
+
+function ReportsNavigator() {
+  const theme = useTheme();
+
+  return (
+    <ReportsStack.Navigator>
+      <ReportsStack.Screen
+        name="Reports"
+        component={ReportsScreen}
+        options={{
+          headerTitle: () => <HeaderTitle title={i18n("reports.title")} />,
+          headerStyle: {
+            backgroundColor: theme.palette.primary,
+            shadowColor: theme.palette.primary,
+            elevation: 0,
+          },
+          headerTintColor: theme.palette.background,
+          headerTitleStyle: {
+            fontWeight: "bold",
+            alignSelf: "center",
+          },
+        }}
+      />
+    </ReportsStack.Navigator>
   );
 }
