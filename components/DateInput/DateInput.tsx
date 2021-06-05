@@ -2,6 +2,7 @@ import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
 import noop from "lodash/noop";
 import { DateTime, Settings } from "luxon";
 import React, { useCallback, useMemo, useState } from "react";
+import { Platform } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Modal from "react-native-modal";
 
@@ -16,7 +17,6 @@ interface DateInputProps {
   minimumDate?: string;
   /** ISO date string */
   maximumDate?: string;
-  display?: "spinner" | "inline";
   onChange?: (date: string) => void;
 }
 
@@ -24,7 +24,6 @@ function DateInput({
   value,
   minimumDate,
   maximumDate,
-  display = "inline",
   onChange = noop,
   ...rest
 }: DateInputProps & React.ComponentProps<typeof Box>) {
@@ -80,9 +79,10 @@ function DateInput({
       >
         <Box p={2} background>
           <DateTimePicker
+            textColor={theme.palette.text}
             minimumDate={actualMinimumDate}
             maximumDate={actualMaximumDate}
-            display={display}
+            display={Platform.OS === "ios" ? "spinner" : "default"}
             locale={Settings.defaultLocale}
             value={DateTime.fromISO(value).toJSDate()}
             onChange={handleChangeDate}

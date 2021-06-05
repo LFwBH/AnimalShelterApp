@@ -5,8 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import Box, { Col, Row } from "../../components/Box";
 import DateInput from "../../components/DateInput";
-import Text from "../../components/Text";
 import { RootStackParamList } from "../../types/navigation";
+import IncomesList from "./IncomesList";
 
 interface IncomesScreenProps
   extends StackNavigationProp<RootStackParamList, "Incomes"> {}
@@ -48,8 +48,8 @@ function IncomesScreen({}: IncomesScreenProps) {
           </Col>
         </Row>
         <Row flex={1}>
-          <Col flex={1} justifyContent="center" alignItems="center">
-            <Text fontSize={72}>🚧</Text>
+          <Col pt={3} flex={1} justifyContent="center">
+            <IncomesList filter={{ from, to }} />
           </Col>
         </Row>
       </Box>

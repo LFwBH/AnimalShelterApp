@@ -1,16 +1,17 @@
 import noop from "lodash/noop";
+import reduce from "lodash/reduce";
 import { DateTime } from "luxon";
 import React, { useCallback } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { Col, Row } from "../../components/Box";
 import Text from "../../components/Text";
-import { Departure } from "../../models/Departure";
-import { ArrivalItem } from "./styles";
+import { IncomeGroup } from "../../models/Income";
+import { IncomeItem } from "./styles";
 
 interface ListItemProps {
-  item: Departure;
-  onPress?: (departure: Departure) => void;
+  item: IncomeGroup;
+  onPress?: (income: IncomeGroup) => void;
 }
 
 function ListItem({ item, onPress = noop }: ListItemProps) {
@@ -18,7 +19,7 @@ function ListItem({ item, onPress = noop }: ListItemProps) {
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <ArrivalItem p={3}>
+      <IncomeItem p={3}>
         <Col flex={1}>
           <Row>
             <Text flex={4} fontSize="lg">
@@ -29,13 +30,14 @@ function ListItem({ item, onPress = noop }: ListItemProps) {
             </Text>
           </Row>
         </Col>
-        <Col flex={1.5}>
+        <Col flex={1.25}>
           <Row flex={1}>
-            <Text fontSize="lg">{item.count.cats} Кошки, </Text>
-            <Text fontSize="lg">{item.count.dogs} Собаки</Text>
+            <Text fontSize="lg">
+              {reduce(item.incomes, (acc, obj) => acc + obj.amount, 0)}
+            </Text>
           </Row>
         </Col>
-      </ArrivalItem>
+      </IncomeItem>
     </TouchableOpacity>
   );
 }
