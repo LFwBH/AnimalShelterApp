@@ -1,11 +1,13 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import filter from "lodash/filter";
 import last from "lodash/last";
 import React, { useCallback, useMemo, useState } from "react";
 import { FlatList } from "react-native";
 import { Icon, SearchBar } from "react-native-elements";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery, useMutation, useQueryClient } from "react-query";
 
 import { fetchLostPetList, LOST_PETS_KEY } from "../../api/lost";
+import { archiveLostPet } from "../../api/pets";
 import Box from "../../components/Box";
 import FullScreenError from "../../components/FullScreenError";
 import FullScreenLoading from "../../components/FullScreenLoading";
@@ -22,6 +24,8 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
   const theme = useTheme();
 
   const [search, setSearch] = useState("");
+
+  const queryClient = useQueryClient();
 
   const {
     data,
@@ -47,6 +51,11 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
     },
   );
 
+  const archiveLostPetMutation = useMutation(
+    ({ lostPetId }: { lostPetId: number }) => archiveLostPet({ lostPetId }),
+    { onSuccess: () => queryClient.invalidateQueries(LOST_PETS_KEY) },
+  );
+
   const handlePressPet = useCallback(
     (pet: LostPet) => {
       navigation.navigate("LostPet", { petId: pet.id });
@@ -56,9 +65,19 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
 
   const renderItem = useCallback(
     ({ item }: { item: LostPet }) => {
-      return <Item pet={item} onPress={handlePressPet} />;
+      function handleArchiveLostPet() {
+        archiveLostPetMutation.mutate({ lostPetId: item.id });
+      }
+
+      return (
+        <Item
+          pet={item}
+          onPress={handlePressPet}
+          onDelete={handleArchiveLostPet}
+        />
+      );
     },
-    [handlePressPet],
+    [archiveLostPetMutation, handlePressPet],
   );
 
   const keyExtractor = useCallback((item) => item.id.toString(), []);
@@ -90,7 +109,7 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
   } else if (!isError) {
     content = (
       <FlatList<LostPet>
-        data={pets}
+        data={filter(pets, ["archived", false])}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         onEndReached={handleLoadNextPage}
@@ -112,10 +131,10 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
         borderTopRightRadius={18}
       >
         <SearchBar
-          // @ts-expect-error ts(2322)
           placeholder={`${i18n("pets.search")}...`}
           onChangeText={handleChangeSearch}
           value={search}
+          // @ts-expect-error ts(2322)
           lightTheme
           round
           searchIcon={

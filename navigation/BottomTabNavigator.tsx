@@ -119,26 +119,24 @@ export default function BottomTabNavigator() {
           }}
         />
       )}
-      {false && (
-        <BottomTab.Screen
-          name="Profile"
-          component={ProfileNavigator}
-          options={{
-            title: i18n("profile.title"),
-            tabBarLabel: ({ focused }) => (
-              <TabBarLabel label={i18n("profile.title")} focused={focused} />
-            ),
-            tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name="ios-person-outline"
-                size={24}
-                style={{ opacity: focused ? 1 : 0.6 }}
-                color={theme.palette.background}
-              />
-            ),
-          }}
-        />
-      )}
+      <BottomTab.Screen
+        name="Profile"
+        component={ProfileNavigator}
+        options={{
+          title: i18n("profile.title"),
+          tabBarLabel: ({ focused }) => (
+            <TabBarLabel label={i18n("profile.title")} focused={focused} />
+          ),
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="ios-person-outline"
+              size={24}
+              style={{ opacity: focused ? 1 : 0.6 }}
+              color={theme.palette.background}
+            />
+          ),
+        }}
+      />
       <BottomTab.Screen
         name="Reports"
         component={ReportsNavigator}

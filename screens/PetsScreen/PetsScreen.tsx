@@ -70,7 +70,7 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
 
   const archivePetMutation = useMutation(
     ({ petId }: { petId: number }) => archivePet({ petId }),
-    { onSuccess: () => queryClient.invalidateQueries("pets") },
+    { onSuccess: () => queryClient.invalidateQueries(PETS_KEY) },
   );
 
   const handleRedirectToLogin = useCallback(async () => {
