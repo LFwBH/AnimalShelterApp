@@ -155,3 +155,24 @@ export async function archivePet({ petId }: { petId: number }) {
     processFetchResponse(url),
   ) as Promise<APIResponse<void>>;
 }
+
+export async function archiveLostPet({ lostPetId }: { lostPetId: number }) {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  const token = await AsyncStorage.getItem("access_token");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const url = composeApiUrl(`lost_pet/${lostPetId}`);
+  const body = JSON.stringify({
+    archived: true,
+    archiveDate: DateTime.local().toISO(),
+  });
+
+  return fetch(url, { headers, method: "PATCH", body }).then(
+    processFetchResponse(url),
+  ) as Promise<APIResponse<void>>;
+}

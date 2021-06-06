@@ -40,7 +40,11 @@ function Item({ pet, onPress = noop, onArchive = noop }: ItemProps) {
             component: (
               <InsetShadow shadowRadius={5} shadowOpacity={0.3}>
                 <Row flex={1} alignItems="center" justifyContent="center">
-                  <Ionicons name="archive" size={24} color="black" />
+                  <Ionicons
+                    name="archive"
+                    size={32}
+                    color={lighten(0.2, theme.palette.text)}
+                  />
                 </Row>
               </InsetShadow>
             ),
