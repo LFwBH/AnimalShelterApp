@@ -10,9 +10,10 @@ import { RootStackParamList } from "../../types/navigation";
 export default function NotFoundScreen({
   navigation,
 }: StackScreenProps<RootStackParamList, "NotFound">) {
-  const handlePress = useCallback(() => navigation.replace("Root"), [
-    navigation,
-  ]);
+  const handlePress = useCallback(
+    () => navigation.replace("Root"),
+    [navigation],
+  );
 
   return (
     <Box flex={1} background alignItems="center" justifyContent="center" p={20}>

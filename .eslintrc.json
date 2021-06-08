@@ -41,6 +41,7 @@
     "import/no-duplicates": "error",
     "unicorn/prevent-abbreviations": "off",
     "unicorn/no-array-reduce": "off",
-    "@typescript-eslint/no-empty-interface": "off"
+    "@typescript-eslint/no-empty-interface": "off",
+    "unicorn/prefer-node-protocol": "off"
   }
 }

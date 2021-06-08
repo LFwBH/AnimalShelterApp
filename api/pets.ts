@@ -145,7 +145,7 @@ export async function createPet(pet: Partial<Pet>) {
     headers["Authorization"] = `Bearer ${token}`;
   }
 
-  const url = composeApiUrl("pet");
+  const url = composeApiUrl("pets");
   return fetch(url, {
     body: JSON.stringify(pet),
     headers,
