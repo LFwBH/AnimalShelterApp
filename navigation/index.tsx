@@ -5,9 +5,9 @@ import React, { useMemo } from "react";
 import HeaderTitle from "../components/HeaderTitle";
 import { useTheme } from "../constants/styled-components";
 import i18n from "../i18n";
-import AddOverexposureScreen from "../screens/AddOverexposureScreen";
+// import AddOverexposureScreen from "../screens/AddOverexposureScreen";
 import AddPetScreen from "../screens/AddPetScreen";
-import AddRecommendationScreen from "../screens/AddRecommendationScreen";
+// import AddRecommendationScreen from "../screens/AddRecommendationScreen";
 import ArrivalsScreen from "../screens/ArrivalsScreen";
 import CatFormScreen from "../screens/CatFormScreen";
 import DeparturesScreen from "../screens/DeparturesScreen";
@@ -171,7 +171,7 @@ function RootNavigator() {
           headerTintColor: theme.palette.background,
         }}
       />
-      <RootStack.Screen
+      {/* <RootStack.Screen
         name="AddOverexposure"
         component={AddOverexposureScreen}
         options={{
@@ -187,8 +187,8 @@ function RootNavigator() {
           },
           headerTintColor: theme.palette.background,
         }}
-      />
-      <RootStack.Screen
+      /> */}
+      {/* <RootStack.Screen
         name="AddRecommendation"
         component={AddRecommendationScreen}
         options={{
@@ -204,7 +204,7 @@ function RootNavigator() {
           },
           headerTintColor: theme.palette.background,
         }}
-      />
+      /> */}
     </RootStack.Navigator>
   );
 }

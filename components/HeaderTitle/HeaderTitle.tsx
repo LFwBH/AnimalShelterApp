@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-module */
 import React from "react";
 import { Image } from "react-native";
 import { Text } from "react-native-elements";

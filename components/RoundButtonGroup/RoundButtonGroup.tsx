@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable unicorn/prefer-module */
+import noop from "lodash/noop";
 import React, { useCallback, useState } from "react";
 import { ButtonGroup, Image, Input, Text } from "react-native-elements";
 
@@ -10,7 +13,12 @@ interface RoundButtonGroupProps {
   secondButton: string;
   thirdButton?: string;
   errorMessage?: string;
+  selectedIndex?: number;
+  onChange?: (selectedIndex: number) => void;
 }
+
+const RoundButtonChecked = require("../../assets/images/round-button-checked.png");
+const RoundButton = require("../../assets/images/round-button.png");
 
 export default function RoundButtonGroup({
   label,
@@ -18,10 +26,12 @@ export default function RoundButtonGroup({
   secondButton,
   thirdButton,
   errorMessage,
+  selectedIndex: defaultSelectedIndex = 0,
+  onChange = noop,
 }: RoundButtonGroupProps) {
   const theme = useTheme();
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(defaultSelectedIndex);
   const [error, setError] = useState(false);
   const [defaultErrorMessage, setDefaultErrorMessage] = useState("");
 
@@ -33,11 +43,7 @@ export default function RoundButtonGroup({
       justifyContent="center"
     >
       <Image
-        source={
-          selectedIndex == 0
-            ? require("../../assets/images/round-button-checked.png")
-            : require("../../assets/images/round-button.png")
-        }
+        source={selectedIndex == 0 ? RoundButtonChecked : RoundButton}
         style={{ width: 20, height: 20, marginRight: 5 }}
         resizeMode="contain"
       />
@@ -53,11 +59,7 @@ export default function RoundButtonGroup({
       justifyContent="center"
     >
       <Image
-        source={
-          selectedIndex == 1
-            ? require("../../assets/images/round-button-checked.png")
-            : require("../../assets/images/round-button.png")
-        }
+        source={selectedIndex == 1 ? RoundButtonChecked : RoundButton}
         style={{ width: 20, height: 20, marginRight: 5 }}
         resizeMode="contain"
       />
@@ -73,11 +75,7 @@ export default function RoundButtonGroup({
       justifyContent="center"
     >
       <Image
-        source={
-          selectedIndex == 2
-            ? require("../../assets/images/round-button-checked.png")
-            : require("../../assets/images/round-button.png")
-        }
+        source={selectedIndex == 2 ? RoundButtonChecked : RoundButton}
         style={{ width: 20, height: 20, marginRight: 5 }}
         resizeMode="contain"
       />
@@ -106,7 +104,13 @@ export default function RoundButtonGroup({
     [errorMessage],
   );
 
-  const handleUpdateIndex = useCallback((value) => setSelectedIndex(value), []);
+  const handleUpdateIndex = useCallback(
+    (value) => {
+      setSelectedIndex(value);
+      onChange(value);
+    },
+    [onChange],
+  );
 
   return (
     <Box display="flex" width="100%" justifyContent="center" p={2}>

@@ -54,14 +54,31 @@ export default function CheckboxVariant({
   const handleChangeCheckbox = useCallback(
     (name) => () => {
       setFirstTime(false);
-      if (name === "first") {
-        setCheckbox({ ...checkbox, firstCheckbox: !checkbox.firstCheckbox });
-      } else if (name === "second") {
-        setCheckbox({ ...checkbox, secondCheckbox: !checkbox.secondCheckbox });
-      } else if (name === "third") {
-        setCheckbox({ ...checkbox, thirdCheckbox: !checkbox.thirdCheckbox });
-      } else if (name === "forth") {
-        setCheckbox({ ...checkbox, forthCheckbox: !checkbox.forthCheckbox });
+      switch (name) {
+        case "first": {
+          setCheckbox({ ...checkbox, firstCheckbox: !checkbox.firstCheckbox });
+
+          break;
+        }
+        case "second": {
+          setCheckbox({
+            ...checkbox,
+            secondCheckbox: !checkbox.secondCheckbox,
+          });
+
+          break;
+        }
+        case "third": {
+          setCheckbox({ ...checkbox, thirdCheckbox: !checkbox.thirdCheckbox });
+
+          break;
+        }
+        case "forth": {
+          setCheckbox({ ...checkbox, forthCheckbox: !checkbox.forthCheckbox });
+
+          break;
+        }
+        // No default
       }
     },
     [checkbox],

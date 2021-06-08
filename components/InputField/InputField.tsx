@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 
-import Box from "../Box";
 import { StyledInput } from "./styles";
 
 interface InputFieldProps {
@@ -33,14 +32,12 @@ export default function InputField({
   );
 
   return (
-    <Box display="flex" width="100%">
-      <StyledInput
-        {...rest}
-        placeholder={placeholder ?? "Ваш ответ"}
-        onChangeText={onChangeText ?? handleChangeText}
-        renderErrorMessage={error}
-        errorMessage={errorMessage}
-      />
-    </Box>
+    <StyledInput
+      {...rest}
+      placeholder={placeholder ?? "Ваш ответ"}
+      onChangeText={onChangeText ?? handleChangeText}
+      renderErrorMessage={error}
+      errorMessage={errorMessage}
+    />
   );
 }

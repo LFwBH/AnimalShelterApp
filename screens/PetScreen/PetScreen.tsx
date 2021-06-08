@@ -56,13 +56,15 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
     navigation.navigate("CatForm");
   }, [navigation]);
 
-  const handleLikePet = useCallback(() => createFavoriteMutation.mutate(), [
-    createFavoriteMutation,
-  ]);
+  const handleLikePet = useCallback(
+    () => createFavoriteMutation.mutate(),
+    [createFavoriteMutation],
+  );
 
-  const handleUnlikePet = useCallback(() => deleteFavoriteMutation.mutate(), [
-    deleteFavoriteMutation,
-  ]);
+  const handleUnlikePet = useCallback(
+    () => deleteFavoriteMutation.mutate(),
+    [deleteFavoriteMutation],
+  );
 
   const handleDogForm = useCallback(() => {
     navigation.navigate("DogForm");
@@ -109,8 +111,8 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
                 PlaceholderContent={<ActivityIndicator />}
               />
             </Box>
-            <Box>
-              <Text textAlign="center" fontSize="lg" fontWeight="semi" p={3}>
+            <Box p={3}>
+              <Text textAlign="center" fontSize="lg" fontWeight="semi" mb={3}>
                 {pet.name}
               </Text>
               <Card.Divider
@@ -143,62 +145,68 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
                 }}
               />
             </Box>
-            <Box width={1} display="flex" alignItems="center">
-              {pet.kind === PET_KIND_ALIAS[PET_KIND.CAT] && (
-                <Box>
-                  <Button
-                    title="Заполнить Анкету"
-                    type="clear"
-                    onPress={handleCatForm}
-                    buttonStyle={{
-                      borderWidth: 1,
-                      borderColor: theme.palette.warning,
-                      width: 240,
-                    }}
-                    titleStyle={{ color: theme.palette.warning }}
-                  />
-                </Box>
-              )}
-              {pet.kind === PET_KIND_ALIAS[PET_KIND.DOG] && (
-                <Box>
-                  <Button
-                    title="Заполнить Анкету"
-                    type="clear"
-                    onPress={handleDogForm}
-                    buttonStyle={{
-                      borderWidth: 1,
-                      borderColor: theme.palette.warning,
-                      width: 240,
-                    }}
-                    titleStyle={{ color: theme.palette.warning }}
-                  />
-                </Box>
+            {false && (
+              <Box width={1} display="flex" alignItems="center">
+                {pet.kind === PET_KIND_ALIAS[PET_KIND.CAT] && (
+                  <Box>
+                    <Button
+                      title="Заполнить Анкету"
+                      type="clear"
+                      onPress={handleCatForm}
+                      buttonStyle={{
+                        borderWidth: 1,
+                        borderColor: theme.palette.warning,
+                        width: 240,
+                      }}
+                      titleStyle={{ color: theme.palette.warning }}
+                    />
+                  </Box>
+                )}
+                {pet.kind === PET_KIND_ALIAS[PET_KIND.DOG] && (
+                  <Box>
+                    <Button
+                      title="Заполнить Анкету"
+                      type="clear"
+                      onPress={handleDogForm}
+                      buttonStyle={{
+                        borderWidth: 1,
+                        borderColor: theme.palette.warning,
+                        width: 240,
+                      }}
+                      titleStyle={{ color: theme.palette.warning }}
+                    />
+                  </Box>
+                )}
+              </Box>
+            )}
+          </ScrollView>
+          {false && (
+            <Box flex={1} position="absolute" right={0} bottom={0}>
+              <Icon
+                color={theme.palette.secondary}
+                type="antdesign"
+                name={
+                  // eslint-disable-next-line unicorn/no-nested-ternary
+                  loading ? "" : favoriteQuery.isSuccess ? "heart" : "hearto"
+                }
+                reverse
+                raised
+                onPress={
+                  favoriteQuery.isSuccess ? handleUnlikePet : handleLikePet
+                }
+              />
+              {loading && (
+                <Row
+                  alignItems="center"
+                  justifyContent="center"
+                  position="absolute"
+                  size="100%"
+                >
+                  <ActivityIndicator color={theme.palette.background} />
+                </Row>
               )}
             </Box>
-          </ScrollView>
-          <Box flex={1} position="absolute" right={0} bottom={0}>
-            <Icon
-              color={theme.palette.secondary}
-              type="antdesign"
-              // eslint-disable-next-line unicorn/no-nested-ternary
-              name={loading ? "" : favoriteQuery.isSuccess ? "heart" : "hearto"}
-              reverse
-              raised
-              onPress={
-                favoriteQuery.isSuccess ? handleUnlikePet : handleLikePet
-              }
-            />
-            {loading && (
-              <Row
-                alignItems="center"
-                justifyContent="center"
-                position="absolute"
-                size="100%"
-              >
-                <ActivityIndicator color={theme.palette.background} />
-              </Row>
-            )}
-          </Box>
+          )}
         </Card>
       </Box>
     );

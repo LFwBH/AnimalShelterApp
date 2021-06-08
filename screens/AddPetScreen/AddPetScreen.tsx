@@ -1,14 +1,25 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import findIndex from "lodash/findIndex";
+import { DateTime } from "luxon";
 import React, { useCallback, useState } from "react";
-import { Platform, SafeAreaView, ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useMutation, useQueryClient } from "react-query";
 
-import { createPet } from "../../api/pets";
-import Box from "../../components/Box";
+import {
+  createPet,
+  PET_KIND,
+  PET_KIND_ALIAS,
+  PET_SEX,
+  PET_SEX_ALIAS,
+  PETS_KEY,
+} from "../../api/pets";
+import Box, { Row } from "../../components/Box";
 import Button from "../../components/Button";
 import CheckboxView from "../../components/CheckboxView";
 import CustomInputField from "../../components/CustomInputField";
+import DateInput from "../../components/DateInput";
 import InputField from "../../components/InputField";
 import RoundButtonGroup from "../../components/RoundButtonGroup";
 import Text from "../../components/Text";
@@ -16,67 +27,108 @@ import theme from "../../constants/theme";
 import { Pet } from "../../models/Pet";
 import { RootStackParamList } from "../../types/navigation";
 
-const DatePicker = (props: any) => {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [show, setShow] = useState(false);
-
-  const onChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setDate(currentDate);
-  };
-
-  return (
-    <View style={{ paddingLeft: 10 }}>
-      <Text style={{ paddingBottom: 7 }}>{props.name}</Text>
-      <DateTimePicker
-        testID="dateTimePicker"
-        value={date}
-        mode="date"
-        is24Hour={true}
-        display="default"
-        onChange={onChange}
-      />
-    </View>
-  );
-};
-
 interface AddPetScreenProps
   extends BottomTabScreenProps<RootStackParamList, "AddOverexposure"> {}
 
-const AddPetScreen = ({ navigation, route }: AddPetScreenProps) => {
+const AddPetScreen = ({ navigation }: AddPetScreenProps) => {
   const queryClient = useQueryClient();
 
-  const [pet, setPet] = useState<Partial<Pet>>({
-    color: "",
-    kind: "Cat",
-    sex: "Boy",
-    name: "",
-    description: "",
-    age: 0,
-  });
+  const [pet, setPet] = useState<Partial<Pet>>(() => ({
+    age: undefined,
+    color: undefined,
+    description: undefined,
+    kind: PET_KIND_ALIAS[PET_KIND.CAT],
+    name: undefined,
+    passport: undefined,
+    sex: PET_SEX_ALIAS[PET_SEX.BOY],
+    sterilizationDate: undefined,
+    sterilized: undefined,
+  }));
 
-  const [checked, setChecked] = useState(false);
+  const handleChangeName = useCallback((text: string) => {
+    setPet((nextPet) => ({ ...nextPet, name: text }));
+  }, []);
 
-  const handleChangeFlag = useCallback(() => {
-    setChecked(!checked);
-  }, [checked]);
+  const handleChangeAge = useCallback((text: string) => {
+    setPet((nextPet) => ({ ...nextPet, age: Number(text) }));
+  }, []);
+
+  const handleChangeKind = useCallback((selectedKindIndex: PET_KIND) => {
+    const nextKind = PET_KIND_ALIAS[selectedKindIndex];
+    setPet((nextPet) => ({ ...nextPet, kind: nextKind }));
+  }, []);
+
+  const handleChangeSex = useCallback((selectedSexIndex: PET_SEX) => {
+    const nextSex = PET_SEX_ALIAS[selectedSexIndex];
+    setPet((nextPet) => ({ ...nextPet, sex: nextSex }));
+  }, []);
+
+  const handleChangeColor = useCallback(
+    (text: string) => setPet((nextPet) => ({ ...nextPet, color: text })),
+    [],
+  );
+
+  const handleChangeSterilized = useCallback(() => {
+    setPet((nextPet) => ({
+      ...nextPet,
+      sterilized: !nextPet.sterilized,
+      sterilizationDate: DateTime.local().toISODate(),
+    }));
+  }, []);
+
+  const handleChangeSterilizationDate = useCallback((date: string) => {
+    setPet((nextPet) => ({ ...nextPet, sterilizationDate: date }));
+  }, []);
+
+  const handleChangePassport = useCallback(
+    () => setPet((nextPet) => ({ ...nextPet, passport: !nextPet.passport })),
+    [],
+  );
+
+  const handleChangeDescription = useCallback(
+    (text: string) => setPet((nextPet) => ({ ...nextPet, description: text })),
+    [],
+  );
+
+  const handleChangeSpecial = useCallback(
+    () => setPet((nextPet) => ({ ...nextPet, special: !nextPet.special })),
+    [],
+  );
+
+  const handleChangeCameFrom = useCallback(
+    (text: string) => setPet((nextPet) => ({ ...nextPet, cameFrom: text })),
+    [],
+  );
 
   const createPetMutation = useMutation(() => createPet(pet), {
-    onSuccess: () => queryClient.invalidateQueries("pets"),
+    onSuccess: () => queryClient.invalidateQueries(PETS_KEY),
   });
 
-  const handleSavePet = useCallback(() => createPetMutation.mutate(), [
-    createPetMutation,
+  const handleSavePet = useCallback(async () => {
+    await createPetMutation.mutateAsync();
+    navigation.goBack();
+  }, [createPetMutation, navigation]);
+
+  const kindValue = findIndex(
+    [
+      { kind: PET_KIND_ALIAS[PET_KIND.CAT] },
+      { kind: PET_KIND_ALIAS[PET_KIND.DOG] },
+    ],
+    ["kind", pet.kind],
+  );
+
+  const sexValue = findIndex([
+    { sex: PET_SEX_ALIAS[PET_SEX.BOY] },
+    { sex: PET_SEX_ALIAS[PET_SEX.GIRL] },
+    ["sex", pet.sex],
   ]);
 
-  const handlePressNextAddScreen = useCallback(() => {
-    navigation.navigate("AddOverexposure");
-  }, [navigation]);
+  const disabled = !pet.name || !pet.description || !pet.age || !pet.color;
 
   return (
     <Box
       as={SafeAreaView}
+      edges={["right", "left", "bottom"]}
       flex={1}
       style={{
         backgroundColor: theme.palette.primary,
@@ -87,58 +139,90 @@ const AddPetScreen = ({ navigation, route }: AddPetScreenProps) => {
       <ScrollView
         style={{
           backgroundColor: theme.palette.background,
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
-          paddingHorizontal: 15,
-          paddingTop: 20,
+          borderTopLeftRadius: 18,
+          borderTopRightRadius: 18,
+          paddingHorizontal: theme.space[3],
+          paddingVertical: theme.space[4],
         }}
       >
         <InputField
+          value={pet.name ?? ""}
           label="Кличка питомца:"
-          errorLabel="Заполните обязательное поле!"
-          on
+          onChangeText={handleChangeName}
         />
-        <DatePicker name="Дата рождения" />
+        <InputField
+          value={pet.age ?? null}
+          keyboardType="numeric"
+          label="Возраст питомца:"
+          onChangeText={handleChangeAge}
+        />
         <RoundButtonGroup
+          selectedIndex={kindValue}
           label="Вид питомца"
           firstButton="Кошка"
           secondButton="Собака"
+          onChange={handleChangeKind}
         />
         <RoundButtonGroup
+          selectedIndex={sexValue}
           label="Пол питомца:"
-          firstButton="мужской"
-          secondButton="женский"
+          firstButton="Мужской"
+          secondButton="Женский"
+          onChange={handleChangeSex}
         />
-        <InputField label="Окрас:" errorLabel="Заполните обязательное поле!" />
-        <CheckboxView
-          checked={checked}
-          title="Стерилизация:"
-          onPress={handleChangeFlag}
-        />
-        <DatePicker name="Дата стерилизации" />
-        <CheckboxView title="Паспорт:" />
-        <CustomInputField label="Характеристика:" />
-        <CustomInputField label="Особенность:" />
         <InputField
+          value={pet.color ?? ""}
+          label="Окрас:"
+          onChangeText={handleChangeColor}
+        />
+        <CheckboxView
+          checked={pet.sterilized}
+          title="Стерилизация:"
+          onPress={handleChangeSterilized}
+        />
+        {pet.sterilized && (
+          <Row px={2}>
+            <DateInput
+              value={pet.sterilizationDate!}
+              onChange={handleChangeSterilizationDate}
+            />
+          </Row>
+        )}
+        <CheckboxView
+          checked={pet.passport}
+          title="Паспорт:"
+          onPress={handleChangePassport}
+        />
+        <CustomInputField
+          value={pet.description ?? ""}
+          label="Характеристика:"
+          onChange={handleChangeDescription}
+        />
+        <CheckboxView
+          checked={pet.special}
+          title="Особенность:"
+          onPress={handleChangeSpecial}
+        />
+        <InputField
+          value={pet.cameFrom ?? ""}
           label="Откуда прибыл питомец:"
-          errorLabel="Заполните обязательное поле!"
+          onChangeText={handleChangeCameFrom}
         />
         <Button
           round
+          disabled={disabled || createPetMutation.isLoading}
           buttonStyle={{
             paddingVertical: theme.space[2],
             paddingHorizontal: theme.space[4],
           }}
           title={
-            <>
-              <Text fontSize="lg" background>
-                Далее
-              </Text>
-            </>
+            <Text fontSize="lg" background>
+              Сохранить
+            </Text>
           }
-          onPress={handlePressNextAddScreen}
+          onPress={handleSavePet}
         />
-        <Box style={{ padding: 20 }} />
+        <Box p={4} />
       </ScrollView>
     </Box>
   );
