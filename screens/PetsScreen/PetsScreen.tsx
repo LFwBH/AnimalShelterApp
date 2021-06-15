@@ -234,12 +234,11 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
             {!favorites && (
               <>
                 <SearchBar
-                  // @ts-expect-error TS2322
+                  platform="default"
                   placeholder={`${i18n("pets.search")}`}
                   onChangeText={handleChangeSearch}
                   value={search}
-                  lightTheme
-                  round
+                  {...{ lightTheme: true, round: true }}
                   searchIcon={
                     <Icon
                       color={theme.palette.primary}

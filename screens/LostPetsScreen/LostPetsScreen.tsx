@@ -131,12 +131,11 @@ export default function LostPetsScreen({ navigation }: LostPetsScreenProps) {
         borderTopRightRadius={18}
       >
         <SearchBar
+          platform="default"
           placeholder={`${i18n("pets.search")}...`}
           onChangeText={handleChangeSearch}
           value={search}
-          // @ts-expect-error ts(2322)
-          lightTheme
-          round
+          {...{ lightTheme: true, round: true }}
           searchIcon={
             <Icon
               color={theme.palette.primary}

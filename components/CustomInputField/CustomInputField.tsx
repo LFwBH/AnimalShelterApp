@@ -1,5 +1,5 @@
 import noop from "lodash/noop";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { TextInput } from "react-native";
 import { Text } from "react-native-elements";
 
@@ -22,6 +22,12 @@ export default function CustomInputField({
   const theme = useTheme();
 
   const [value, setValue] = useState(defaultValue);
+
+  useEffect(() => {
+    if (defaultValue !== value) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleInput = useCallback(
     (text: string) => {

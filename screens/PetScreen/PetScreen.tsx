@@ -66,6 +66,10 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
     [deleteFavoriteMutation],
   );
 
+  const handleUpdatePet = useCallback(() => {
+    navigation.navigate("AddPet", { petId });
+  }, [navigation, petId]);
+
   const handleDogForm = useCallback(() => {
     navigation.navigate("DogForm");
   }, [navigation]);
@@ -194,6 +198,28 @@ export default function PetScreen({ route, navigation }: PetScreenProps) {
                 onPress={
                   favoriteQuery.isSuccess ? handleUnlikePet : handleLikePet
                 }
+              />
+              {loading && (
+                <Row
+                  alignItems="center"
+                  justifyContent="center"
+                  position="absolute"
+                  size="100%"
+                >
+                  <ActivityIndicator color={theme.palette.background} />
+                </Row>
+              )}
+            </Box>
+          )}
+          {true && (
+            <Box flex={1} position="absolute" right={0} bottom={0}>
+              <Icon
+                color={theme.palette.secondary}
+                type="ionicon"
+                name="ios-pencil"
+                reverse
+                raised
+                onPress={handleUpdatePet}
               />
               {loading && (
                 <Row

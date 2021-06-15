@@ -12,6 +12,10 @@ interface LostPetStackProps {
   petId: number;
 }
 
+interface AddPetProps {
+  petId: number;
+}
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -30,7 +34,7 @@ export type RootStackParamList = {
   Outcomes: undefined;
   Arrivals: undefined;
   Departures: undefined;
-  AddPet: undefined;
+  AddPet: AddPetProps | undefined;
   AddOverexposure: undefined;
   AddRecommendation: undefined;
 };

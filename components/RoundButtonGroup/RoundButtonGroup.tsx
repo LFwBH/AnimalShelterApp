@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable unicorn/prefer-module */
 import noop from "lodash/noop";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ButtonGroup, Image, Input, Text } from "react-native-elements";
 
 import { useTheme } from "../../constants/styled-components";
@@ -34,6 +34,12 @@ export default function RoundButtonGroup({
   const [selectedIndex, setSelectedIndex] = useState(defaultSelectedIndex);
   const [error, setError] = useState(false);
   const [defaultErrorMessage, setDefaultErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (defaultSelectedIndex !== selectedIndex) {
+      setSelectedIndex(defaultSelectedIndex);
+    }
+  }, [defaultSelectedIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const FirstButton = () => (
     <Box

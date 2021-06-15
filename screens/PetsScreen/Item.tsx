@@ -35,7 +35,7 @@ function Item({ pet, onPress = noop, onArchive = noop }: ItemProps) {
         autoClose
         right={[
           {
-            backgroundColor: theme.palette.warning,
+            backgroundColor: theme.palette.success,
             underlayColor: lighten(0.1, theme.palette.warning),
             component: (
               <InsetShadow shadowRadius={5} shadowOpacity={0.3}>

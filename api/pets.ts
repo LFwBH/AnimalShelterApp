@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import omit from "lodash/omit";
 import trim from "lodash/trim";
 import { DateTime } from "luxon";
 
@@ -150,6 +151,24 @@ export async function createPet(pet: Partial<Pet>) {
     body: JSON.stringify(pet),
     headers,
     method: "POST",
+  }).then(processFetchResponse(url)) as Promise<APIResponse<void>>;
+}
+
+export async function updatePet(pet: Partial<Pet>) {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  const token = await AsyncStorage.getItem("access_token");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const url = composeApiUrl(`pets/${pet.id}`);
+  return fetch(url, {
+    body: JSON.stringify(omit(pet, ["id", "createdAt", "updatedAt"])),
+    headers,
+    method: "PATCH",
   }).then(processFetchResponse(url)) as Promise<APIResponse<void>>;
 }
 
