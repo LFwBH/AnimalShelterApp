@@ -1,21 +1,25 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FlatList } from "react-native";
+import { useQuery } from "react-query";
 
-import { fetchIncomes } from "../../api/incomes";
+import { fetchIncomes, INCOMES_KEY } from "../../api/incomes";
 import { Row } from "../../components/Box";
 import { IncomeGroup } from "../../models/Income";
 import IncomesModal from "./IncomesModal";
 import ListItem from "./ListItem";
 
 interface IncomesListProps {
+  timestamp: number;
   filter: {
     from: string;
     to: string;
   };
 }
 
-function IncomesList({ filter }: IncomesListProps) {
-  const incomes = useMemo(() => fetchIncomes(filter), [filter]);
+function IncomesList({ filter, timestamp }: IncomesListProps) {
+  const { data: incomes } = useQuery([INCOMES_KEY, filter], () =>
+    fetchIncomes(filter),
+  );
 
   const [selectedItem, setSelectedItem] = useState<IncomeGroup | null>(null);
 
@@ -43,6 +47,7 @@ function IncomesList({ filter }: IncomesListProps) {
   return (
     <>
       <FlatList<IncomeGroup>
+        key={timestamp}
         data={incomes}
         keyExtractor={keyExtractor}
         renderItem={renderItem}

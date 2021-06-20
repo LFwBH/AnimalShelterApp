@@ -5,7 +5,7 @@ import styled from "../../constants/styled-components";
 import type ThemeType from "../../constants/theme";
 
 interface CommonButtonProps {
-  width?: number;
+  width?: number | string;
   variant?: keyof typeof ThemeType["palette"];
 }
 

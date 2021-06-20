@@ -64,11 +64,6 @@ const AddPetScreen = ({ navigation, route }: AddPetScreenProps) => {
     sterilized: undefined,
   }));
 
-  console.log(
-    "🚀 ~ file: AddPetScreen.tsx ~ line 56 ~ AddPetScreen ~ pet",
-    pet,
-  );
-
   useEffect(() => {
     if (loadedPet != null) {
       setPet((nextPet) => ({ ...nextPet, ...loadedPet }));
@@ -181,7 +176,7 @@ const AddPetScreen = ({ navigation, route }: AddPetScreenProps) => {
           onChangeText={handleChangeName}
         />
         <InputField
-          value={pet.age ?? null}
+          value={pet.age?.toString() ?? null}
           keyboardType="numeric"
           label="Возраст питомца:"
           onChangeText={handleChangeAge}

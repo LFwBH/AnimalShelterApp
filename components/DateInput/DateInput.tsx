@@ -63,6 +63,7 @@ function DateInput({
         borderRadius={4}
         px={2}
         py={1}
+        justifyContent="center"
         {...rest}
       >
         <TouchableOpacity onPress={handleOpenModal}>

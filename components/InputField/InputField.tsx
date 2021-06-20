@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
 
-import { StyledInput } from "./styles";
+import { StyledInput, StyledInputProps } from "./styles";
 
-interface InputFieldProps {
-  label: string;
+interface InputFieldProps extends StyledInputProps {
+  label?: string;
   errorLabel?: string;
   placeholder?: string;
   onChangeText?: (text: string) => void;

@@ -179,6 +179,7 @@ export default function PetsScreen({ navigation, route }: PetsScreenProps) {
         contentContainerStyle={{
           paddingBottom: !pets?.length ? 0 : theme.space[3],
           flex: !pets?.length ? 1 : undefined,
+          minHeight: "100%",
         }}
         ListEmptyComponent={
           <Row justifyContent="center" alignItems="center" flex={1}>
